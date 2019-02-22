@@ -1,0 +1,493 @@
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////// ROMANCE BREAKS //////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////
+// BREAK REASONS 
+///////////////////////////////////////////
+
+//	B!GavinRomCutByOther	Restart		Another relationship became committed
+//	B!GavinNoReturn			NO Restart	Gavin offended, heartbroken too many times, or other deal-breaker
+//	B!GavinConcurrentBreak	Restart		PC has too many other active relationships
+//	B!GavinRomPCEnded		Restart		PC elected to end the relationship or said something to that effect
+//	B!GavinBhaalBreak		NO Restart	PC's heritage has been revealed too soon
+//	B!GavinNotInterested	Restart		Gavin has perceived that the PC is not interested in him
+
+/* CONTENTS */
+///* Cut by another */
+///* Kill script for other romances if Gavin goes committed */
+///* OFFENSE */
+///* Friendship ended */
+///* Reputation */
+///* Concurrency */
+///* Insufficient interest */
+///* PC has ended it for the second time */
+///* Lying to Gavin */
+///* Bhaal Break */
+///* Finding out about Bhaal after break */
+
+///* Cut by another */
+IF %BGT_VAR%
+Global("X#AjantisRomanceActive","GLOBAL",2)
+GlobalGT("B!GavinRomanceActive","GLOBAL",0)
+!Global("B!GavinRomanceActive","GLOBAL",3)
+THEN
+RESPONSE #100
+SetGlobal("B!GavinRomCutByOther","GLOBAL",1)
+SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+END
+
+IF %BGT_VAR%
+Global("X#XARomanceActive","GLOBAL",2)
+GlobalGT("B!GavinRomanceActive","GLOBAL",0)
+!Global("B!GavinRomanceActive","GLOBAL",3)
+!Global("X#XARomanceInactive","GLOBAL",1)
+THEN
+RESPONSE #100
+SetGlobal("B!GavinRomCutByOther","GLOBAL",1)
+SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+END
+
+IF %BGT_VAR%
+GlobalGT("P#CoranLover","GLOBAL",0)
+GlobalGT("B!GavinRomanceActive","GLOBAL",0)
+!Global("B!GavinRomanceActive","GLOBAL",3)
+!Global("P#CoranRomanceInactive","GLOBAL",1)
+THEN
+RESPONSE #100  
+SetGlobal("B!GavinRomCutByOther","GLOBAL",1)
+SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+END
+
+///* Kill script for other romances if Gavin goes committed */
+IF %BGT_VAR%
+  Global("B!GavinRomanceActive","GLOBAL",2)
+  !Global("X#AjantisRomanceActive","GLOBAL",3)
+THEN
+  RESPONSE #100  
+    SetGlobal("X#AjantisRomanceActive","GLOBAL",3)
+    SetGlobal("X#AjantisRomanceInactiveOtherRom","GLOBAL",1)
+END
+
+IF %BGT_VAR%
+  Global("B!GavinRomanceActive","GLOBAL",2)
+  !Global("X#XARomanceInactive","GLOBAL",1)
+  !Global("X#XARomanceActive","GLOBAL",3)
+THEN
+  RESPONSE #100  
+    SetGlobal("X#XanRomCutByOther","GLOBAL",1)
+    SetGlobal("X#XARomanceInactive","GLOBAL",1)
+END
+
+IF %BGT_VAR%
+  Global("B!GavinRomanceActive","GLOBAL",2)
+  !Global("P#CoranRomanceInactive","GLOBAL",1)
+  Global("P#CoranMatch","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("P#CoranRomCutByOther","GLOBAL",1)
+    SetGlobal("P#CoranRomanceInactive","GLOBAL",1)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  InParty("ajantis")
+  Global("X#AjantisRomanceMatch","GLOBAL",1)
+  Global("B!GavinSex","GLOBAL",1)
+  !Global("B!GavinRomanceActive","GLOBAL",3)
+  Global("X#AjantisGavinNeverResumes","GLOBAL",0)
+THEN
+  RESPONSE #100  
+  SetGlobal("X#AjantisGavinNeverResumes","GLOBAL",1)
+  SetGlobal("X#AjantisRomanceActive","GLOBAL",3)
+  SetGlobal("X#AjantisRomanceInactiveOtherRom","GLOBAL",3) //no PID resuming
+END
+
+///* OFFENSE */
+IF %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinRomanceMatch","GLOBAL",1) //ROMANCE
+  GlobalGT("B!GavinRomanceActive","GLOBAL",0) // B!GavinOffend keeps counting even if the relationship or friendship is over
+  !Global("B!GavinRomanceActive","GLOBAL",3)
+  GlobalGT("B!GavinOffend","GLOBAL",3)
+  Global("B!GavinNoReturn","GLOBAL",0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1) 
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinOffenseWarning","GLOBAL",1) // triggers the warning dialog
+    StartDialogNoSet(Player1)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  !Global("B!GavinRomanceActive","GLOBAL",3)
+  Global("B!GavinOffenseWarning","GLOBAL",2) // already warned
+  GlobalGT("B!GavinRomanceActive","GLOBAL",0) // B!GavinOffend keeps counting even if the relationship or friendship is over
+  GlobalGT("B!GavinOffend","GLOBAL",5)
+  Global("B!GavinNoReturn","GLOBAL",0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinOffenseWarning","GLOBAL",3) // triggers the warning dialog
+    StartDialogNoSet(Player1)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  !Global("B!GavinRomanceActive","GLOBAL",3)
+  Global("B!GavinOffenseWarning","GLOBAL",4) // already warned twice
+  GlobalGT("B!GavinRomanceActive","GLOBAL",0) // B!GavinOffend keeps counting even if the relationship or friendship is over
+  GlobalGT("B!GavinOffend","GLOBAL",6)
+  Global("B!GavinNoReturn","GLOBAL",0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinRomMustEnd","GLOBAL",1) // triggers the break-up dialog
+    SetGlobal("B!GavinNoReturn","GLOBAL",1) //Restarting the relationship is no longer possible
+    SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+    StartDialogNoSet(Player1)
+END
+
+///* Friendship ended */
+IF %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinFriendMatch","GLOBAL",1)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  Global("B!GavinFriend","GLOBAL",3) // B!GavinOffend keeps counting even if the relationship or friendship is over
+  Global("B!GavinNoReturn","GLOBAL",0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinRomanceActive","GLOBAL",3) // the relationship just ends
+    SetGlobal("B!GavinRomPCEnded","GLOBAL",1)
+    SetGlobal("B!GavinNoReturn","GLOBAL",1) // no restart
+END
+
+///* Reputation */
+IF %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinFriendMatch","GLOBAL",1)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  ReputationLT(Player1,15) //Reputation < 15
+  Global("B!GavinRepNotHighEnough","GLOBAL",4) // PC has been warned twice
+  GlobalGT("B!GavinLovetalk","GLOBAL",30) //LT 15
+  !Global("B!GavinRomanceActive","GLOBAL",3)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinRepNotHighEnough","GLOBAL",5) // starts the break-up dialog
+    SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+    SetGlobal("B!GavinRomGavinEnded","GLOBAL",1)
+    SetGlobal("B!GavinNoReturn","GLOBAL",1)
+    StartDialogNoSet(Player1)
+END
+
+///* Concurrency */
+IF %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  OR(2)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+  GlobalGT("B!GavinConcurrent","GLOBAL",29)
+  Global("B!GavinConcurrentBreak","GLOBAL",0)
+  Global("B!GavinConcurrentWarning","GLOBAL",6)
+  Global("B!GavinNoReturn","GLOBAL",0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinConcurrentWarning","GLOBAL",7)
+    StartDialogueNoSet(Player1)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  GlobalTimerExpired("B!GavinSecondBreak","GLOBAL")
+  Global("X#AjantisRomanceActive","GLOBAL",1)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  Global("B!GavinNoReturn","GLOBAL",0)
+  OR(2)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+  GlobalGT("B!GavinConcurrentBreak","GLOBAL",0) //Gavin has already broken off the relationship because of other suitors once before, and given a warning
+  Global("B!GavinNotADoormat","GLOBAL",2)	//PC has already been warned
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinNotADoormat","GLOBAL",3)
+    SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+    SetGlobal("B!GavinNoReturn","GLOBAL",1)
+    IncrementGlobal("B!GavinConcurrentBreak","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  GlobalTimerExpired("B!GavinSecondBreak","GLOBAL")
+  Global("X#XARomanceActive","GLOBAL",1)
+  !Global("X#XARomanceInactive","GLOBAL",1)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  Global("B!GavinNoReturn","GLOBAL",0)
+  OR(2)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+  GlobalGT("B!GavinConcurrentBreak","GLOBAL",0) //Gavin has already broken off the relationship because of other suitors once before, and given a warning
+  Global("B!GavinNotADoormat","GLOBAL",2)	//PC has already been warned
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinNotADoormat","GLOBAL",3)
+    SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+    SetGlobal("B!GavinNoReturn","GLOBAL",1)
+    IncrementGlobal("B!GavinConcurrentBreak","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalTimerExpired("B!GavinSecondBreak","GLOBAL")
+  GlobalGT("P#CoranRomancePath","GLOBAL",0)
+  !Global("P#CoranRomanceInactive","GLOBAL",1)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  Global("B!GavinNoReturn","GLOBAL",0)
+  OR(2)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+  GlobalGT("B!GavinConcurrentBreak","GLOBAL",0) //Gavin has already broken off the relationship because of other suitors once before, and given a warning
+  Global("B!GavinNotADoormat","GLOBAL",2)	//PC has already been warned
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinNotADoormat","GLOBAL",3)
+    SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+    SetGlobal("B!GavinNoReturn","GLOBAL",1)
+    IncrementGlobal("B!GavinConcurrentBreak","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+///* Insufficient interest */
+IF %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  Global("B!GavinNoReturn","GLOBAL",0)
+  Global("B!GavinNotInterested","GLOBAL",0)
+  OR(2)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+  GlobalGT("B!GavinDelayLT","GLOBAL",6) //PC has delayed and/or aborted 7 or more LTs out of 28
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinNotInterested","GLOBAL",1)
+    SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+    SetGlobal("B!GavinRomGavinEnded","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  Global("B!GavinNoReturn","GLOBAL",0)
+  Global("B!GavinNotInterested","GLOBAL",2)
+  OR(2)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+  GlobalGT("B!GavinDelayLT","GLOBAL",9) //PC has delayed and/or aborted 9 or more LTs out of 28
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+  SetGlobal("B!GavinNotInterested","GLOBAL",3)
+  SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+  SetGlobal("B!GavinNoReturn","GLOBAL",1)
+  StartDialogueNoSet(Player1)
+END
+
+///* PC has ended it for the second time */
+IF %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  Global("B!GavinNoReturn","GLOBAL",0)
+  Global("B!GavinPCBreak","GLOBAL",0)
+  GlobalGT("B!GavinRomPCEnded","GLOBAL",1)
+  OR(2)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+  SetGlobal("B!GavinPCBreak","GLOBAL",1)
+  SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+  SetGlobal("B!GavinNoReturn","GLOBAL",1)
+  StartDialogueNoSet(Player1)
+END
+
+///* Lying to Gavin */
+IF %BGT_VAR%
+  GlobalGT("B!GavinRomanceActive","GLOBAL",0)
+  Global("B!Liar","GLOBAL",0)
+  !Global("B!GavinRomanceActive","GLOBAL",3)
+  GlobalGT("B!GavinLovetalk","GLOBAL",24)
+  !HasItemEquiped("%tutu_var%BELT05",Player1)
+  OR(7)
+    Gender(Player1,MALE)
+    !Alignment(Player1,MASK_GOOD)
+    Kit(Player1,MAGESCHOOL_NECROMANCER)
+    Kit(Player1,ASSASIN)
+    Kit(Player1,BOUNTYHUNTER)
+    !CheckStatGT(Player1,9,WIS)
+    !CheckStatGT(Player1,11,CHR)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+THEN
+  RESPONSE #100  
+    SetGlobal("B!Liar","GLOBAL",1)
+    SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+    SetGlobal("B!GavinNoReturn","GLOBAL",1)
+    SetGlobal("B!GavinRomGavinEnded","GLOBAL",1)
+    SetGlobal("B!GavinFriendship","GLOBAL",3)
+    StartDialogueNoSet(Player1)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  Global("B!Liar","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1) 
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100
+    StartDialogueNoSet(Player1)
+END
+
+///* Bhaal Break */
+IF %BGT_VAR%
+  GlobalGT("B!GavinKnowBhaal","GLOBAL",0)
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  Global("B!GavinBhaalBreak","GLOBAL",0)
+  Global("B!GavinNoReturn","GLOBAL",0)
+  InParty(Myself)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinBhaalBreak","GLOBAL",1)
+    SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+    SetGlobal("B!GavinRomGavinEnded","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+IF %BGT_VAR%
+  Global("B!GavinBhaalBreak","GLOBAL",1)
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  GlobalGT("B!GavinKnowBhaal","GLOBAL",0)
+  Global("B!GavinNoReturn","GLOBAL",0)
+  InParty(Myself)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinRomanceActive","GLOBAL",3)
+    SetGlobal("B!GavinRomGavinEnded","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+IF %BGT_VAR%
+  Global("B!GavinRomanceActive","GLOBAL",3)
+  GlobalLT("B!GavinLovetalk","GLOBAL",36)
+  GlobalGT("B!GavinKnowBhaal","GLOBAL",0)
+  Global("B!GavinBhaalBreak","GLOBAL",0)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinBhaalBreak","GLOBAL",1)
+END

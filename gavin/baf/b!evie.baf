@@ -1,0 +1,20 @@
+
+/* Moving Evie */
+IF
+  Global("B!EvieExists","GLOBAL",1)
+  Global("B!EvieMove","GLOBAL",0)
+THEN
+  RESPONSE #100
+    MoveBetweenAreas("%UlgothsBeard_House1%",[400.255],3)
+    SetGlobal("B!EvieMove","GLOBAL",1)
+END
+
+/* Talks to Party */
+IF
+  See(Player1)
+  Global("B!EvieTalks","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("B!EvieTalks","LOCALS",1)
+    Dialog(Player1)
+END

@@ -1,0 +1,18 @@
+
+
+IF
+	OR(2)
+		InMyArea("B!Gavin")
+		InPartyAllowDead("B!Gavin")
+	GlobalLT("BD_PLOT","GLOBAL",51)
+THEN
+	RESPONSE #100
+		ApplySpellRES("bdresurr","B!Gavin") // No such index
+		SmallWait(1)
+		ActionOverride("PlayerChest00",TakeCreatureItems("B!Gavin",BACKPACK))
+		SmallWait(1)
+		ActionOverride("B!Gavin",LeaveParty())
+		SmallWait(1)
+		ActionOverride("B!Gavin",DestroySelf())
+		Continue()
+END

@@ -1,0 +1,10 @@
+
+/* Moving Darlos */
+IF
+  Global("B!DarlosExists","GLOBAL",1)
+  Global("B!DarlosMove","GLOBAL",0)
+THEN
+  RESPONSE #100
+    MoveBetweenAreas("%UlgothsBeard_House1%",[315.270],0)
+    SetGlobal("B!DarlosMove","GLOBAL",1)
+END

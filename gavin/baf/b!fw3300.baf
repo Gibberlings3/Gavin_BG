@@ -1,0 +1,18 @@
+IF
+Global("B!HarlotDeactivate","GLOBAL",1)
+THEN
+  RESPONSE #100
+  SetGlobal("B!HarlotDeactivate","GLOBAL",2)
+  SetGlobalTimer("B!HarlotTimer","GLOBAL",TWELVE_HOURS) //they're only there at night, anyway
+END
+
+IF
+Global("B!HarlotDeactivate","GLOBAL",2)
+GlobalTimerExpired("B!HarlotTimer","GLOBAL")
+THEN
+  RESPONSE #100
+  SetGlobal("B!HarlotDeactivate","GLOBAL",3) //this is only ever going to happen once
+  Wait(4)
+  Activate("%tutu_scriptp%ROSBA_B")
+  Activate("%tutu_scriptp%ROSBA_C")
+END

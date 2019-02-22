@@ -1,0 +1,904 @@
+/* CONTENTS */
+/* Bassilus Quest */
+///* Starts Bassilus Quest */
+///* Spawns Bassilus Messenger */
+///* PC has agreed to Bassilus Quest */  
+///* Bassilus Quest - PC has postponed the trip after agreeing to make it */
+///* Bassilus Quest - PC has postponed the trip a second time */
+///* PC has delayed Bassilus Quest */  
+
+
+/* Bassilus Quest */
+///* Starts Bassilus Quest */
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("bassilus")
+  Global("B!GavinBassilusQuest","GLOBAL",0)
+!Global("X#AjantisCoranChallenge","GLOBAL",1)  THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinBassilusQuest","GLOBAL",1)
+    SetGlobalTimer("B!GavinBassilusQuestTimer","GLOBAL",FIVE_DAYS)
+END
+
+///* Spawns Bassilus Messenger */
+
+IF %BGT_VAR%
+  InParty(Myself)
+  !Dead("bassilus")
+  CombatCounter(0)
+  !See([ENEMY])
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  AreaType(OUTDOOR)
+  Global("B!GavinBassilusQuest","GLOBAL",1)
+  Global("B!GavinMessenger1","GLOBAL",0)
+  GlobalTimerExpired("B!GavinBassilusQuestTimer","GLOBAL")
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinBassilusQuest","GLOBAL",2)
+    SetGlobal("B!GavinMessenger1","GLOBAL",1)
+    CreateCreatureObjectOffset("B!MESNGR","B!GAVIN",[50.50])
+END
+ 
+///* PC has agreed to Bassilus Quest */  
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("bassilus")
+  Global("B!GavinBassilusQuestAgree","GLOBAL",0)
+  Global("B!GavinBassilusQuest","GLOBAL",3)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinBassilusQuestAgree","GLOBAL",1)
+    SetGlobalTimer("B!GavinBassilusQuestTimer1","GLOBAL",THREE_DAYS) /* 3 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinBassilusQuest","GLOBAL",4)
+  Global("B!GavinBassilusQuestAgree","GLOBAL",1)
+  GlobalTimerExpired("B!GavinBassilusQuestTimer1","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinBassilusQuestAgree","GLOBAL",2)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinBassilusQuestAgree","GLOBAL",2)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+
+///* Bassilus Quest - PC has postponed the trip after agreeing to make it */
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("bassilus")
+  Global("B!GavinBassilusQuestAgree","GLOBAL",3)
+  Global("B!GavinBassilusQuest","GLOBAL",3)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinBassilusQuestAgree","GLOBAL",4)
+    SetGlobalTimer("B!GavinBassilusQuestTimer2","GLOBAL",TWO_DAYS) /* 2 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinBassilusQuest","GLOBAL",4)
+  Global("B!GavinBassilusQuestAgree","GLOBAL",4)
+  GlobalTimerExpired("B!GavinBassilusQuestTimer2","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinBassilusQuestAgree","GLOBAL",5)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinBassilusQuestAgree","GLOBAL",5)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+
+///* Bassilus Quest - PC has postponed the trip a second time */
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("bassilus")
+  Global("B!GavinBassilusQuestAgree","GLOBAL",6)
+  Global("B!GavinBassilusQuest","GLOBAL",3)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinBassilusQuestAgree","GLOBAL",7)
+    SetGlobalTimer("B!GavinBassilusQuestTimer3","GLOBAL",TWO_DAYS) /* 2 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinBassilusQuest","GLOBAL",4)
+  Global("B!GavinBassilusQuestAgree","GLOBAL",7)
+  GlobalTimerExpired("B!GavinBassilusQuestTimer3","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinBassilusQuestAgree","GLOBAL",8)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinBassilusQuestAgree","GLOBAL",8)
+  GlobalTimerExpired("B!GavinBassilusQuestTimer3","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+///* PC has delayed Bassilus Quest */  
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("bassilus")
+  Global("B!GavinDelayBassilusQuest","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinDelayBassilusQuest","GLOBAL",2)
+    SetGlobalTimer("B!GavinBassilusQuestTimer4","GLOBAL",THREE_DAYS) /* 3 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinBassilusQuest","GLOBAL",4)
+  Global("B!GavinDelayBassilusQuest","GLOBAL",2)
+  GlobalTimerExpired("B!GavinBassilusQuestTimer4","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinDelayBassilusQuest","GLOBAL",3)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinDelayBassilusQuest","GLOBAL",3)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+
+/* PC has asked Gavin to forget about the quest */  
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("bassilus")
+  Global("B!GavinForgetBassilusQuest","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinForgetBassilusQuest","GLOBAL",2)
+    SetGlobalTimer("B!GavinBassilusQuestTimer5","GLOBAL",THREE_DAYS) /* 3 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinBassilusQuest","GLOBAL",4)
+  Global("B!GavinForgetBassilusQuest","GLOBAL",2)
+  GlobalTimerExpired("B!GavinBassilusQuestTimer5","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinForgetBassilusQuest","GLOBAL",3)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinForgetBassilusQuest","GLOBAL",3)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+/* Skipping Bassilus quest if Bassilus is dead when Gavin is recruited */
+IF %BGT_VAR%
+  InParty(Myself)
+  GlobalLT("B!GavinBassilusQuest","GLOBAL",2)
+  Dead("bassilus")
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinBassilusQuest","GLOBAL",6)
+END
+
+/* Mutamin Quest */
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("mutamin")
+  GlobalGT("B!GavinBassilusQuest","GLOBAL",4)
+  Global("B!GavinMutaminQuest","GLOBAL",0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinMutaminQuest","GLOBAL",1)
+    SetGlobalTimer("B!GavinMutaminQuestTimer","GLOBAL",FIVE_DAYS) /* 5 days */
+END
+
+/* Spawns Messenger */
+IF %BGT_VAR%
+  InParty(Myself)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  AreaType(OUTDOOR)
+  !Dead("mutamin")
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinMutaminQuest","GLOBAL",1)
+  Global("B!GavinMessenger2","GLOBAL",0)
+  GlobalTimerExpired("B!GavinMutaminQuestTimer","GLOBAL")
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinMutaminQuest","GLOBAL",2)
+    SetGlobal("B!GavinMessenger2","GLOBAL",1)
+    CreateCreatureObjectOffset("B!MESNGR","B!GAVIN",[50.50])
+END
+
+/* PC has agreed to Gavin's Quest */  
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("mutamin")
+  Global("B!GavinMutaminQuestAgree","GLOBAL",0)
+  Global("B!GavinMutaminQuest","GLOBAL",3)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinMutaminQuestAgree","GLOBAL",1)
+    SetGlobalTimer("B!GavinMutaminQuestTimer1","GLOBAL",THREE_DAYS) /* 3 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinMutaminQuest","GLOBAL",4)
+  Global("B!GavinMutaminQuestAgree","GLOBAL",1)
+  GlobalTimerExpired("B!GavinMutaminQuestTimer1","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinMutaminQuestAgree","GLOBAL",2)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinMutaminQuestAgree","GLOBAL",2)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+
+/* PC has postponed the trip after agreeing to make it */
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("mutamin")
+  Global("B!GavinMutaminQuestAgree","GLOBAL",3)
+  Global("B!GavinMutaminQuest","GLOBAL",3)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinMutaminQuestAgree","GLOBAL",4)
+    SetGlobalTimer("B!GavinMutaminQuestTimer2","GLOBAL",TWO_DAYS) /* 2 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinMutaminQuest","GLOBAL",4)
+  Global("B!GavinMutaminQuestAgree","GLOBAL",4)
+  GlobalTimerExpired("B!GavinMutaminQuestTimer2","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinMutaminQuestAgree","GLOBAL",5)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinMutaminQuestAgree","GLOBAL",5)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+
+/* PC has postponed the trip a second time */
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("mutamin")
+  Global("B!GavinMutaminQuestAgree","GLOBAL",6)
+  Global("B!GavinMutaminQuest","GLOBAL",3)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinMutaminQuestAgree","GLOBAL",7)
+    SetGlobalTimer("B!GavinMutaminQuestTimer3","GLOBAL",TWO_DAYS) /* 2 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinMutaminQuest","GLOBAL",4)
+  Global("B!GavinMutaminQuestAgree","GLOBAL",7)
+  GlobalTimerExpired("B!GavinMutaminQuestTimer3","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinMutaminQuestAgree","GLOBAL",8)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinMutaminQuestAgree","GLOBAL",8)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)   
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+
+/* PC has delayed Gavin's Quest */  
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("mutamin")
+  Global("B!GavinDelayMutaminQuest","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinDelayMutaminQuest","GLOBAL",2)
+    SetGlobalTimer("B!GavinMutaminQuestTimer4","GLOBAL",THREE_DAYS) /* 3 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinMutaminQuest","GLOBAL",4)
+  Global("B!GavinDelayMutaminQuest","GLOBAL",2)
+  GlobalTimerExpired("B!GavinMutaminQuestTimer4","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinDelayMutaminQuest","GLOBAL",3)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinDelayMutaminQuest","GLOBAL",3)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+
+/* PC has asked Gavin to forget about the quest */  
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("mutamin")
+  Global("B!GavinForgetMutaminQuest","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinForgetMutaminQuest","GLOBAL",2)
+    SetGlobalTimer("B!GavinMutaminQuestTimer5","GLOBAL",THREE_DAYS) /* 3 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinMutaminQuest","GLOBAL",4)
+  Global("B!GavinForgetMutaminQuest","GLOBAL",2)
+  GlobalTimerExpired("B!GavinMutaminQuestTimer5","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinForgetMutaminQuest","GLOBAL",3)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinForgetMutaminQuest","GLOBAL",3)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+
+/* Talk to PC about Mutamin Quest */
+IF %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinMutaminQuest","GLOBAL",4)
+  Global("B!DiscussMutamin","GLOBAL",0)
+  !AreaCheck("%Temple_SongoftheMorning%")
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!DiscussMutamin","GLOBAL",1)
+END
+
+IF %BGT_VAR%
+  Global("B!DiscussMutamin","GLOBAL",1)
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    StartDialogueNoSet(Player1)
+END
+
+
+/* Skipping Mutamin quest if Mutamin is dead when Gavin is recruited */
+IF %BGT_VAR%
+  InParty(Myself)
+  GlobalLT("B!GavinMutaminQuest","GLOBAL",2)
+  Dead("mutamin")
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinMutaminQuest","GLOBAL",6)
+END
+
+
+/* Body Thief Quest */
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("B!VALER")
+  GlobalGT("B!GavinMutaminQuest","GLOBAL",4)
+  GlobalGT("B!GavinBassilusQuest","GLOBAL",4)
+  Global("B!GavinBodyThiefQuest","GLOBAL",0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinBodyThiefQuest","GLOBAL",1)
+    SetGlobalTimer("B!GavinBodyThiefQuestTimer","GLOBAL",FIVE_DAYS) /* 5 days */
+END
+
+/* Spawns Messenger */
+IF %BGT_VAR%
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  AreaType(OUTDOOR)
+  InParty(Myself)
+  !Dead("B!VALER")
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinBodyThiefQuest","GLOBAL",1)
+  Global("B!GavinMessenger3","GLOBAL",0)
+  GlobalTimerExpired("B!GavinBodyThiefQuestTimer","GLOBAL")
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinBodyThiefQuest","GLOBAL",2)
+    SetGlobal("B!GavinMessenger3","GLOBAL",1)
+    CreateCreatureObjectOffset("B!MESNGR","B!GAVIN",[50.50])
+END
+ 
+/* PC has agreed to Gavin's Quest */  
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("B!VALER")
+  Global("B!GavinBodyThiefQuestAgree","GLOBAL",0)
+  Global("B!GavinBodyThiefQuest","GLOBAL",3)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinBodyThiefQuestAgree","GLOBAL",1)
+    SetGlobalTimer("B!GavinBodyThiefQuestTimer1","GLOBAL",THREE_DAYS) /* 3 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinBodyThiefQuest","GLOBAL",4)
+  Global("B!GavinBodyThiefQuestAgree","GLOBAL",1)
+  GlobalTimerExpired("B!GavinBodyThiefQuestTimer1","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinBodyThiefQuestAgree","GLOBAL",2)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinBodyThiefQuestAgree","GLOBAL",2)
+  GlobalTimerExpired("B!GavinBodyThiefQuestTimer1","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+
+/* PC has postponed the trip after agreeing to make it */
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("B!VALER")
+  Global("B!GavinBodyThiefQuestAgree","GLOBAL",3)
+  Global("B!GavinBodyThiefQuest","GLOBAL",3)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinBodyThiefQuestAgree","GLOBAL",4)
+    SetGlobalTimer("B!GavinBodyThiefQuestTimer2","GLOBAL",TWO_DAYS) /* 2 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinBodyThiefQuest","GLOBAL",4)
+  Global("B!GavinBodyThiefQuestAgree","GLOBAL",4)
+  GlobalTimerExpired("B!GavinBodyThiefQuestTimer2","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinBodyThiefQuestAgree","GLOBAL",5)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinBodyThiefQuestAgree","GLOBAL",5)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+
+/* PC has postponed the trip a second time */
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("B!VALER")
+  Global("B!GavinBodyThiefQuestAgree","GLOBAL",6)
+  Global("B!GavinBodyThiefQuest","GLOBAL",3)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinBodyThiefQuestAgree","GLOBAL",7)
+    SetGlobalTimer("B!GavinBodyThiefQuestTimer3","GLOBAL",TWO_DAYS) /* 2 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinBodyThiefQuest","GLOBAL",4)
+  Global("B!GavinBodyThiefQuestAgree","GLOBAL",7)
+  GlobalTimerExpired("B!GavinBodyThiefQuestTimer3","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinBodyThiefQuestAgree","GLOBAL",8)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinBodyThiefQuestAgree","GLOBAL",8)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+
+/* PC has delayed Gavin's Quest */  
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("B!VALER")
+  Global("B!GavinDelayBodyThiefQuest","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinDelayBodyThiefQuest","GLOBAL",2)
+    SetGlobalTimer("B!GavinBodyThiefQuestTimer4","GLOBAL",THREE_DAYS) /* 3 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinBodyThiefQuest","GLOBAL",4)
+  Global("B!GavinDelayBodyThiefQuest","GLOBAL",2)
+  GlobalTimerExpired("B!GavinBodyThiefQuestTimer4","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinDelayBodyThiefQuest","GLOBAL",3)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinDelayBodyThiefQuest","GLOBAL",3)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+/* PC has asked Gavin to forget about the quest */  
+IF %BGT_VAR% 
+  InParty(Myself)
+  !Dead("B!VALER")
+  Global("B!GavinForgetBodyThiefQuest","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinForgetBodyThiefQuest","GLOBAL",2)
+    SetGlobalTimer("B!GavinBodyThiefQuestTimer5","GLOBAL",THREE_DAYS) /* 3 days */
+END
+
+IF %BGT_VAR%
+  !AreaCheck("%Temple%")
+  !AreaCheck("%Temple_Vestibule%")
+  !AreaCheck("%Temple_SongoftheMorning%")
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  GlobalLT("B!GavinBodyThiefQuest","GLOBAL",4)
+  Global("B!GavinForgetBodyThiefQuest","GLOBAL",2)
+  GlobalTimerExpired("B!GavinBodyThiefQuestTimer5","GLOBAL")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinForgetBodyThiefQuest","GLOBAL",3)
+END
+
+IF %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinForgetBodyThiefQuest","GLOBAL",3)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+
+/* Talk to PC about Body Thief Quest */
+IF %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinBTQuest","GLOBAL",4)
+  Global("B!DiscussBT","GLOBAL",0)
+  !AreaCheck("%Temple_SongoftheMorning%")
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!DiscussBT","GLOBAL",1)
+END
+
+IF %BGT_VAR%
+  Global("B!DiscussBT","GLOBAL",1)
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    StartDialogueNoSet(Player1)
+END
+
+
+IF %BGT_VAR%
+  Global("B!GavinBetrayed","GLOBAL",1)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinBetrayed","GLOBAL",2)
+END
+    
+IF %BGT_VAR%
+  Global("B!GavinBetrayed","GLOBAL",2)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100  
+    StartDialogNoSet(Player1)
+END

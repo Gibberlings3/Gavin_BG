@@ -1,0 +1,86 @@
+IF %BGT_VAR%
+  GlobalGT("B!GavinLovetalk","GLOBAL",7)
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  Global("B!GaCoComment1","GLOBAL",0)
+  OR(2)
+    Global("P#CoranRomancePath","GLOBAL",0)
+    Global("P#CoranRomanceInactive","GLOBAL",1)
+  InParty(Myself)
+  InParty("B!GAVIN")
+  InMyArea(Myself)
+  InMyArea("B!GAVIN")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GaCoComment1","GLOBAL",1)
+    RealSetGlobalTimer("B!GaCoComment1Time","GLOBAL",300)
+END
+
+IF %BGT_VAR%
+  RealGlobalTimerExpired("B!GaCoComment1Time","GLOBAL")
+  GlobalGT("B!GavinLovetalk","GLOBAL",7)
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  Global("B!GaCoComment1","GLOBAL",1)
+  OR(2)
+    Global("P#CoranRomancePath","GLOBAL",0)
+    Global("P#CoranRomanceInactive","GLOBAL",1)
+  InParty(Myself)
+  InParty("B!GAVIN")
+  InMyArea(Myself)
+  InMyArea("B!GAVIN")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GaCoComment1","GLOBAL",2)
+END
+
+IF %BGT_VAR%
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  Global("B!GaCoComment1","GLOBAL",2)
+  OR(2)
+    Global("P#CoranRomancePath","GLOBAL",0)
+    Global("P#CoranRomanceInactive","GLOBAL",1)
+  InParty(Myself)
+  InParty("B!GAVIN")
+  InMyArea(Myself)
+  InMyArea("B!GAVIN")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    Interact("B!GAVIN")
+END
+
+/* Coran reacts to Gavin's dismemberment */
+IF %BGT_VAR%
+  GlobalGT("B!GavinFinger","GLOBAL",0)
+  GlobalLT("B!GavinFinger","GLOBAL",3)
+  Global("B!CoranFinger","GLOBAL",0)
+  InParty(Myself)
+  InParty("B!GAVIN")
+  InMyArea("B!GAVIN")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    SetGlobal("B!CoranFinger","GLOBAL",1)
+END
+
+IF %BGT_VAR%
+  Global("B!CoranFinger","GLOBAL",1)
+  InParty(Myself)
+  InParty("B!GAVIN")
+  InMyArea("B!GAVIN")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    StartDialogueNoSet("B!GAVIN")
+END 

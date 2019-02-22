@@ -1,0 +1,10 @@
+
+/* Moving Jolun */
+IF
+  Global("B!JolunExists","GLOBAL",1)
+  Global("B!JolunMove","GLOBAL",0)
+THEN
+  RESPONSE #100
+    MoveBetweenAreas("%EBaldursGate_ElfsongTavern_L1%",[503.669],0)
+    SetGlobal("B!JolunMove","GLOBAL",1)
+END

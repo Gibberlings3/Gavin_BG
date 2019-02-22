@@ -1,0 +1,28 @@
+
+/* Moving Penny */
+IF
+  Global("B!PennyExists","GLOBAL",1)
+  Global("B!PennyMove","GLOBAL",0)
+THEN
+  RESPONSE #100
+    MoveBetweenAreas("%Beregost_BurningWizard_L1%",[400.195],1)
+    SetGlobal("B!PennyMove","GLOBAL",1)
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+  Global("B!PennyAttack","LOCALS",0)
+  AttackedBy([ANYONE],DEFAULT)
+THEN
+  RESPONSE #100
+    SetGlobal("B!PennyAttack","LOCALS",1)
+    Enemy()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  See(NearestEnemyOf()) 
+THEN
+  RESPONSE #100
+    Attack(NearestEnemyOf())
+END

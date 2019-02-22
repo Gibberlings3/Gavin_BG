@@ -1,0 +1,141 @@
+@0    = ~Installation de Tutu detectee~
+@1    = ~Installation de BGT detectee~
+@2    = ~S'il vous plait, installez soit Tutu, BGT ou BG:EE.~
+@3    = ~Gavin NPC pour Tutu, BGT et BG:EE~
+
+
+
+@99   = ~Gavin : Romance (contenu pour adultes)~
+@100  = ~Gavin : Romance~
+@101  = ~Vous devez avoir installe le mod Gavin NPC pour selectionner cette option.~
+@102  = ~Selectionnez la vitesse de votre Relation avec Gavin :~
+@103  = ~S'il vous plait, choisissez une des options suivantes :
+[1] 1 heure en temps reel (standard) minimum entre les dialogues de romance
+[2] 45 minutes en temps reel minimum entre les dialogues de romance
+[3] 30 minutes en temps reel minimum entre les dialogues de romance
+[4] 15 minutes en temps reel minimum entre les dialogues de romance
+[5] 1 heure 30 minutes en temps reel (etendu) minimum entre les dialogues de romance~
+@104  = ~Installation d' EET detectee~
+@105  = ~S'il vous plait, selectionnez 1, 2, 3, 4 ou 5, et appuyez sur entree.~
+@106  = ~Vitesse : 1 heure en temps reel (standard) minimum entre les dialogues de romance~
+@107  = ~Vitesse : 45 minutes en temps reel minimum entre les dialogues de romance~ 
+@108  = ~Vitesse : 30 minutes en temps reel minimum entre les dialogues de romance~
+@109  = ~Vitesse : 15 minutes en temps reel minimum entre les dialogues de romance~
+@110  = ~Vitesse : 1 heure 30 minutes en temps reel (etendu) minimum entre les dialogues de romance~
+@125  = ~Gavin : Flirts (contenu pour adultes)~
+@126  = ~Vous devez avoir installe la Romance de Gavin pour selectionner cette option.~
+@127  = ~Gavin : verification du Tutu-Fix des vitesses de deplacement.~
+@128  = ~Ce composant n est utile que pour les installations Tutu~
+@129  = ~Portrait original par berelinde (par defaut)~
+@130  = ~Gavin : portraits alternatifs (le portrait original est installe)~
+@131  = ~Vous devez avoir installe Gavin pour installer le portrait alternatif.~
+@132  = ~Tunique Rouge, par Miloch~
+@133  = ~Alternative originale, par Kaeloree~
+@134  = ~Gavin : Dialogues inities par le joueur~
+@135  = ~Vous devez avoir installe Gavin pour selectionner cette option.~
+@136  = ~Semeur d'Aube, par Amaurea~
+@137  = ~Ciel de l aube, par Kaeloree~
+@138  = ~Ciel gris, par Kaeloree~
+
+@2000   = ~Installation de BG:EE detectee~
+
+@2001 = ~Cape Bleue, par kiwidoc~
+@2002 = ~Regardant vers le haut, par kiwidoc~
+@2003 = ~Portrait dans le style de Dragon Age, par berelinde~
+
+
+
+
+// WeiDU prompts
+@-1000= "Le mod %TP2_FILE_NAME% contient"
+@-1001= "composants optionnels distincts.
+Pour gagner du temps, vous pouvez choisir ce que vous souhaitez faire d'eux
+au niveau general plutot que de repondre aux questions pour chacun.
+"
+@-1002= "Que faut-il faire de tous les composants qui NE sont PAS ENCORE installes ?
+Les [I]nstaller, les [S]auter, dem[A]nder pour chacun ? "
+@-1003= "Que faut-il faire de tous les composants qui sont DEJA installes ?
+Les [R]einstaller, les s[U]pprimer, les [S]auter, dem[A]nder pour chacun ? "
+
+@-1004= "S'IL VOUS PLAIT, envoyez par e-mail le fichier"
+@-1005= "a"
+
+@-1006= "Installer le composant ["
+@-1007= "] ?
+[R]einstaller, co[N]server, s[U]pprimer ou [Q]uitter ? "
+@-1008= "] ?
+[I]nstaller, [N]e pas installer ou [Q]uitter ? "
+
+@-1009= "Entrez une partie du nom du module : "
+
+@-1010= "Reinstallation du composant ["
+@-1011= "] "
+@-1012= "Reinstallation dans la langue"
+
+@-1013= "Suppression de l'ancienne installation de ["
+@-1014= "] au prealable..."
+@-1015= "SUPPRESSION REUSSIE DE L'ANCIEN"
+
+@-1016= "Installation en cours"
+@-1017= "ERREUR pendant l'installation de ["
+@-1018= "], retour a l'etat anterieur"
+@-1019= "INSTALLATION REUSSIE"
+@-1020= "Saute"
+@-1021= "Suppression de ["
+@-1022= "] (composant #"
+@-1023= ")"
+@-1024= "SUPPRESSION REUSSIE DE ["
+
+@-1025= "] ?
+[R]einstaller, co[N]server, s[U]pprimer, [Q]uitter ou choisir un parmi :"
+@-1026= "] ?
+[N]e pas installer, [Q]uitter ou choisir un parmi :"
+@-1027= " (installe actuellement)"
+
+@-1028= "Souhaitez-vous afficher les composants de ["
+@-1029= "] ?
+[Y]Oui, [N]on ? "
+
+@-1030= "] ?
+choisir un parmi :"
+@-1031= "] ?
+[R]einstaller, co[N]server, [Q]uitter ou choisir un parmi :"
+@-1032= "INSTALLATION ECHOUEE A CAUSE D'ERREURS"
+@-1033= "INSTALLATION AVEC DES ALERTES"
+@-1034= "Souhaitez-vous afficher les instructions (ReadMe) ? [Y]Oui [N]on"
+@-1035= "Dans la langue"
+
+@-1036= "Saute le GROUPE ["
+@-1037= "] pour cause d'absence des pre-requis."
+
+@-1038= "dem[A]nder pour chaque composant, tout [S]auter, ou choisir une selection pre-definie :"
+@-1039= "dem[A]nder pour chaque composant, [R]einstaller la configuration courante, tout s[U]pprimer, tout [S]auter, ou choisir une selection pre-definie :"
+
+@-1040= "
+Veuillez choisir la langue dans laquelle vous souhaitez jouer au jeu.
+Si par la suite vous desirez jouer au jeu dans une langue differente, il vous
+faudra editer le fichier weidu.conf et reinstaller vos mods.
+"
+@-1041= "Tcheque"
+@-1042= "Allemand"
+@-1043= "Anglais"
+@-1044= "Espagnol"
+@-1045= "Francais"
+@-1046= "Italien"
+@-1047= "Polonais"
+@-1048= "Portugais"
+@-1049= "Turc"
+@-1050= "Japonais"
+@-1051= "Coreen"
+@-1052= "Chinois simplifie"
+@-1053= "Russe"
+@-1054= "Ukrainien"
+
+@-1060= "
+Ce jeu est disponible en plusieurs langues mais WeiDU ne sait pas laquelle a ete choisie quand ce mod a ete installe.
+
+Veuillez indiquer quelle langue du jeu a ete utilisee quand vous avez installe ce mod. Votre choix servira jusqu'a ce que WeiDU s'arrete mais ne sera pas memorise.
+"
+@-1061= "
+Utilisation de"
+@-1062= " et "

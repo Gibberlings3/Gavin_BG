@@ -1,0 +1,2947 @@
+////////////////////////////////////* SCRIPT FILE FOR GAVIN ROMANCE *//////////////////////////////////////////////////
+/* MASTER FILE */
+
+// Gavin will only romance unattached females of good alignment who have a reputation of 11 or better (15 or better later on), a wisdom of 10 or better, and a charisma of 12 or better. Gavin will not romance assasins, bounty hunters, or necromancers of any alignment
+
+/* CONTENTS */
+/* ROMANCE MATCH */
+  /* Compatible */
+  /* Not compatible */
+/* ROMANCE TIMERS */
+  /* Initial set-up */
+  /* Lovetalk timer */
+  /* Backup lovetalk script */
+/* HINTS */
+  /* LT 5 */
+  /* LT 9 */
+  /* LT 12 */
+  /* Ring Delivery */
+/* MORNING TALKS */
+  /* LT 6 */
+  /* LT 10 */
+  /* LT 18 */
+  /* LT 21 */
+  /* pc was disappointed in sex */
+  /* pc initially rejected Gavin's advances, then accepted them */
+  /* LT 28 */
+/* OTHER SCRIPTED TALKS */
+  /* LT 12 - In town */
+  /* LT 22 - spaced a bit from LT 21 */
+  /* LT 24 - morning talk but not necessarily after intimacy */
+  /* Bhaal Lovetalk */
+  /* Lovetalk 26 */
+  /* Lovetalk 29 */
+  /* The Final Lovetalk - Timer starts on entering the Undercity (%Undercity%) */
+  /* Ring Delivery */
+  /* Gavin cut his finger off */
+  /* Racial Specials */
+    /* Half-Orc */
+    /* Halfling */
+/* CONCURRENCY */
+  /* Ajantis */
+    /* A LT 1 */
+    /* A LT 2 */
+    /* A LT 3 */
+    /* A LT 4 */
+    /* A LT 5&6 */
+    /* A LT 7 */
+    /* A LT 8 */
+    /* A LT 9&10 */
+    /* A LT 11 */
+    /* A LT 12 */
+    /* A LT 13 */
+    /* A LT 14 */
+    /* A LT 15 */
+    /* A LT 16 */
+  /* Coran */
+    /* C LT 1 */
+    /* C LT 2 */
+    /* C LT 3 */
+    /* C LT 4 */   
+    /* C LT 5&6 */
+    /* C LT 7 */
+    /* C LT 8 */
+    /* C LT 9&10 */
+    /* C LT 11 */
+    /* C LT 12 */
+    /* C LT 13 */
+    /* C LT 14 */
+    /* C LT 15 */
+    /* C LT 16 */
+  /* Xan */
+    /* X LT 1 */
+    /* X LT 2 */
+    /* X LT 3 */
+    /* X LT 4 */   
+    /* X LT 5&6 */
+    /* X LT 7 */
+    /* X LT 8 */
+    /* X LT 9&10 */
+    /* X LT 11 */
+    /* X LT 12 */
+    /* X LT 13 */
+    /* X LT 14 */
+    /* X LT 15 */
+    /* X LT 16 */
+/* WARNINGS */
+  /* Concurrency Warning 1 */
+  /* Concurrency Warning 2 */
+  /* Concurrency Warning 3 */
+  /* Warning if concurrency exceeded after breaking */
+  /* Reputation Warning */
+  /* Girdle of Masculinity/Femininity */
+/* DELAYED LOVETALKS */
+  /* Delayed LT 1 */
+  /* Delayed LT 2 */
+  /* Delayed LT 3 */
+  /* Delayed LT 4 */
+  /* Delayed LT 7 */
+  /* Delayed LT 8 */
+  /* Delayed LT 11 */
+  /* Delayed LT 12 */
+  /* Delayed LT 13 */
+  /* Delayed LT 16 */
+  /* Delayed LT 23 */
+  /* Delayed LT 26 */
+/* BROKEN RELATIONSHIP TOGGLES */
+  /* Friend only toggle for broken romances */
+  /* Toggles Kivan's dance - Thanks, Domi! */
+
+/* ROMANCE MATCH */
+  /* Compatible */
+  IF %BGT_VAR%
+    InParty(Myself)
+    Global("B!GavinRomanceMatch","GLOBAL",0)
+    Global("B!GavinCheckRomanceMatch","GLOBAL",0)
+    Alignment(Player1,MASK_GOOD)
+    CheckStatGT(Player1,11,CHR)
+    CheckStatGT(Player1,9,WIS)
+    Gender(Player1,FEMALE)
+    ReputationGT(Player1,10)
+    !Kit(Player1,ASSASIN)
+    !Kit(Player1,BOUNTYHUNTER)
+    !Kit(Player1,MAGESCHOOL_NECROMANCER)
+    !HasItemEquiped("%tutu_var%BELT05",Player1)
+  THEN
+    RESPONSE #100  
+      SetGlobal("B!GavinRomanceMatch","GLOBAL",1)
+      SetGlobal("B!GavinCheckRomanceMatch","GLOBAL",1)
+  END
+
+  /* Not compatible */
+  IF %BGT_VAR%
+    InParty(Myself)
+    Global("B!GavinRomanceMatch","GLOBAL",0)
+    Global("B!GavinCheckRomanceMatch","GLOBAL",0)
+    OR(9)
+      Gender(Player1,MALE)
+      ReputationLT(Player1,11)
+      CheckStatLT(Player1,12,CHR)
+      CheckStatLT(Player1,10,WIS)
+      !Alignment(Player1,MASK_GOOD)
+      Kit(Player1,ASSASIN)
+      Kit(Player1,BOUNTYHUNTER)
+      Kit(Player1,MAGESCHOOL_NECROMANCER)
+      HasItemEquiped("%tutu_var%BELT05",Player1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinRomanceMatch","GLOBAL",0)
+      SetGlobal("B!GavinCheckRomanceMatch","GLOBAL",1)
+  END
+
+/* ROMANCE TIMERS */
+
+  /* Initial set-up */
+
+  IF %BGT_VAR%
+    InParty(Myself)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    Global("B!GavinLovetalk","GLOBAL",0)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinRomanceActive","GLOBAL",1)
+      SetGlobal("B!GavinFriendOnly","GLOBAL",2)
+      SetGlobal("B!GavinLovetalk","GLOBAL",1)
+      RealSetGlobalTimer("B!GavinLovetalkTime","GLOBAL",300) //5 min after joining
+  END
+
+  /* Lovetalk timer */
+
+  IF %BGT_VAR%
+    RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+    Global("B!GavinLTCheck","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0) //Gavin will not romance someone who has ended the friendship
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+    OR(12)
+      Global("B!GavinLovetalk","GLOBAL",1) //1
+      Global("B!GavinLovetalk","GLOBAL",3) //2
+      Global("B!GavinLovetalk","GLOBAL",5) //3 
+      Global("B!GavinLovetalk","GLOBAL",7) //4  - LT 5 uses dream script B!GAVIND.BAF, LT 6 is a morning after talk
+      Global("B!GavinLovetalk","GLOBAL",13) //7
+      Global("B!GavinLovetalk","GLOBAL",15) //8	- LT 9 uses dream script, LT 10 is a morning after talk
+      Global("B!GavinLovetalk","GLOBAL",21) //11
+      Global("B!GavinLovetalk","GLOBAL",25) //13
+      Global("B!GavinLovetalk","GLOBAL",27) //14
+      Global("B!GavinLovetalk","GLOBAL",29) //15
+      Global("B!GavinLovetalk","GLOBAL",31) //16 - Rep break hits here - LT 17 uses dream script, LT 18 is a morning after talk
+      Global("B!GavinLovetalk","GLOBAL",45) //23 - LT 19, LT 20 dream script, LT 21 morning after talk, LT 22 delayed
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLTCheck","GLOBAL",1)
+      IncrementGlobal("B!GavinLovetalk","GLOBAL",1)
+  END
+
+  /* Backup lovetalk script */
+  IF %BGT_VAR%
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    Global("B!GavinLTCheck","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0) //Gavin will not romance someone who has ended the friendship
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+    OR(12)
+      Global("B!GavinLovetalk","GLOBAL",2) //1
+      Global("B!GavinLovetalk","GLOBAL",4) //2
+      Global("B!GavinLovetalk","GLOBAL",6) //3 
+      Global("B!GavinLovetalk","GLOBAL",8) //4  - LT 5 uses dream script B!GAVIND.BAF, LT 6 is a morning after talk
+      Global("B!GavinLovetalk","GLOBAL",14) //7
+      Global("B!GavinLovetalk","GLOBAL",16) //8	- LT 9 uses dream script, LT 10 is a morning after talk
+      Global("B!GavinLovetalk","GLOBAL",22) //11
+      Global("B!GavinLovetalk","GLOBAL",26) //13
+      Global("B!GavinLovetalk","GLOBAL",28) //14
+      Global("B!GavinLovetalk","GLOBAL",30) //15
+      Global("B!GavinLovetalk","GLOBAL",32) //16 - Rep break hits here - LT 17 uses dream script, LT 18 is a morning after talk
+      Global("B!GavinLovetalk","GLOBAL",46) //23 - LT 19, LT 20 dream script, LT 21 morning after talk, LT 22 delayed
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      RealSetGlobalTimer("B!GavinLovetalkTime","GLOBAL",%GAVIN_TIMER%) //60 minute default- 15,30,45,60,90
+      StartDialogueNoSet(Player1)
+  END
+
+/* HINTS */
+  /* LT 5 */
+  IF %BGT_VAR%
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+    Global("B!GavinLovetalk","GLOBAL",9)
+    !AreaType(FOREST)
+    Global("B!LT5Hint","GLOBAL",0)
+    InParty(Myself)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!LT5Hint","GLOBAL",1)
+  END
+  
+  IF %BGT_VAR%
+    Global("B!LT5Hint","GLOBAL",1)
+    InParty(Myself)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_SS")
+      StartDialogueNoSet(Player1)
+  END
+  
+  /* LT 9 */
+  IF %BGT_VAR%
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+    Global("B!GavinLovetalk","GLOBAL",17)
+    !AreaType(CITY)
+    Global("B!LT9Hint","GLOBAL",0)
+    InParty(Myself)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!LT9Hint","GLOBAL",1)
+  END
+  
+  IF %BGT_VAR%
+    Global("B!LT9Hint","GLOBAL",1)
+    InParty(Myself)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_SS")
+      StartDialogueNoSet(Player1)
+  END
+
+  /* LT 12 */
+  IF %BGT_VAR%
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+    Global("B!GavinLovetalk","GLOBAL",23)
+    !AreaType(CITY)
+    Global("B!LT12Hint","GLOBAL",0)
+    InParty(Myself)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!LT12Hint","GLOBAL",1)
+  END
+  
+  IF %BGT_VAR%
+    Global("B!LT12Hint","GLOBAL",1)
+    InParty(Myself)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_SS")
+      StartDialogueNoSet(Player1)
+  END
+
+  /* Ring Delivery */
+    IF %BGT_VAR%
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    RealGlobalTimerExpired("B!GavinDeliveryTimer","GLOBAL")
+    Global("B!GavinLovetalk","GLOBAL",33)
+    Global("B!GavinRingDelivery","GLOBAL",0)
+    Global("B!RingHint","GLOBAL",0)
+    InParty(Myself)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    CombatCounter(0)
+    !See([ENEMY])
+    !AreaType(OUTDOOR)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!RingHint","GLOBAL",1)
+  END
+  
+  IF %BGT_VAR%
+    Global("B!RingHint","GLOBAL",1)
+    InParty(Myself)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_SS")
+      StartDialogueNoSet(Player1)
+  END
+
+/* MORNING TALKS */
+
+  /* LT 6 */
+  IF %BGT_VAR%
+    Global("B!GavinLovetalk","GLOBAL",11) //LT 5 has been completed
+    Global("B!GavinLTCheck","GLOBAL",0)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    !See([ENEMY])
+    CombatCounter(0)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLovetalk","GLOBAL",12)
+      SetGlobal("B!GavinLTCheck","GLOBAL",1)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLovetalk","GLOBAL",12)
+    Global("B!GavinLTCheck","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      RealSetGlobalTimer("B!GavinLovetalkTime","GLOBAL",%GAVIN_TIMER%) //60 minute default- 15,30,45,60,90
+      StartDialogNoSet(Player1)
+  END
+
+  /* LT 10 */
+  IF %BGT_VAR%
+    Global("B!GavinLovetalk","GLOBAL",19) //LT 9 has been completed
+    Global("B!GavinLTCheck","GLOBAL",0)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    !See([ENEMY])
+    CombatCounter(0)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLovetalk","GLOBAL",20)
+      SetGlobal("B!GavinLTCheck","GLOBAL",1)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLovetalk","GLOBAL",20)
+    Global("B!GavinLTCheck","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      RealSetGlobalTimer("B!GavinLovetalkTime","GLOBAL",%GAVIN_TIMER%)
+      StartDialogNoSet(Player1)
+  END
+  
+  /* LT 18 */
+  IF %BGT_VAR%
+    Global("B!GavinLovetalk","GLOBAL",35) //LT 17 has been completed
+    Global("B!GavinLTCheck","GLOBAL",0)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    !See([ENEMY])
+    CombatCounter(0)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLTCheck","GLOBAL",1)
+      SetGlobal("B!GavinLovetalk","GLOBAL",36)
+      END
+
+  IF %BGT_VAR%
+    Global("B!GavinLovetalk","GLOBAL",36)
+    Global("B!GavinLTCheck","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      SetGlobalTimer("B!GavinLT18LT19","GLOBAL",TWO_DAYS)
+      StartDialogNoSet(Player1)
+      END
+      
+  /* LT 21 */
+  IF %BGT_VAR%
+    Global("B!GavinLovetalk","GLOBAL",41) //LT 20 has been completed
+    Global("B!GavinLTCheck","GLOBAL",0)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    !See([ENEMY])
+    CombatCounter(0)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLovetalk","GLOBAL",42)
+      SetGlobal("B!GavinLTCheck","GLOBAL",1)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLovetalk","GLOBAL",42)
+    Global("B!GavinLTCheck","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      SetGlobalTimer("B!GavinLT21LT22","GLOBAL",TWO_DAYS)
+      StartDialogNoSet(Player1)
+  END
+
+  /* pc was disappointed in sex */
+  IF %BGT_VAR%
+    Global("B!GavinRetryIntimacy","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !See([ENEMY])
+    CombatCounter(0)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinRetryIntimacy","GLOBAL",2)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinRetryIntimacy","GLOBAL",2)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_SS")
+      StartDialogNoSet(Player1)
+  END
+
+  /* pc initially rejected Gavin's advances, then accepted them */
+  IF %BGT_VAR%
+    Global("B!PCReconsidersSex","GLOBAL",3)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !See([ENEMY])
+    CombatCounter(0)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!PCReconsidersSex","GLOBAL",4)
+  END
+
+  IF %BGT_VAR%
+    Global("B!PCReconsidersSex","GLOBAL",4)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+  /* LT 28 */
+  IF %BGT_VAR%
+    Global("B!GavinLovetalk","GLOBAL",55) //LT 27 has been completed
+    Global("B!GavinLTCheck","GLOBAL",0)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    !See([ENEMY])
+    CombatCounter(0)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLovetalk","GLOBAL",56)
+      SetGlobal("B!GavinLTCheck","GLOBAL",1)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLovetalk","GLOBAL",56)
+    Global("B!GavinLTCheck","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_SS")
+      StartDialogNoSet(Player1)
+  END
+
+/* OTHER SCRIPTED TALKS */
+
+  /* LT 12 - In town */
+  IF %BGT_VAR%
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    AreaType(CITY)
+    RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+    Global("B!GavinLovetalk","GLOBAL",23) // LT 12 HAPPENS IN TOWN
+    Global("B!GavinLTCheck","GLOBAL",0)
+    GlobalGT("B!GavinFriend","GLOBAL",0) //Gavin will not romance someone who has ended the friendship
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLTCheck","GLOBAL",1)
+      IncrementGlobal("B!GavinLovetalk","GLOBAL",1)
+  END  
+
+  IF %BGT_VAR%
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    AreaType(CITY)
+    RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+    Global("B!GavinLovetalk","GLOBAL",24)
+    Global("B!GavinLTCheck","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      RealSetGlobalTimer("B!GavinLovetalkTime","GLOBAL",%GAVIN_TIMER%) //60 minute default- 15,30,45,60,90
+      StartDialogueNoSet(Player1)  
+  END  
+
+  /* LT 22 - spaced a bit from LT 21 */
+  IF %BGT_VAR%
+    GlobalTimerExpired("B!GavinLT21LT22","GLOBAL")
+    Global("B!GavinLovetalk","GLOBAL",43) //22
+    PartyRested()
+    Global("B!GavinLTCheck","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0) //Gavin will not romance someone who has ended the friendship
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLTCheck","GLOBAL",1)
+      IncrementGlobal("B!GavinLovetalk","GLOBAL",1)
+  END  
+
+  IF %BGT_VAR%
+    Global("B!GavinLovetalk","GLOBAL",44) //24
+    Global("B!GavinLTCheck","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0) //Gavin will not romance someone who has ended the friendship
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      RealSetGlobalTimer("B!GavinLovetalkTime","GLOBAL",%GAVIN_TIMER%) //60 minute default- 15,30,45,60,90
+      StartDialogueNoSet(Player1)
+  END  
+
+  
+  /* LT 24 - morning talk but not necessarily after intimacy */
+  IF %BGT_VAR%
+    RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+    PartyRested()
+    Global("B!GavinLTCheck","GLOBAL",0)
+    Global("B!GavinLovetalk","GLOBAL",47) //24
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0) //Gavin will not romance someone who has ended the friendship
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLTCheck","GLOBAL",1)
+      IncrementGlobal("B!GavinLovetalk","GLOBAL",1)
+  END  
+
+  IF %BGT_VAR%
+    Global("B!GavinLTCheck","GLOBAL",1)
+    Global("B!GavinLovetalk","GLOBAL",48) //24
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0) //Gavin will not romance someone who has ended the friendship
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogueNoSet(Player1)
+  END  
+
+  /* Bhaal Lovetalk */
+
+  IF %BGT_VAR%
+    PartyHasItem("%tutu_var%SCRL2J")
+    Global("B!CheckBhaaltalk","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    InParty(Myself)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!CheckBhaaltalk","GLOBAL",1)
+      SetGlobal("B!KnowBhaal","GLOBAL",1)
+      RealSetGlobalTimer("B!GavinBhaalLovetalkTime","GLOBAL",5) //5 sec after discovery
+  END
+
+  IF %BGT_VAR%
+    InParty(Myself)
+    Global("B!CheckBhaaltalk","GLOBAL",1)
+    Global("B!GavinLTCheck","GLOBAL",0)
+    RealGlobalTimerExpired("B!GavinBhaalLovetalkTime","GLOBAL")
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    CombatCounter(0)
+    !See([ENEMY])
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!CheckBhaaltalk","GLOBAL",2)
+      SetGlobal("B!GavinLTCheck","GLOBAL",1)
+      SetGlobal("B!GavinLovetalk","GLOBAL",50)
+  END
+
+  IF %BGT_VAR%
+    InParty(Myself)
+    Global("B!CheckBhaaltalk","GLOBAL",2)
+    Global("B!GavinLTCheck","GLOBAL",1)
+    RealGlobalTimerExpired("B!GavinBhaalLovetalkTime","GLOBAL")
+    Global("B!GavinLovetalk","GLOBAL",50)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    CombatCounter(0)
+    !See([ENEMY])
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+  
+  IF %BGT_VAR%
+    OR(2)
+      AreaCheck("%Candlekeep_Catacombs_L1Antechamber%") /* If the PC is in the catacombs and the Bhaaltalk still hasn't fired, this will fire it */
+      AreaCheck("%Candlekeep_Catacombs_L1%")
+    !GlobalGT("B!KnowBhaal","GLOBAL",0)
+    InParty(Myself)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    CombatCounter(0)
+    !See([ENEMY])
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      SetGlobal("B!KnowBhaal","GLOBAL",1)
+      SetGlobal("B!CheckBhaaltalk","GLOBAL",2)
+      SetGlobal("B!GavinLovetalk","GLOBAL",50)
+      StartDialogNoSet(Player1)
+  END
+
+  /* Lovetalk 26 */
+
+  IF %BGT_VAR%
+    GlobalGT("B!KnowBhaal","GLOBAL",0)
+    Global("B!GavinLovetalk","GLOBAL",51)
+    OR(2)
+      AreaCheck("%Candlekeep_Catacombs_L1Antechamber%")
+      AreaCheck("%Candlekeep_Catacombs_L1%")
+    Global("B!CheckLT26","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!CheckLT26","GLOBAL",1)
+      RealSetGlobalTimer("B!GavinLovetalkTime","GLOBAL",300) //5 min
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLovetalk","GLOBAL",51)
+    RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+    Global("B!CheckLT26","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLovetalk","GLOBAL",52)
+      SetGlobal("B!CheckLT26","GLOBAL",2)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLovetalk","GLOBAL",52)
+    RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+    Global("B!CheckLT26","GLOBAL",2)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+  /* Lovetalk 29 */
+
+  IF %BGT_VAR%
+    GlobalGT("B!KnowBhaal","GLOBAL",0)
+    Global("B!LT29","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    OR(6)
+      AreaCheck("%EBaldursGate%")
+      AreaCheck("%NWBaldursGate%")
+      AreaCheck("%NBaldursGate%")
+      AreaCheck("%NEBaldursGate%")
+      AreaCheck("%WBaldursGate%")
+      AreaCheck("%CentralBaldursGate%")  
+    InParty(Myself)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!LT29","GLOBAL",1)
+      RealSetGlobalTimer("B!LT29Time","GLOBAL",60) //1 min
+  END
+
+  IF %BGT_VAR%
+    InParty(Myself)
+    Global("B!LT29","GLOBAL",1)
+    RealGlobalTimerExpired("B!LT29Time","GLOBAL")
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    CombatCounter(0)
+    !See([ENEMY])
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!LT29","GLOBAL",2)
+  END
+
+  IF %BGT_VAR%
+    InParty(Myself)
+    Global("B!LT29","GLOBAL",2)
+    RealGlobalTimerExpired("B!LT29Time","GLOBAL")
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    CombatCounter(0)
+    !See([ENEMY])
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+
+  /* The Final Lovetalk - Timer starts on entering the Undercity (%Undercity%) */
+
+  IF %BGT_VAR%
+    OR(2)
+      AreaCheck("%Undercity_TempleofBhaal%")
+      AreaCheck("%Undercity%")
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    Global("B!FinalLovetalk","GLOBAL",0)
+    InParty(Myself)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLovetalk","GLOBAL",59)
+      SetGlobal("B!FinalLovetalk","GLOBAL",1)
+      RealSetGlobalTimer("B!LT30Time","GLOBAL",60) //1 min after entering the undercity
+  END
+
+  IF %BGT_VAR%
+    InParty(Myself)
+    Global("B!GavinLovetalk","GLOBAL",59)
+    Global("B!FinalLovetalk","GLOBAL",1)
+    RealGlobalTimerExpired("B!LT30Time","GLOBAL")
+    CombatCounter(0)
+    !See([ENEMY])
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLovetalk","GLOBAL",60)
+      SetGlobal("B!FinalLovetalk","GLOBAL",2)
+  END
+
+  IF %BGT_VAR%
+    InParty(Myself)
+    Global("B!GavinLovetalk","GLOBAL",60)
+    Global("B!FinalLovetalk","GLOBAL",2)
+    RealGlobalTimerExpired("B!LT30Time","GLOBAL")
+    CombatCounter(0)
+    !See([ENEMY])
+    Global("B!GavinRomanceActive","GLOBAL",2)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogueNoSet(Player1)
+  END
+
+  /* Ring Delivery */
+  IF %BGT_VAR%
+    InParty(Myself)
+    GlobalGT("B!GavinLovetalk","GLOBAL",32) //LT 16 has been completed
+    Global("B!GavinRingDelivery","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      RealSetGlobalTimer("B!GavinDeliveryTimer","GLOBAL",600)
+      SetGlobal("B!GavinRingDelivery","GLOBAL",1)
+  END
+
+  IF %BGT_VAR%
+    InParty(Myself)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    AreaType(OUTDOOR)
+    RealGlobalTimerExpired("B!GavinDeliveryTimer","GLOBAL")
+    Global("B!GavinRingDelivery","GLOBAL",1)
+    Global("B!ReedSpawn","GLOBAL",0)
+    !See([ENEMY])
+    CombatCounter(0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!ReedSpawn","GLOBAL",1)
+      SetGlobal("B!GavinRingDelivery","GLOBAL",2)
+      CreateCreatureObjectOffset("B!REED","B!GAVIN",[50.50])
+  END
+
+  /* Gavin cut his finger off */
+  IF %BGT_VAR%
+    InParty(Myself)
+    Global("B!GavinFinger","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      RealSetGlobalTimer("B!GavinTalkTime","GLOBAL",300)
+      SetGlobal("B!GavinFinger","GLOBAL",2)
+  END
+
+  IF %BGT_VAR%
+    InParty(Myself)
+    RealGlobalTimerExpired("B!GavinTalkTime","GLOBAL")
+    Global("B!GavinFinger","GLOBAL",2)
+    Global("B!GavinFingerCheck","GLOBAL",0)
+    CombatCounter(0)
+    !See([ENEMY])
+    Global("B!GavinRomanceActive","GLOBAL",2)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinFingerCheck","GLOBAL",1)
+      SetGlobal("B!GavinFinger","GLOBAL",3)
+  END
+
+  IF %BGT_VAR%
+    InParty(Myself)
+    RealGlobalTimerExpired("BGavinTalkTime","GLOBAL")
+    Global("B!GavinFinger","GLOBAL",3)
+    Global("B!GavinFingerCheck","GLOBAL",1)
+    !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    CombatCounter(0)
+    !See([ENEMY])
+    Global("B!GavinRomanceActive","GLOBAL",2)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+  
+  /* Racial Specials */
+    /* Half-Orc */
+    IF %BGT_VAR%
+      InParty(Myself)
+      Race(Player1,HALFORC)
+      GlobalGT("B!GavinLovetalk","GLOBAL",22)
+      Global("B!GavinHalfOrc","GLOBAL",0)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      !Global("B!GavinWoman","GLOBAL",1)
+      !Global("B!GavinQuietLover","GLOBAL",1)
+      !Global("X#AjantisCoranChallenge","GLOBAL",1)
+    THEN
+      RESPONSE #100
+        SetGlobal("B!GavinHalfOrc","GLOBAL",1)
+        RealSetGlobalTimer("B!GavinHalfOrcT","GLOBAL",600)
+    END
+    
+    IF %BGT_VAR%
+      RealGlobalTimerExpired("B!GavinHalfOrcT","GLOBAL")
+      Global("B!GavinHalfOrc","GLOBAL",1)
+      InParty(Myself)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      !Global("B!GavinWoman","GLOBAL",1)
+      !Global("B!GavinQuietLover","GLOBAL",1)
+      !Global("X#AjantisCoranChallenge","GLOBAL",1)
+    THEN
+      RESPONSE #100
+        SetGlobal("B!GavinHalfOrc","GLOBAL",2)
+    END
+    
+    IF %BGT_VAR%
+      Global("B!GavinHalfOrc","GLOBAL",2)
+      InParty(Myself)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      !Global("B!GavinWoman","GLOBAL",1)
+      !Global("B!GavinQuietLover","GLOBAL",1)
+      InParty(Myself)
+      !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+      !StateCheck(Player1,CD_STATE_NOTVALID)
+      CombatCounter(0)
+      !See([ENEMY])
+      !Global("X#AjantisCoranChallenge","GLOBAL",1)
+    THEN
+      RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+      
+    /* Halfling */
+    IF %BGT_VAR%
+      InParty(Myself)
+      Race(Player1,HALFLING)
+      GlobalGT("B!GavinLovetalk","GLOBAL",22)
+      Global("B!GavinHalfling","GLOBAL",0)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      !Global("B!GavinWoman","GLOBAL",1)
+      !Global("B!GavinQuietLover","GLOBAL",1)
+      !Global("X#AjantisCoranChallenge","GLOBAL",1)
+    THEN
+      RESPONSE #100
+        SetGlobal("B!GavinHalfling","GLOBAL",1)
+        RealSetGlobalTimer("B!GavinHalflingT","GLOBAL",600)
+    END
+    
+    IF %BGT_VAR%
+      RealGlobalTimerExpired("B!GavinHalflingT","GLOBAL")
+      Global("B!GavinHalfling","GLOBAL",1)
+      InParty(Myself)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      !Global("B!GavinWoman","GLOBAL",1)
+      !Global("B!GavinQuietLover","GLOBAL",1)
+      !Global("X#AjantisCoranChallenge","GLOBAL",1)
+    THEN
+      RESPONSE #100
+        SetGlobal("B!GavinHalfling","GLOBAL",2)
+    END
+    
+    IF %BGT_VAR%
+      Global("B!GavinHalfling","GLOBAL",2)
+      InParty(Myself)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      !Global("B!GavinWoman","GLOBAL",1)
+      !Global("B!GavinQuietLover","GLOBAL",1)
+      InMyArea(Player1)
+      !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+      !StateCheck(Player1,CD_STATE_NOTVALID)
+      CombatCounter(0)
+      !See([ENEMY])
+      !Global("X#AjantisCoranChallenge","GLOBAL",1)
+    THEN
+      RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+/* CONCURRENCY */
+
+  /* Ajantis */
+  
+    /* A LT 1 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",3)	// LT 1 happened
+      Global("B!GavinAjantisLT1","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinAjantisLT1","LOCALS",1)
+    END
+
+    /* A LT 2 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",5)	// LT 2 happened
+      Global("B!GavinAjantisLT2","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinAjantisLT2","LOCALS",1)
+    END
+
+    /* A LT 3 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",7)	// LT 3 happened
+      Global("B!GavinAjantisLT3","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinAjantisLT3","LOCALS",1)
+    END
+    
+    /* A LT 4 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",9)	// LT 4 happened
+      Global("B!GavinAjantisLT4","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinAjantisLT4","LOCALS",1)
+    END
+
+    /* A LT 5&6 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",13)	// LT 5 & 6 happened
+      Global("B!GavinAjantisLT5","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",2)
+        SetGlobal("B!GavinAjantisLT5","LOCALS",1)
+    END
+
+    /* A LT 7 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",15)	// LT 7 happened
+      Global("B!GavinAjantisLT7","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinAjantisLT7","LOCALS",1)
+    END
+
+    /* A LT 8 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",17)	// LT 8 happened
+      Global("B!GavinAjantisLT8","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinAjantisLT8","LOCALS",1)
+    END
+
+    /* A LT 9&10 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",21)	// LT 9 & 10 happened
+      Global("B!GavinAjantisLT10","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",2)
+        SetGlobal("B!GavinAjantisLT10","LOCALS",1)
+    END
+
+    /* A LT 11 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",23)	// LT 11 happened
+      Global("B!GavinAjantisLT11","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinAjantisLT11","LOCALS",1)
+    END
+
+    /* A LT 12 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",25)	// LT 12 happened
+      Global("B!GavinAjantisLT12","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinAjantisLT12","LOCALS",1)
+    END
+
+    /* A LT 13 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",27)	// LT 13 happened
+      Global("B!GavinAjantisLT13","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinAjantisLT13","LOCALS",1)
+    END
+
+    /* A LT 14 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",29)	// LT 14 happened
+      Global("B!GavinAjantisLT14","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinAjantisLT14","LOCALS",1)
+    END
+
+    /* A LT 15 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",31)	// LT 15 happened
+      Global("B!GavinAjantisLT15","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinAjantisLT15","LOCALS",1)
+    END
+
+    /* A LT 16 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("ajantis")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",33)	// LT 16 happened
+      Global("B!GavinAjantisLT16","LOCALS",0)
+      OR(2)
+        Global("X#AjantisRomanceActive","GLOBAL",1)
+        Global("X#AjantisRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinAjantisLT16","LOCALS",1)
+    END
+
+  /* Coran */
+  
+    /* C LT 1 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",3)	// LT 1 happened
+      Global("B!GavinCoranLT1","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",1)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinCoranLT1","LOCALS",1)
+    END
+
+    /* C LT 2 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",5)	// LT 2 happened
+      Global("B!GavinCoranLT2","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",1)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinCoranLT2","LOCALS",1)
+    END
+
+    /* C LT 3 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",7)	// LT 3 happened
+      Global("B!GavinCoranLT3","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",1)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinCoranLT3","LOCALS",1)
+    END
+
+    /* C LT 4 */   
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",9)	// LT 4 happened
+      Global("B!GavinCoranLT4","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",1)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinCoranLT4","LOCALS",1)
+    END
+
+    /* C LT 5&6 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",13)	// LT 5 & 6 happened
+      Global("B!GavinCoranLT5","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",1)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",2)
+        SetGlobal("B!GavinCoranLT5","LOCALS",1)
+    END
+
+    /* C LT 7 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",15)	// LT 7 happened
+      Global("B!GavinCoranLT7","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",1)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinCoranLT7","LOCALS",1)
+    END
+
+    /* C LT 8 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",17)	// LT 8 happened
+      Global("B!GavinCoranLT8","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",1)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinCoranLT8","LOCALS",1)
+    END
+
+    /* C LT 9&10 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",21)	// LT 9 & 10 happened
+      Global("B!GavinCoranLT10","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",2)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinCoranLT10","LOCALS",1)
+    END
+
+    /* C LT 11 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",23)	// LT 11 happened
+      Global("B!GavinCoranLT11","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",1)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinCoranLT11","LOCALS",1)
+    END
+
+    /* C LT 12 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",25)	// LT 12 happened
+      Global("B!GavinCoranLT12","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",1)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinCoranLT12","LOCALS",1)
+    END
+
+    /* C LT 13 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",27)	// LT 13 happened
+      Global("B!GavinCoranLT13","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",1)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinCoranLT13","LOCALS",1)
+    END
+
+    /* C LT 14 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",29)	// LT 14 happened
+      Global("B!GavinCoranLT14","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",1)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinCoranLT14","LOCALS",1)
+    END
+
+    /* C LT 15 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",31)	// LT 15 happened
+      Global("B!GavinCoranLT15","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",1)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinCoranLT15","LOCALS",1)
+    END
+
+    /* C LT 16 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("coran")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",33)	// LT 16 happened
+      Global("B!GavinCoranLT16","LOCALS",0)
+      !Global("P#CoranRomanceInactive","GLOBAL",1)
+      GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinCoranLT16","LOCALS",1)
+    END
+
+  /* Xan */
+  
+    /* X LT 1 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",3)	// LT 1 happened
+      Global("B!GavinXanLT1","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinXanLT1","LOCALS",1)
+    END
+
+    /* X LT 2 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",5)	// LT 2 happened
+      Global("B!GavinXanLT2","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinXanLT2","LOCALS",1)
+    END
+
+    /* X LT 3 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",7)	// LT 3 happened
+      Global("B!GavinXanLT3","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinXanLT3","LOCALS",1)
+    END
+
+    /* X LT 4 */   
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",9)	// LT 4 happened
+      Global("B!GavinXanLT4","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinXanLT4","LOCALS",1)
+    END
+
+    /* X LT 5&6 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",13)	// LT 5 & 6 happened
+      Global("B!GavinXanLT5","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",2)
+        SetGlobal("B!GavinXanLT5","LOCALS",1)
+    END
+
+    /* X LT 7 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",15)	// LT 7 happened
+      Global("B!GavinXanLT7","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinXanLT7","LOCALS",1)
+    END
+
+    /* X LT 8 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",17)	// LT 8 happened
+      Global("B!GavinXanLT8","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinXanLT8","LOCALS",1)
+    END
+
+    /* X LT 9&10 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",21)	// LT 9 & 10 happened
+      Global("B!GavinXanLT10","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",2)
+        SetGlobal("B!GavinXanLT10","LOCALS",1)
+    END
+
+    /* X LT 11 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",23)	// LT 11 happened
+      Global("B!GavinXanLT11","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinXanLT11","LOCALS",1)
+    END
+
+    /* X LT 12 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",25)	// LT 12 happened
+      Global("B!GavinXanLT12","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinXanLT12","LOCALS",1)
+    END
+
+    /* X LT 13 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",27)	// LT 13 happened
+      Global("B!GavinXanLT13","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinXanLT13","LOCALS",1)
+    END
+
+    /* X LT 14 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",29)	// LT 14 happened
+      Global("B!GavinXanLT14","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinXanLT14","LOCALS",1)
+    END
+
+    /* X LT 15 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",31)	// LT 15 happened
+      Global("B!GavinXanLT15","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinXanLT15","LOCALS",1)
+    END
+
+    /* X LT 16 */
+    IF %BGT_VAR%
+      InParty(Myself)
+      InParty("xan")
+      Global("B!GavinRomanceMatch","GLOBAL",1)
+      Global("B!GavinRomanceActive","GLOBAL",1)
+      Global("B!GavinLovetalk","GLOBAL",33)	// LT 16 happened
+      Global("B!GavinXanLT16","LOCALS",0)
+      !Global("X#XARomanceInactive","GLOBAL",1)
+      OR(2)
+        Global("X#XARomanceActive","GLOBAL",1)
+        Global("X#XARomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        IncrementGlobal("B!GavinConcurrent","GLOBAL",1)
+        SetGlobal("B!GavinXanLT16","LOCALS",1)
+    END
+
+/* WARNINGS */
+
+  /* Concurrency Warning 1 */
+
+  IF %BGT_VAR%
+    Global("B!GavinConcurrentWarning","GLOBAL",0)
+    GlobalGT("B!GavinConcurrent","GLOBAL",17) //1 concurrent-will never come up; 2 concurrent-will come up LT 9; 3 concurrent-will come up LT 6
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinConcurrentWarning","GLOBAL",1)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinConcurrentWarning","GLOBAL",1)
+    GlobalGT("B!GavinConcurrent","GLOBAL",17) //1 concurrent-will never come up; 2 concurrent-will come up LT 9; 3 concurrent-will come up LT 6
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobalTimer("B!GavinConcurrencyWarning","GLOBAL",ONE_DAY)
+      StartDialogueNoSet(Player1)
+  END
+
+  /* Concurrency Warning 2 */
+
+  IF %BGT_VAR%
+    Global("B!GavinConcurrentWarning","GLOBAL",2)
+    GlobalTimerExpired("B!GavinConcurrencyWarning","GLOBAL")
+    GlobalGT("B!GavinConcurrent","GLOBAL",23) //2 concurrent-will come up LT 12; 3 concurrent-will come up LT 8
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinConcurrentWarning","GLOBAL",3)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinConcurrentWarning","GLOBAL",3)
+    GlobalTimerExpired("B!GavinConcurrencyWarning","GLOBAL")
+    GlobalGT("B!GavinConcurrent","GLOBAL",23) //2 concurrent-will come up LT 12; 3 concurrent-will come up LT 8
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobalTimer("B!GavinConcurrencyWarning","GLOBAL",ONE_DAY)
+      StartDialogueNoSet(Player1)
+  END
+
+  /* Concurrency Warning 3 */
+
+  IF %BGT_VAR%
+    Global("B!GavinConcurrentWarning","GLOBAL",4)
+    GlobalTimerExpired("B!GavinConcurrencyWarning","GLOBAL")
+    GlobalGT("B!GavinConcurrent","GLOBAL",30) //2 concurrent-will come up LT 15; 3 concurrent-will come up LT 10
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinConcurrentWarning","GLOBAL",5)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinConcurrentWarning","GLOBAL",5)
+    GlobalTimerExpired("B!GavinConcurrencyWarning","GLOBAL")
+    GlobalGT("B!GavinConcurrent","GLOBAL",29) //2 concurrent-will come up LT 15; 3 concurrent-will come up LT 10
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobalTimer("B!GavinConcurrencyWarning","GLOBAL",ONE_DAY)
+      StartDialogueNoSet(Player1)
+  END
+
+  /* Warning if concurrency exceeded after breaking */
+  IF %BGT_VAR%
+    OR(2)
+      GlobalGT("B!GavinConcurrentBreak","GLOBAL",0)
+      Global("B!GavinRomCutByOther","GLOBAL",1) //Gavin has already broken off the relationship because of other suitors once before
+    Global("X#AjantisRomanceActive","GLOBAL",1)
+    Global("B!GavinNotADoormat","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinNotADoormat","GLOBAL",1)
+      SetGlobalTimer("B!GavinSecondBreak","GLOBAL",ONE_DAY)
+      StartDialogueNoSet(Player1)
+  END
+
+  IF %BGT_VAR%
+    OR(2)
+      GlobalGT("B!GavinConcurrentBreak","GLOBAL",0)
+      Global("B!GavinRomCutByOther","GLOBAL",1) //Gavin has already broken off the relationship because of other suitors once before
+    Global("X#XARomanceActive","GLOBAL",1)
+    !Global("X#XARomanceInactive","GLOBAL",1)
+    Global("B!GavinNotADoormat","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinNotADoormat","GLOBAL",1)
+      SetGlobalTimer("B!GavinSecondBreak","GLOBAL",ONE_DAY)
+      StartDialogueNoSet(Player1)
+  END
+
+  IF %BGT_VAR%
+    OR(2)
+      GlobalGT("B!GavinConcurrentBreak","GLOBAL",0)
+      Global("B!GavinRomCutByOther","GLOBAL",1) //Gavin has already broken off the relationship because of other suitors once before
+    GlobalGT("P#CoranRomancePath","GLOBAL",0)
+    !Global("P#CoranRomanceInactive","GLOBAL",1)
+    Global("B!GavinNotADoormat","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinNotADoormat","GLOBAL",1)
+      SetGlobalTimer("B!GavinSecondBreak","GLOBAL",ONE_DAY)
+      StartDialogueNoSet(Player1)
+  END
+  
+  IF %BGT_VAR%
+    Global("B!GavinNotADoormat","GLOBAL",1)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobalTimer("B!GavinSecondBreak","GLOBAL",ONE_DAY)
+      StartDialogueNoSet(Player1)
+  END
+
+  /* Reputation Warning */
+  IF %BGT_VAR%
+    ReputationLT(Player1,15)
+    ReputationGT(Player1,11)
+    GlobalGT("B!GavinLovetalk","GLOBAL",22)
+    GlobalLT("B!GavinLovetalk","GLOBAL",32)
+    Global("B!GavinRepNotHighEnough","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    See(Player1)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinRepNotHighEnough","GLOBAL",1)
+  END
+  
+  IF %BGT_VAR%
+    Global("B!GavinRepNotHighEnough","GLOBAL",1)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    See(Player1)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobalTimer("B!GavinReputationWarning","GLOBAL",ONE_DAY)
+      StartDialogueNoSet(Player1)
+  END
+  
+
+  IF %BGT_VAR%
+    GlobalTimerExpired("B!GavinReputationWarning","GLOBAL")
+    GlobalGT("B!GavinLovetalk","GLOBAL",28)
+    GlobalLT("B!GavinLovetalk","GLOBAL",32)
+    ReputationLT(Player1,15)
+    ReputationGT(Player1,11)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    !StateCheck(Player1,STATE_SLEEPING)
+    Global("B!GavinRepNotHighEnough","GLOBAL",2)	//PC has already been warned
+    InParty(Myself)
+    CombatCounter(0)
+    See(Player1)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinRepNotHighEnough","GLOBAL",3)
+  END
+  
+  IF %BGT_VAR%
+    GlobalTimerExpired("B!GavinReputationWarning","GLOBAL")
+    Global("B!GavinRepNotHighEnough","GLOBAL",3)
+    !StateCheck(Player1,CD_STATE_NOTVALID)
+    !StateCheck(Myself,CD_STATE_NOTVALID)
+    InParty(Myself)
+    CombatCounter(0)
+    See(Player1)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      StartDialogueNoSet(Player1)
+  END
+  
+    /* Girdle of Masculinity/Femininity */
+    IF %BGT_VAR%
+      InParty(Myself)
+      HasItemEquiped("%tutu_var%BELT05",Player1)
+      Global("B!GavinPCGenderBelt","GLOBAL",0)
+      OR(2)
+        Global("B!GavinRomanceActive","GLOBAL",1)
+        Global("B!GavinRomanceActive","GLOBAL",2)
+      !Global("X#AjantisCoranChallenge","GLOBAL",1)
+    THEN
+      RESPONSE #100
+        SetGlobal("B!GavinPCGenderBelt","GLOBAL",1)
+        SetGlobal("B!GavinWoman","GLOBAL",1)
+    END
+    
+    IF %BGT_VAR%
+      InParty(Myself)
+      HasItemEquiped("%tutu_var%BELT05",Player1)
+      Global("B!GavinPCGenderBelt","GLOBAL",1)
+      !StateCheck(Player1,CD_STATE_NOTVALID)
+      !StateCheck(Myself,CD_STATE_NOTVALID)
+      InParty(Myself)
+      CombatCounter(0)
+      See(Player1)
+      !Global("X#AjantisCoranChallenge","GLOBAL",1)
+      OR(2)
+        Global("B!GavinRomanceActive","GLOBAL",1)
+        Global("B!GavinRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        StartDialogueNoSet(Player1)
+    END
+
+    IF %BGT_VAR%
+      InParty(Myself)
+      !HasItemEquiped("%tutu_var%BELT05",Player1)
+      Global("B!GavinPCGenderBelt","GLOBAL",2)
+      !Global("X#AjantisCoranChallenge","GLOBAL",1)
+      OR(2)
+        Global("B!GavinRomanceActive","GLOBAL",1)
+        Global("B!GavinRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        SetGlobal("B!GavinPCGenderBelt","GLOBAL",3)
+        SetGlobal("B!GavinWoman","GLOBAL",0)
+    END
+    
+    IF %BGT_VAR%
+      InParty(Myself)
+      !HasItemEquiped("%tutu_var%BELT05",Player1)
+      Global("B!GavinPCGenderBelt","GLOBAL",3)
+      !StateCheck(Player1,CD_STATE_NOTVALID)
+      !StateCheck(Myself,CD_STATE_NOTVALID)
+      InParty(Myself)
+      CombatCounter(0)
+      See(Player1)
+      !Global("X#AjantisCoranChallenge","GLOBAL",1)
+      OR(2)
+        Global("B!GavinRomanceActive","GLOBAL",1)
+        Global("B!GavinRomanceActive","GLOBAL",2)
+    THEN
+      RESPONSE #100
+        StartDialogueNoSet(Player1)
+    END
+
+/* DELAYED LOVETALKS */
+
+  /* Delayed LT 1 */
+  IF %BGT_VAR%
+    Global("B!GavinLT1Delay","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT1Delay","GLOBAL",2)
+      RealSetGlobalTimer("B!GavinDelayLoveTalk","GLOBAL",600)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLT1Delay","GLOBAL",2)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk1Retry","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT1Delay","GLOBAL",3)
+      SetGlobal("B!GavinLovetalk1Retry","GLOBAL",1)
+  END
+ 
+  IF %BGT_VAR%
+    Global("B!GavinLT1Delay","GLOBAL",3)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk1Retry","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+ END
+
+  /* Delayed LT 2 */
+
+  IF %BGT_VAR%
+    Global("B!GavinLT2Delay","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT2Delay","GLOBAL",2)
+      RealSetGlobalTimer("B!GavinDelayLoveTalk","GLOBAL",600)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLT2Delay","GLOBAL",2)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk2Retry","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT2Delay","GLOBAL",3)
+      SetGlobal("B!GavinLovetalk2Retry","GLOBAL",1)
+  END
+ 
+  IF %BGT_VAR%
+    Global("B!GavinLT2Delay","GLOBAL",3)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk2Retry","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+  /* Delayed LT 3 */
+
+  IF %BGT_VAR%
+    Global("B!GavinLT3Delay","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT3Delay","GLOBAL",2)
+      RealSetGlobalTimer("B!GavinDelayLoveTalk","GLOBAL",600)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLT3Delay","GLOBAL",2)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk3Retry","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT3Delay","GLOBAL",3)
+      SetGlobal("B!GavinLovetalk3Retry","GLOBAL",1)
+  END
+ 
+  IF %BGT_VAR%
+    Global("B!GavinLT3Delay","GLOBAL",3)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk3Retry","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+  /* Delayed LT 4 */
+
+  IF %BGT_VAR%
+    Global("B!GavinLT4Delay","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT4Delay","GLOBAL",2)
+      RealSetGlobalTimer("B!GavinDelayLoveTalk","GLOBAL",600)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLT4Delay","GLOBAL",2)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk4Retry","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT4Delay","GLOBAL",3)
+      SetGlobal("B!GavinLovetalk4Retry","GLOBAL",1)
+  END
+ 
+  IF %BGT_VAR%
+    Global("B!GavinLT4Delay","GLOBAL",3)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk4Retry","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+  /* Delayed LT 7 */
+
+  IF %BGT_VAR%
+    Global("B!GavinLT7Delay","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT7Delay","GLOBAL",2)
+      RealSetGlobalTimer("B!GavinDelayLoveTalk","GLOBAL",600)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLT7Delay","GLOBAL",2)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk7Retry","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT7Delay","GLOBAL",3)
+      SetGlobal("B!GavinLovetalk7Retry","GLOBAL",1)
+  END
+ 
+  IF %BGT_VAR%
+    Global("B!GavinLT7Delay","GLOBAL",3)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk7Retry","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+  /* Delayed LT 8 */
+
+  IF %BGT_VAR%
+    Global("B!GavinLT8Delay","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT8Delay","GLOBAL",2)
+      RealSetGlobalTimer("B!GavinDelayLoveTalk","GLOBAL",600)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLT8Delay","GLOBAL",2)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk8Retry","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT8Delay","GLOBAL",3)
+      SetGlobal("B!GavinLovetalk8Retry","GLOBAL",1)
+  END
+ 
+  IF %BGT_VAR%
+    Global("B!GavinLT8Delay","GLOBAL",3)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk8Retry","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+  /* Delayed LT 11 */
+
+  IF %BGT_VAR%
+    Global("B!GavinLT11Delay","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT11Delay","GLOBAL",2)
+      RealSetGlobalTimer("B!GavinDelayLoveTalk","GLOBAL",600)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLT11Delay","GLOBAL",2)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk11Retry","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT11Delay","GLOBAL",3)
+      SetGlobal("B!GavinLovetalk11Retry","GLOBAL",1)
+  END
+ 
+  IF %BGT_VAR%
+    Global("B!GavinLT11Delay","GLOBAL",3)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk11Retry","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+  /* Delayed LT 12 */
+
+  IF %BGT_VAR%
+    Global("B!GavinLT12Delay","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT12Delay","GLOBAL",2)
+      RealSetGlobalTimer("B!GavinDelayLoveTalk","GLOBAL",600)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLT12Delay","GLOBAL",2)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk12Retry","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT12Delay","GLOBAL",3)
+      SetGlobal("B!GavinLovetalk12Retry","GLOBAL",1)
+  END
+ 
+  IF %BGT_VAR%
+    Global("B!GavinLT12Delay","GLOBAL",3)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk12Retry","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+  /* Delayed LT 13 */
+
+  IF %BGT_VAR%
+    Global("B!GavinLT13Delay","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT13Delay","GLOBAL",2)
+      RealSetGlobalTimer("B!GavinDelayLoveTalk","GLOBAL",600)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLT13Delay","GLOBAL",2)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk13Retry","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT13Delay","GLOBAL",3)
+      SetGlobal("B!GavinLovetalk13Retry","GLOBAL",1)
+  END
+ 
+  IF %BGT_VAR%
+    Global("B!GavinLT13Delay","GLOBAL",3)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk13Retry","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+  /* Delayed LT 16 */
+
+  IF %BGT_VAR%
+    Global("B!GavinLT16Delay","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT16Delay","GLOBAL",2)
+      RealSetGlobalTimer("B!GavinDelayLoveTalk","GLOBAL",600)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLT16Delay","GLOBAL",2)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk16Retry","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT16Delay","GLOBAL",3)
+      SetGlobal("B!GavinLovetalk16Retry","GLOBAL",1)
+  END
+ 
+  IF %BGT_VAR%
+    Global("B!GavinLT16Delay","GLOBAL",3)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk16Retry","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+    !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+  /* Delayed LT 23 */
+  IF %BGT_VAR%
+    Global("B!GavinLT23Delay","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT23Delay","GLOBAL",2)
+      RealSetGlobalTimer("B!GavinDelayLoveTalk","GLOBAL",600)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLT23Delay","GLOBAL",2)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk23Retry","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT23Delay","GLOBAL",3)
+      SetGlobal("B!GavinLovetalk23Retry","GLOBAL",1)
+  END
+ 
+  IF %BGT_VAR%
+    Global("B!GavinLT23Delay","GLOBAL",3)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk23Retry","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+  /* Delayed LT 26 */
+  IF %BGT_VAR%
+    Global("B!GavinLT26Delay","GLOBAL",1)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    InParty(Myself)
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT26Delay","GLOBAL",2)
+      RealSetGlobalTimer("B!GavinDelayLoveTalk","GLOBAL",600)
+  END
+
+  IF %BGT_VAR%
+    Global("B!GavinLT26Delay","GLOBAL",2)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk26Retry","GLOBAL",0)
+    Global("B!GavinRomanceMatch","GLOBAL",1)
+    GlobalGT("B!GavinFriend","GLOBAL",0)
+    !Global("B!GavinFriend","GLOBAL",3)
+    !Global("B!GavinRomanceActive","GLOBAL",0)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+  THEN
+    RESPONSE #100
+      SetGlobal("B!GavinLT26Delay","GLOBAL",3)
+      SetGlobal("B!GavinLovetalk26Retry","GLOBAL",1)
+  END
+ 
+  IF %BGT_VAR%
+    Global("B!GavinLT26Delay","GLOBAL",3)
+    RealGlobalTimerExpired("B!GavinDelayLoveTalk","GLOBAL")
+    Global("B!GavinLovetalk26Retry","GLOBAL",1)
+    !Global("B!GavinRomanceActive","GLOBAL",3)
+    !Global("B!GavinQuietLover","GLOBAL",1)
+    InParty(Myself)
+    CombatCounter(0)
+    !See([ENEMY])
+  THEN
+    RESPONSE #100
+      PlaySong(0)
+      PlaySound("BGAV_S1")
+      StartDialogNoSet(Player1)
+  END
+
+/* BROKEN RELATIONSHIP TOGGLES */
+  /* Friend only toggle for broken romances */
+
+IF %BGT_VAR%
+  Global("B!GavinRomanceActive","GLOBAL",3)
+  Global("B!GavinFriendOnly","GLOBAL",2)
+  !Global("B!GavinFriend","GLOBAL",3)
+  GlobalLT("B!GavinOffend","GLOBAL",12)
+THEN
+  RESPONSE #100
+    SetGlobal("B!GavinFriendOnly","GLOBAL",1)
+END
+
+  /* Toggles Kivan's dance - Thanks, Domi! */
+
+IF %BGT_VAR%
+InParty(Myself)
+Global("B!GavinRomanActive","GLOBAL",1)
+Global("P#KiDance","GLOBAL",0)
+THEN
+RESPONSE #100
+IncrementGlobal("P#KiDance","GLOBAL",-1)
+END
+
+IF %BGT_VAR%
+InParty(Myself)
+Global("B!GavinRomanActive","GLOBAL",3)
+Global("P#KiDance","GLOBAL",-1)
+THEN
+RESPONSE #100
+IncrementGlobal("P#KiDance","GLOBAL",1)
+END
+

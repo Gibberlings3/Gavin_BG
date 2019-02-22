@@ -1,0 +1,8 @@
+
+IF
+  Global("B!ReedSpawn","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobal("B!ReedSpawn","GLOBAL",2)
+    Dialog(Player1)
+END

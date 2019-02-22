@@ -1,0 +1,26 @@
+/* Yeslick reacts to Gavin's dismemberment */
+IF
+  GlobalGT("B!GavinFinger","GLOBAL",0)
+  GlobalLT("B!GavinFinger","GLOBAL",3)
+  Global("B!YeslickFinger","GLOBAL",0)
+  InParty(Myself)
+  InParty("B!GAVIN")
+  InMyArea("B!GAVIN")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100 
+    SetGlobal("B!YeslickFinger","GLOBAL",1)
+END
+
+IF
+  Global("B!YeslickFinger","GLOBAL",1)
+  InParty(Myself)
+  InParty("B!GAVIN")
+  InMyArea("B!GAVIN")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100 
+    StartDialogueNoSet("B!GAVIN")
+END 

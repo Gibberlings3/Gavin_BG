@@ -1,0 +1,299 @@
+/* CONTENTS */
+/* Lovetalks */
+///* Lovetalk 5 - Gavin's Sketchbook */
+///* Lovetalk 9 - Gavin's "dance" */
+///* Lovetalk 17 - Gavin's proposal */
+///* Lovetalk 19 - Emotional/Physical Love */
+///* Lovetalk 20 - getting it on or not */
+///* Lovetalk 27 - marry Gavin */
+///* another chance to sleep with Gavin */
+/* Gavin and Ajantis discuss jealousy */
+
+
+///* Lovetalk 5 - Gavin's Sketchbook */
+IF %BGT_VAR%
+  InParty(Myself)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  RealGlobalTimerExpired("X#DreamTalk","GLOBAL")
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  TimeOfDay(DAY)
+  AreaType(OUTDOOR)
+  Global("B!GavinLovetalk","GLOBAL",9)
+  RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+  Global("B!GaLT5","GLOBAL",0)
+  Global("B!GavinLTCheck","GLOBAL",0)
+  !Detect([ENEMY])
+  See(Player1)
+  CombatCounter(0)
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+  !Global("B!GavinQuietLover","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    RealSetGlobalTimer("BackUpTimer","GLOBAL",18)
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    SetGlobal("B!GaLT5","GLOBAL",1)
+    SetGlobal("B!GavinLTCheck","GLOBAL",1)
+    IncrementGlobal("B!GavinLovetalk","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+///* Lovetalk 9 - Gavin's "dance" */
+IF
+  %BGT_VAR%
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  Global("B!GavinLovetalk","GLOBAL",17)
+  RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+  Global("B!GavinLTCheck","GLOBAL",0)
+  RealGlobalTimerExpired("X#DreamTalk","GLOBAL")
+  Global("B!GaLT9","GLOBAL",0)
+  !Detect([ENEMY])
+  See(Player1)
+  CombatCounter(0)
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+   !Global("B!GavinQuietLover","GLOBAL",1)
+  InParty(Myself)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  OR(21)
+    AreaCheck("%Beregost_FeldepostsInn_L1%")
+    AreaCheck("%Beregost_JovialJuggler_L1%")
+    AreaCheck("%Beregost_RedSheaf_L1%")
+    AreaCheck("%Beregost_BurningWizard_L1%")
+    AreaCheck("%Nashkel_Inn%")
+    AreaCheck("%EBaldursGate_KeexieTavern_L1%")
+    AreaCheck("%EBaldursGate_ElfsongTavern_L1%")
+    AreaCheck("%EBaldursGate_Inn_L1%")
+    AreaCheck("%SEBaldursGate_Inn_L1%")
+    AreaCheck("%SEBaldursGate_Blade&Stars_L1%")
+    AreaCheck("%BaldursGateDocks_JopalinsTavern%")
+    AreaCheck("%SWBaldursGate_Tavern_L1%")
+    AreaCheck("%SWBaldursGate_YeOldeInn_L1%")
+    AreaCheck("%NWBaldursGate_Helm&Cloak_L1%")
+    AreaCheck("%NWBaldursGate_Tavern_L1%")
+    AreaCheck("%NBaldursGate_ThreeOldKegs_L1%")
+    AreaCheck("%NEBaldursGate_BlushingMermaid_L1%")
+    AreaCheck("%NEBaldursGate_SplurgingSturgeon_L2%")
+    AreaCheck("%FriendlyArmInn_L1%")
+    AreaCheck("%NEBaldursGate_SplurgingSturgeon_L1%")
+    AreaCheck("%UlgothsBeard_Inn%")
+THEN
+  RESPONSE #100 
+    PlaySong(0)
+    PlaySound("BGAV_S1")
+    SetGlobal("B!GaLT9","GLOBAL",1)
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    RealSetGlobalTimer("BackUpTimer","GLOBAL",18)
+    SetGlobal("B!GavinLTCheck","GLOBAL",1)
+    IncrementGlobal("B!GavinLovetalk","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+///* Lovetalk 17 - Gavin's proposal */
+IF
+  %BGT_VAR%
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  Global("B!GavinLovetalk","GLOBAL",33)
+  RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+  RealGlobalTimerExpired("X#DreamTalk","GLOBAL")
+  Global("B!GaLT17","GLOBAL",0)
+  Global("B!GavinLTCheck","GLOBAL",0)
+  Global("B!GavinRingDelivery","GLOBAL",3)  
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+  !Global("B!GavinQuietLover","GLOBAL",1)
+  !Detect([ENEMY])
+  See(Player1)
+  CombatCounter(0)
+  InParty(Myself)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    PlaySong(0)
+    PlaySound("BGAV_S1")
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    RealSetGlobalTimer("BackUpTimer","GLOBAL",18)
+    SetGlobal("B!GaLT17","GLOBAL",1)
+    SetGlobal("B!GavinLTCheck","GLOBAL",1)
+    IncrementGlobal("B!GavinLovetalk","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+///* Lovetalk 19 - Emotional/Physical Love */
+IF
+  %BGT_VAR%
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  Global("B!GavinLovetalk","GLOBAL",37)
+  Global("B!GavinLTCheck","GLOBAL",0)
+  GlobalTimerExpired("B!GavinLT18LT19","GLOBAL")
+  RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+  RealGlobalTimerExpired("X#DreamTalk","GLOBAL")
+  Global("B!GaLT19","GLOBAL",0)
+  Global("B!GavinRomanceActive","GLOBAL",2)
+  !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+  !Global("B!GavinQuietLover","GLOBAL",1)
+  !Detect([ENEMY])
+  See(Player1)
+  CombatCounter(0)
+  InParty(Myself)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    PlaySong(0)
+    PlaySound("BGAV_S1")
+    SetGlobal("B!GaLT19","GLOBAL",1)
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    RealSetGlobalTimer("BackUpTimer","GLOBAL",18)
+    SetGlobalTimer("B!GavinLT19LT20","GLOBAL",THREE_DAYS)
+    SetGlobal("B!GavinLTCheck","GLOBAL",1)
+    IncrementGlobal("B!GavinLovetalk","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+IF
+  %BGT_VAR%
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  InParty(Myself)
+  Global("B!GavinDelayLT19","GLOBAL",1)
+  Global("B!GavinLTCheck","GLOBAL",0)
+  Global("B!GavinLovetalk19Retry","GLOBAL",0)
+  RealGlobalTimerExpired("X#DreamTalk","GLOBAL")
+  Global("B!GaLT19R","GLOBAL",0)
+  Global("B!GavinRomanceActive","GLOBAL",2)
+  !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+  !Global("B!GavinQuietLover","GLOBAL",1)
+  !Detect([ENEMY])
+  See(Player1)
+  CombatCounter(0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    PlaySong(0)
+    PlaySound("BGAV_S1")
+    SetGlobal("B!GaLT19R","GLOBAL",1)
+    SetGlobal("B!GavinLTCheck","GLOBAL",1)
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    RealSetGlobalTimer("BackUpTimer","GLOBAL",18)
+    SetGlobal("B!GavinDelayLT19","GLOBAL",2)
+    IncrementGlobal("B!GavinLovetalk19Retry","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+///* Lovetalk 20 - getting it on or not */
+IF
+  %BGT_VAR%
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  Global("B!GavinLovetalk","GLOBAL",39)
+  Global("B!GavinLTCheck","GLOBAL",0)
+  RealGlobalTimerExpired("B!GavinLovetalkTime","GLOBAL")
+  GlobalTimerExpired("B!GavinLT19LT20","GLOBAL")
+  RealGlobalTimerExpired("X#DreamTalk","GLOBAL")
+  Global("B!GaLT20","GLOBAL",0)
+  Global("B!GavinRomanceActive","GLOBAL",2)
+  !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+  !Global("B!GavinQuietLover","GLOBAL",1)
+  !Detect([ENEMY])
+  See(Player1)
+  CombatCounter(0)
+  InParty(Myself)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    PlaySong(0)
+    PlaySound("BGAV_S1")
+    SetGlobal("B!GaLT20","GLOBAL",1)
+    SetGlobal("B!GavinLTCheck","GLOBAL",1)
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    RealSetGlobalTimer("BackUpTimer","GLOBAL",18)
+    IncrementGlobal("B!GavinLovetalk","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+///* Lovetalk 27 - marry Gavin */
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  Global("B!GavinLovetalk","GLOBAL",53) //Note that there isn't a timer on this one
+  Global("B!GavinLTCheck","GLOBAL",0)
+  RealGlobalTimerExpired("X#DreamTalk","GLOBAL")
+  Global("B!GaLT27","GLOBAL",0)
+  Global("B!GavinRomanceActive","GLOBAL",2)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+   !Global("B!GavinQuietLover","GLOBAL",1)
+  !Detect([ENEMY])
+  !AreaType(DUNGEON)
+  See(Player1)
+  CombatCounter(0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    PlaySong(0)
+    PlaySound("BGAV_S1")
+    SetGlobal("B!GaLT27","GLOBAL",1)
+    SetGlobal("B!GavinLTCheck","GLOBAL",1)
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    RealSetGlobalTimer("BackUpTimer","GLOBAL",18)
+    IncrementGlobal("B!GavinLovetalk","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+///* another chance to sleep with Gavin */
+IF
+  %BGT_VAR%
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  Global("B!GavinSleepQuestion","GLOBAL",2)
+  RealGlobalTimerExpired("X#DreamTalk","GLOBAL")
+  Global("B!GaLT20R","GLOBAL",0)
+  Global("B!GavinRomanceActive","GLOBAL",2)
+  !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+  !Detect([ENEMY])
+  See(Player1)
+  CombatCounter(0)
+  InParty(Myself)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    PlaySong(0)
+    PlaySound("BGAV_S1")
+    SetGlobal("B!GaLT20R","GLOBAL",1)
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    RealSetGlobalTimer("BackUpTimer","GLOBAL",18)
+    IncrementGlobal("B!GavinSleepQuestion","GLOBAL",1)
+    StartDialogueNoSet(Player1)
+END
+
+/* Gavin and Ajantis discuss jealousy */
+IF
+  %BGT_VAR%
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !StateCheck("ajantis",CD_STATE_NOTVALID)
+  GlobalGT("B!GavinLovetalk","GLOBAL",7)
+  RealGlobalTimerExpired("X#DreamTalk","GLOBAL")
+  Global("B!GavAjRom1","GLOBAL",0)
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  Global("X#AjantisRomanceActive","GLOBAL",1)
+  InParty("ajantis")
+  !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+  !Detect([ENEMY])
+  CombatCounter(0)
+  InParty(Myself)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    RealSetGlobalTimer("BackUpTimer","GLOBAL",18)
+    SetGlobal("B!GavAjRom1","GLOBAL",1)
+    Interact("ajantis")
+END

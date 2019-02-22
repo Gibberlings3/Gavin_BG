@@ -1,0 +1,265 @@
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  Global("GavinJoined","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("GavinJoined","GLOBAL",1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  Global("GavinJoined","GLOBAL",1)
+  Global("GavinLeveled","GLOBAL",0)
+  XPLT(Player1,1500)
+THEN
+  RESPONSE #100
+    SetGlobal("GavinLeveled","GLOBAL",1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  Global("GavinJoined","GLOBAL",1)
+  Global("GavinLeveled","GLOBAL",0)
+  XPGT(Player1,1499)
+  XPLT(Player1,3000)
+THEN
+  RESPONSE #100
+    SetGlobal("GavinLeveled","GLOBAL",1)
+    AddXPObject("B!GAVIN",1501) // level 2
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  Global("GavinJoined","GLOBAL",1)
+  Global("GavinLeveled","GLOBAL",0)
+  XPGT(Player1,2999)
+  XPLT(Player1,6000)
+THEN
+  RESPONSE #100
+    SetGlobal("GavinLeveled","GLOBAL",1)
+    AddXPObject("B!GAVIN",3001) // level 3
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  Global("GavinJoined","GLOBAL",1)
+  Global("GavinLeveled","GLOBAL",0)
+  XPGT(Player1,5999)
+  XPLT(Player1,13000)
+THEN
+  RESPONSE #100
+    SetGlobal("GavinLeveled","GLOBAL",1)
+    AddXPObject("B!GAVIN",6001) // level 4
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  Global("GavinJoined","GLOBAL",1)
+  Global("GavinLeveled","GLOBAL",0)
+  XPGT(Player1,12999)
+  XPLT(Player1,27500)
+THEN
+  RESPONSE #100
+    SetGlobal("GavinLeveled","GLOBAL",1)
+    AddXPObject("B!GAVIN",13001) // level 5
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  Global("GavinJoined","GLOBAL",1)
+  Global("GavinLeveled","GLOBAL",0)
+  XPGT(Player1,27499)
+  XPLT(Player1,55000)
+THEN
+  RESPONSE #100
+    SetGlobal("GavinLeveled","GLOBAL",1)
+    AddXPObject("B!GAVIN",27501) // level 6
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  Global("GavinJoined","GLOBAL",1)
+  Global("GavinLeveled","GLOBAL",0)
+  XPGT(Player1,54999)
+  XPLT(Player1,110000)
+THEN
+  RESPONSE #100
+    SetGlobal("GavinLeveled","GLOBAL",1)
+    AddXPObject("B!GAVIN",55001) // level 7
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  Global("GavinJoined","GLOBAL",1)
+  Global("GavinLeveled","GLOBAL",0)
+  XPGT(Player1,109999)
+THEN
+  RESPONSE #100
+    SetGlobal("GavinLeveled","GLOBAL",1)
+    AddXPObject("B!GAVIN",110001) // level 8
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  StateCheck(Myself,STATE_CHARMED)
+  Global("B!CharmTalking","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("B!CharmTalking","GLOBAL",1)
+    StartDialogNoSet(Player1)
+END
+
+/* Prevents stacking dream talks */
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  Global("DreamTimerStarted","GLOBAL",0)
+THEN
+  RESPONSE #100
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    SetGlobal("DreamTimerStarted","GLOBAL",1)
+END
+
+/* roll backs on dream scripts */
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("BackUpTimer","GLOBAL")
+  Global("B!GaPCPillow","GLOBAL",1)
+THEN
+  RESPONSE #100
+    IncrementGlobal("B!GaPCPillow","GLOBAL",-1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("BackUpTimer","GLOBAL")
+  Global("B!GaPCLaundry","GLOBAL",1)
+THEN
+  RESPONSE #100
+    IncrementGlobal("B!GaPCLaundry","GLOBAL",-1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("BackUpTimer","GLOBAL")
+  Global("B!GaPCC2","GLOBAL",1)
+THEN
+  RESPONSE #100
+    IncrementGlobal("B!GaPCC2","GLOBAL",-1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("BackUpTimer","GLOBAL")
+  Global("B!GaStrip","GLOBAL",1)
+THEN
+  RESPONSE #100
+    IncrementGlobal("B!GaStrip","GLOBAL",-1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("BackUpTimer","GLOBAL")
+  Global("B!GaLT5","GLOBAL",1)
+THEN
+  RESPONSE #100
+    IncrementGlobal("B!GaLT5","GLOBAL",-1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("BackUpTimer","GLOBAL")
+  Global("B!GaLT9","GLOBAL",1)
+THEN
+  RESPONSE #100
+    IncrementGlobal("B!GaLT9","GLOBAL",-1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("BackUpTimer","GLOBAL")
+  Global("B!GaLT17","GLOBAL",1)
+THEN
+  RESPONSE #100
+    IncrementGlobal("B!GaLT17","GLOBAL",-1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("BackUpTimer","GLOBAL")
+  Global("B!GaLT19","GLOBAL",1)
+THEN
+  RESPONSE #100
+    IncrementGlobal("B!GaLT19","GLOBAL",-1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("BackUpTimer","GLOBAL")
+  Global("B!GaLT19R","GLOBAL",1)
+THEN
+RESPONSE #100
+    IncrementGlobal("B!GaLT19R","GLOBAL",-1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("BackUpTimer","GLOBAL")
+  Global("B!GaLT20","GLOBAL",1)
+THEN
+  RESPONSE #100
+    IncrementGlobal("B!GaLT20","GLOBAL",-1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("BackUpTimer","GLOBAL")
+  Global("B!GaLT20R","GLOBAL",1)
+THEN
+  RESPONSE #100
+    IncrementGlobal("B!GaLT20R","GLOBAL",-1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("BackUpTimer","GLOBAL")
+  Global("B!GaPCSex","GLOBAL",1)
+THEN
+  RESPONSE #100
+    IncrementGlobal("B!GaPCSex","GLOBAL",-1)
+END
+
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("BackUpTimer","GLOBAL")
+  Global("B!GaLT27","GLOBAL",1)
+THEN
+  RESPONSE #100
+    IncrementGlobal("B!GaLT27","GLOBAL",-1)
+END

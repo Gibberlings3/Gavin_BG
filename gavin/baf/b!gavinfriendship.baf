@@ -1,0 +1,598 @@
+/* GAVIN'S FRIENDSHIP SCRIPT */
+/* Gavin will be friendly with any good or neutral protagonist who is not an assassin. After the initial meeting, Gavin will break off the friendship if the PC offends him too greatly. */
+
+/* CONTENTS */
+/* Friendship Match */
+/* Not compatible for friendship */
+/* Reset friendship if romance terminates */
+/* Friendship timer - set on joining */
+/* Friendtalk timer */
+/* Backup friendtalk script */
+/* Friendtalk on entering Baldur's Gate */
+/* Backup script */
+/* Additional friendship talks */
+/* Chapter talks */
+/* Chapter 2 starts first time the party enters Nashkel, when the movie plays */
+/* Chapter 3 starts once Mulahey is dead and the party has his scroll */
+/* Chapter 4 starts when the party finds Tazok's letter in his tent */
+/* Chapter 5 begins when Davaeorn is dead */
+/* Chapter 6 begins - use book Duke Eltan gives to get back to CK */
+/* Chapter 7 begins once Tethoril teleports you to the catacombs */
+/* Back in Baldur's Gate */
+
+/* Friendship Match */
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinFriendMatch","GLOBAL",0)
+  Global("B!GavinCheckFriendMatch","GLOBAL",0)
+  OR(2)
+    Alignment(Player1,MASK_GOOD)
+    Alignment(Player1,MASK_GENEUTRAL)
+  !Kit(Player1,ASSASIN)
+THEN
+  RESPONSE #100  
+    RealSetGlobalTimer("B!CheckTimer","GLOBAL",60)
+    SetGlobal("B!GavinFriend","GLOBAL",1)
+    SetGlobal("B!GavinFriendOnly","GLOBAL",1)
+    SetGlobal("B!GavinFriendMatch","GLOBAL",1)
+    SetGlobal("B!GavinCheckFriendMatch","GLOBAL",1)
+END
+
+/* Not compatible for friendship */
+IF  %BGT_VAR%
+  Global("B!GavinFriendMatch","GLOBAL",0)
+  Global("B!GavinCheckFriendMatch","GLOBAL",0)
+  OR(2)
+    Alignment(Player1,MASK_EVIL)
+    Kit(Player1,ASSASIN)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinFriendMatch","GLOBAL",0)
+    SetGlobal("B!GavinCheckFriendMatch","GLOBAL",1)
+END
+
+/* Reset friendship if romance terminates */
+IF  %BGT_VAR%
+  Global("B!GavinRomanceActive","GLOBAL",3)
+  Global("B!GavinFriendOnly","GLOBAL",2)
+  GlobalLT("B!GavinOffend","GLOBAL",11)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinFriendOnly","GLOBAL",1)
+END
+
+IF  %BGT_VAR%
+  Global("B!GavinRomanceActive","GLOBAL",3)
+  Global("B!GavinSkipTalks","LOCALS",0)
+  GlobalGT("B!GavinLovetalk","GLOBAL",8)
+THEN
+  RESPONSE #100  
+    RealSetGlobalTimer("B!GavinFriendTimer","GLOBAL",600) //10 min after joining
+    RealSetGlobalTimer("B!GavAddTalkTimer","GLOBAL",4200)      //Additional friendship have 70 minute offset
+    SetGlobal("B!GavinFriendtalk","GLOBAL",5)
+    SetGlobal("B!GavAddTalk","GLOBAL",3)
+    SetGlobal("B!GavinSkipTalks","LOCALS",1)
+END
+
+/* Friendship timer - set on joining */
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinFriendtalk","GLOBAL",0)
+  Global("B!GavinFriendOnly","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+THEN
+  RESPONSE #100  
+    RealSetGlobalTimer("B!GavinFriendTimer","GLOBAL",600) //10 min after joining
+    RealSetGlobalTimer("B!GavAddTalkTimer","GLOBAL",4200)      //Additional friendship have 60 minute offset
+    SetGlobal("B!GavAddTalk","GLOBAL",1)
+    SetGlobal("B!GavinFriendtalk","GLOBAL",1)
+END
+
+/* Friendtalk timer */
+IF  %BGT_VAR%
+  RealGlobalTimerExpired("B!GavinFriendTimer","GLOBAL")
+  InParty(Myself)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinFriendtalkCheck","GLOBAL",0)
+  Global("B!GavinFriendOnly","GLOBAL",1)
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  !AreaType(DUNGEON)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  OR(6)
+    Global("B!GavinFriendtalk","GLOBAL",1)
+    Global("B!GavinFriendtalk","GLOBAL",3)
+    Global("B!GavinFriendtalk","GLOBAL",5)
+    Global("B!GavinFriendtalk","GLOBAL",7)
+    Global("B!GavinFriendtalk","GLOBAL",9)
+    Global("B!GavinFriendtalk","GLOBAL",11)
+THEN
+  RESPONSE #100  
+    IncrementGlobal("B!GavinFriendtalk","GLOBAL",1)
+    SetGlobal("B!GavinFriendtalkCheck","GLOBAL",1)
+END
+
+/* Backup friendtalk script */
+IF  %BGT_VAR%
+  InParty(Myself)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinFriendtalkCheck","GLOBAL",1)
+  Global("B!GavinFriendOnly","GLOBAL",1)
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  !AreaType(DUNGEON)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  OR(6)
+    Global("B!GavinFriendtalk","GLOBAL",2)
+    Global("B!GavinFriendtalk","GLOBAL",4)
+    Global("B!GavinFriendtalk","GLOBAL",6)
+    Global("B!GavinFriendtalk","GLOBAL",8)
+    Global("B!GavinFriendtalk","GLOBAL",10)
+    Global("B!GavinFriendtalk","GLOBAL",12)
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_S1")
+    StartDialogNoSet(Player1)
+END
+
+/* Friendtalk on entering Baldur's Gate */
+IF  %BGT_VAR%
+  InParty(Myself)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  Global("B!GavinBaldurTalk","GLOBAL",0)
+  Global("B!GavinFriendMatch","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  OR(6)
+    AreaCheck("%EBaldursGate%")
+    AreaCheck("%NWBaldursGate%")
+    AreaCheck("%NBaldursGate%")
+    AreaCheck("%NEBaldursGate%")
+    AreaCheck("%WBaldursGate%")
+    AreaCheck("%CentralBaldursGate%")
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinBaldurTalk","GLOBAL",1)
+    RealSetGlobalTimer("B!GavinBaldurTime","GLOBAL",300) //2 min after entering Baldur's Gate
+END
+
+IF  %BGT_VAR%
+  RealGlobalTimerExpired("B!GavinBaldurTime","GLOBAL")
+  Global("B!GavinBaldurTalk","GLOBAL",1)
+  InParty(Myself)
+  Global("B!GavinBaldurTalk","GLOBAL",1)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+RESPONSE #100  
+SetGlobal("B!GavinBaldurTalk","GLOBAL",2)
+END
+
+/* Backup script */
+IF  %BGT_VAR%
+  Global("B!GavinBaldurTalk","GLOBAL",2)
+  InParty(Myself)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+RESPONSE #100  
+PlaySong(0)
+PlaySound("BGAV_SS")
+StartDialogueNoSet(Player1)
+END
+
+/* The final Pep-talk */
+IF  %BGT_VAR%
+  InParty(Myself)
+  AreaCheck("%Undercity_TempleofBhaal%")
+  Global("B!GavinLastWords","GLOBAL",0)
+  See(Player1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  Global("B!GavinFriendMatch","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinLastWords","GLOBAL",1)
+END
+
+/* Backup script */
+IF
+  %BGT_VAR%
+  InParty(Myself)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  Global("B!GavinLastWords","GLOBAL",1)
+  See(Player1)
+  CombatCounter(0)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogueNoSet(Player1)
+END
+
+/* Additional friendship talks */
+IF  %BGT_VAR%
+  RealGlobalTimerExpired("B!GavAddTalkTimer","GLOBAL")
+  InParty(Myself)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinFriendOnly","GLOBAL",1)
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  !AreaType(DUNGEON)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  OR(6)
+    Global("B!GavAddTalk","GLOBAL",1)
+    Global("B!GavAddTalk","GLOBAL",3)
+    Global("B!GavAddTalk","GLOBAL",5)
+    Global("B!GavAddTalk","GLOBAL",7)
+    Global("B!GavAddTalk","GLOBAL",9)
+    Global("B!GavAddTalk","GLOBAL",11)
+THEN
+  RESPONSE #100  
+    IncrementGlobal("B!GavAddTalk","GLOBAL",1)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  CombatCounter(0)
+  !See([ENEMY])
+  Global("B!GavinFriendOnly","GLOBAL",1)
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  GlobalGT("B!GavinFriend","GLOBAL",0)
+  !Global("B!GavinFriend","GLOBAL",3)
+  !AreaType(DUNGEON)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  OR(6)
+    Global("B!GavAddTalk","GLOBAL",2)
+    Global("B!GavAddTalk","GLOBAL",4)
+    Global("B!GavAddTalk","GLOBAL",6)
+    Global("B!GavAddTalk","GLOBAL",8)
+    Global("B!GavAddTalk","GLOBAL",10)
+    Global("B!GavAddTalk","GLOBAL",12)
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogueNoSet(Player1)
+END
+
+/* Chapter talks */
+
+/* Chapter 2 starts first time the party enters Nashkel, when the movie plays */
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("Chapter","GLOBAL",%tutu_chapter_2%)
+  Global("B!GavinFriendOnly","GLOBAL",1)
+  Global("B!GavinFriend","GLOBAL",2)
+  Global("B!GavinChapter2","GLOBAL",0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter2","GLOBAL",1)
+    RealSetGlobalTimer("B!ChapterTalkTime","GLOBAL",600)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("B!ChapterTalkTime","GLOBAL")
+  Global("B!GavinChapter2","GLOBAL",1)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter2","GLOBAL",2)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinChapter2","GLOBAL",2)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+/* Chapter 3 starts once Mulahey is dead and the party has his scroll */
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("Chapter","GLOBAL",%tutu_chapter_3%)
+  Global("B!GavinFriendOnly","GLOBAL",1)
+  Global("B!GavinChapter3","GLOBAL",0)
+  Global("B!GavinFriend","GLOBAL",2)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter3","GLOBAL",1)
+    RealSetGlobalTimer("B!ChapterTalkTime","GLOBAL",1200)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("B!ChapterTalkTime","GLOBAL")
+  Global("B!GavinChapter3","GLOBAL",1)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter3","GLOBAL",2)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinChapter3","GLOBAL",2)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+/* Chapter 4 starts when the party finds Tazok's letter in his tent */
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("Chapter","GLOBAL",%tutu_chapter_4%)
+  Global("B!GavinFriendOnly","GLOBAL",1)
+  Global("B!GavinChapter4","GLOBAL",0)
+  Global("B!GavinFriend","GLOBAL",2)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter4","GLOBAL",1)
+    RealSetGlobalTimer("B!ChapterTalkTime","GLOBAL",900)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("B!ChapterTalkTime","GLOBAL")
+  Global("B!GavinChapter4","GLOBAL",1)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter4","GLOBAL",2)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinChapter4","GLOBAL",2)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_S1")
+    StartDialogNoSet(Player1)
+END
+
+/* Chapter 5 begins when Davaeorn is dead */
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("Chapter","GLOBAL",%tutu_chapter_5%)
+  Global("B!GavinFriendOnly","GLOBAL",1)
+  Global("B!GavinChapter5","GLOBAL",0)
+  Global("B!GavinFriend","GLOBAL",2)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter5","GLOBAL",1)
+    RealSetGlobalTimer("B!ChapterTalkTime","GLOBAL",300)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("B!ChapterTalkTime","GLOBAL")
+  Global("B!GavinChapter5","GLOBAL",1)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter5","GLOBAL",2)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinChapter5","GLOBAL",2)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+/* Chapter 6 begins - use book Duke Eltan gives to get back to CK */
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("Chapter","GLOBAL",%tutu_chapter_6%)
+  Global("B!GavinFriendOnly","GLOBAL",1)
+  Global("B!GavinChapter6","GLOBAL",0)
+  Global("B!GavinFriend","GLOBAL",2)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter6","GLOBAL",1)
+    RealSetGlobalTimer("B!ChapterTalkTime","GLOBAL",300)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("B!ChapterTalkTime","GLOBAL")
+  Global("B!GavinChapter6","GLOBAL",1)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter6","GLOBAL",2)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinChapter6","GLOBAL",2)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_S1")
+    StartDialogNoSet(Player1)
+END
+
+/* Chapter 7 begins once Tethoril teleports you to the catacombs */
+IF  %BGT_VAR%
+  GlobalGT("B!KnowBhaal","GLOBAL",0)
+  Global("B!GavinChapter7","GLOBAL",0)
+  OR(2)
+    AreaCheck("%Candlekeep_Catacombs_L1Antechamber%")
+    AreaCheck("%Candlekeep_Catacombs_L1%")
+  Global("B!GavinFriendOnly","GLOBAL",1)
+  Global("B!GavinFriend","GLOBAL",2)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter7","GLOBAL",1)
+    RealSetGlobalTimer("B!ChapterTalkTime","GLOBAL",60)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("B!ChapterTalkTime","GLOBAL")
+  Global("B!GavinChapter7","GLOBAL",1)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter7","GLOBAL",2)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinChapter7","GLOBAL",2)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_S1")
+    StartDialogNoSet(Player1)
+END
+
+/* Back in Baldur's Gate */
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinChapter7","GLOBAL",3)
+  Global("B!GavinFriendOnly","GLOBAL",1)
+  Global("B!GavinChapter8","GLOBAL",0)
+  Global("B!GavinFriend","GLOBAL",2)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  OR(6)
+    AreaCheck("%EBaldursGate%")
+    AreaCheck("%NWBaldursGate%")
+    AreaCheck("%NBaldursGate%")
+    AreaCheck("%NEBaldursGate%")
+    AreaCheck("%WBaldursGate%")
+    AreaCheck("%CentralBaldursGate%")
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter8","GLOBAL",1)
+    RealSetGlobalTimer("B!ChapterTalkTime","GLOBAL",300)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  RealGlobalTimerExpired("B!ChapterTalkTime","GLOBAL")
+  Global("B!GavinChapter8","GLOBAL",1)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinChapter8","GLOBAL",2)
+END
+
+IF  %BGT_VAR%
+  InParty(Myself)
+  Global("B!GavinChapter8","GLOBAL",2)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  CombatCounter(0)
+  !See([ENEMY])
+  !Global("B!GavinQuietFriend","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END

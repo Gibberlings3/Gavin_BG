@@ -1,0 +1,44 @@
+
+/* Moving Gustav */
+IF
+  Global("B!GustavExists","GLOBAL",1)
+  Global("B!GustavMove","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("B!GustavMove","GLOBAL",1)
+    EscapeAreaMove("%Beregost_House22_L1%",475,375,1)
+END
+
+IF
+  OR(6)
+  See(Player1)
+  See(Player2)
+  See(Player3)
+  See(Player4)
+  See(Player5)
+  See(Player6)
+  Global("B!NeutralGustav","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("B!NeutralGustav","LOCALS",1)
+    StartDialog("B!GUSTAV",Player1)
+END
+
+IF
+	AttackedBy([GOODCUTOFF],DEFAULT)
+	Global("B!QuestAttack1Floor","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("B!QuestAttack1Floor","GLOBAL",1)
+		
+END
+
+
+IF
+	Global("B!QuestAttack1Floor","GLOBAL",1)
+THEN
+	RESPONSE #100
+		MoveToPoint([352.349]) 
+		DestroySelf()
+		
+END

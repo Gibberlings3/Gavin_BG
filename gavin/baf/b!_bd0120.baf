@@ -1,0 +1,49 @@
+/* bd0120.bcs; bd0130.bcs */
+
+/* example: Ajantis
+
+IF
+	Global("bd_leaving2_ot_ajantis","global",0)
+	CombatCounter(0)
+	GlobalGT("bd_leaving2_ot","GLOBAL",0)
+	GlobalLT("bd_leaving2_ot","GLOBAL",7)
+	IfValidForPartyDialog("ajantis")
+	GlobalTimerExpired("bd_leaving2_ot_timer","global")
+	OR(2)
+		Dead("bdkorlas")
+		Global("BD_KORLASZ_SURRENDER","GLOBAL",1)
+THEN
+	RESPONSE #200
+		Continue()
+	RESPONSE #100
+		BanterBlockTime(100)
+		IncrementGlobal("bd_leaving2_ot","global",1)
+		SetGlobal("bd_leaving2_ot_ajantis","global",1)
+		SetGlobalTimerRandom("bd_leaving2_ot_timer","global",EIGHT_MINUTES,THIRTEEN_MINUTES)
+		DisplayStringWait("ajantis",57802) // Though it makes my heart heavy, I must soon return to Waterdeep.
+		DisplayStringWait("ajantis",57880) // Only there may I learn whether I have earned full membership in the Most Noble Order of the Radiant Heart.
+END
+
+*/
+
+IF
+	Global("B!GavinSoD_LeavingStringHead","global",0)
+	CombatCounter(0)
+	GlobalGT("bd_leaving2_ot","GLOBAL",0)
+	GlobalLT("bd_leaving2_ot","GLOBAL",7)
+	IfValidForPartyDialog("B!Gavin")
+	GlobalTimerExpired("bd_leaving2_ot_timer","global")
+	OR(2)
+		Dead("bdkorlas")
+		Global("BD_KORLASZ_SURRENDER","GLOBAL",1)
+THEN
+	RESPONSE #200
+		Continue()
+	RESPONSE #100
+		BanterBlockTime(100)
+		IncrementGlobal("bd_leaving2_ot","global",1)
+		SetGlobal("B!GavinSoD_LeavingStringHead","global",1)
+		SetGlobalTimerRandom("bd_leaving2_ot_timer","global",EIGHT_MINUTES,THIRTEEN_MINUTES)
+		DisplayStringWait("B!Gavin",@0)
+		DisplayStringWait("B!Gavin",@1)
+END

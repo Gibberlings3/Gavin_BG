@@ -1,0 +1,34 @@
+
+/* Moving Thug2 */
+IF
+  Global("B!Thug2Exists","GLOBAL",1)
+  Global("B!Thug2Move","GLOBAL",0)
+THEN
+  RESPONSE #100
+    MoveBetweenAreas("%Beregost_House22_L1%",[445.485],8)
+    SetGlobal("B!Thug2Move","GLOBAL",1)
+END
+
+/* Combat */
+IF
+  !Allegiance(Myself,ENEMY)
+  Global("B!ThugAttack","LOCALS",0)
+  OR(2)
+    Global("B!QuestAttack1Floor","GLOBAL",1)
+    AttackedBy([ANYONE],DEFAULT)
+THEN
+  RESPONSE #100
+    SetGlobal("B!ThugAttack","LOCALS",1)
+    Enemy()
+END
+
+IF
+	OR(2)
+		Allegiance(Myself,ENEMY)
+		Dead("b!gustav")
+	Global("B!QuestAttack1Floor","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("B!QuestAttack1Floor","GLOBAL",1)
+		
+END

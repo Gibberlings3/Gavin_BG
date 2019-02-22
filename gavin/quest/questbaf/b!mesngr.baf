@@ -1,0 +1,11 @@
+
+IF
+  OR(3)
+  Global("B!GavinMessenger1","GLOBAL",1)
+  Global("B!GavinMessenger2","GLOBAL",1)
+  Global("B!GavinMessenger3","GLOBAL",1)
+
+THEN
+  RESPONSE #100
+    Dialog(Player1)
+END

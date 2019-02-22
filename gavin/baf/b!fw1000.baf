@@ -1,0 +1,29 @@
+/* Gavin's Family Spawns */
+IF //Evie
+AreaCheck("%UlgothsBeard%")
+Global("B!EvieExists","GLOBAL",0)
+THEN
+RESPONSE #100
+SetGlobal("B!EvieExists","GLOBAL",1)
+CreateCreature("B!EVIE",[1000.200],0)
+END
+
+IF //Darlos
+AreaCheck("%UlgothsBeard%")
+Global("B!DarlosExists","GLOBAL",0)
+THEN
+RESPONSE #100
+SetGlobal("B!DarlosExists","GLOBAL",1)
+CreateCreature("B!DARLOS",[1000.200],0)
+END
+
+/* Unlocking the door to the Mor home */
+
+IF
+  AreaCheck("%UlgothsBeard%")
+  Global("B!UnlockDoor","GLOBAL",0)
+THEN
+  RESPONSE #100
+    Unlock("Door1007")
+    SetGlobal("B!UnlockDoor","GLOBAL",1)
+END

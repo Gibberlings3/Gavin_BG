@@ -1,0 +1,194 @@
+
+
+//xan (elf, no romance)
+IF %BGT_VAR%
+  InParty(Myself)
+  InParty("B!GAVIN")
+  GlobalGT("B!GavinLovetalk","GLOBAL",22)
+  !Global("B!GavinRomanceActive","GLOBAL",3)
+  !GlobalGT("X#XARomanceActive","GLOBAL",0)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  !Detect([ENEMY])
+  !See([ENEMY])
+  See("B!GAVIN")
+  Race(Player1,ELF)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  CombatCounter(0)
+  Global("B!XanRomanceComment1","GLOBAL",0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    SetGlobal("B!XanRomanceComment1","GLOBAL",1)
+    RealSetGlobalTimer("B!XanRomComment1T","GLOBAL",900) 
+END
+
+IF %BGT_VAR%
+   InParty(Myself)
+   CombatCounter(0) !See([ENEMY])
+   !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+   InParty("xan")
+   !See([ENEMY])
+   Race(Player1,ELF)
+   Global("B!GavinRomanceActive","GLOBAL",1)
+   !GlobalGT("X#XARomanceActive","GLOBAL",0)
+   Global("B!XanRomanceComment1","GLOBAL",1)
+   RealGlobalTimerExpired("B!XanRomComment1T","GLOBAL")
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+   SetGlobal("B!XanRomanceComment1","GLOBAL",2)
+   StartDialogNoSet("B!GAVIN")
+END
+
+
+//xan (not elf or half elf)
+IF %BGT_VAR%
+  InParty(Myself)
+  InParty("B!GAVIN")
+  GlobalGT("B!GavinLovetalk","GLOBAL",22)
+  !Global("B!GavinRomanceActive","GLOBAL",3)
+  !GlobalGT("X#XARomanceActive","GLOBAL",0)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  !Detect([ENEMY])
+  !See([ENEMY])
+  See("B!GAVIN")
+  OR(4)
+  Race(Player1,HUMAN)
+  Race(Player1,HALFORC)
+  Race(Player1,HALFLING)
+  Race(Player1,GNOME)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  CombatCounter(0)
+  Global("B!XanRomanceComment2","GLOBAL",0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    SetGlobal("B!XanRomanceComment2","GLOBAL",1)
+    RealSetGlobalTimer("B!XanRomComment2T","GLOBAL",900) 
+END
+
+IF %BGT_VAR%
+   InParty(Myself)
+   CombatCounter(0) !See([ENEMY])
+   !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+   InParty("B!GAVIN")
+   !See([ENEMY])
+   OR(4)
+   Race(Player1,HUMAN)
+   Race(Player1,HALFORC)
+   Race(Player1,HALFLING)
+   Race(Player1,GNOME)
+   Global("B!GavinRomanceActive","GLOBAL",1)
+   !GlobalGT("X#XARomanceActive","GLOBAL",0)
+   Global("B!XanRomanceComment2","GLOBAL",1)
+   RealGlobalTimerExpired("B!XanRomComment2T","GLOBAL")
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+   SetGlobal("B!XanRomanceComment2","GLOBAL",2)
+   StartDialogNoSet("B!GAVIN")
+END
+
+
+//xan (elf, romance)
+IF %BGT_VAR%
+  InParty(Myself)
+  GlobalGT("B!GavinLovetalk","GLOBAL",22)
+  !Global("B!GavinRomanceActive","GLOBAL",3)
+  Global("X#XaRomanceActive","GLOBAL",1)
+  !Global("X#XARomanceInactive","GLOBAL",1)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  !Detect([ENEMY])
+  !See([ENEMY])
+  See("B!GAVIN")
+  Race(Player1,ELF)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  CombatCounter(0)
+  Global("B!XanRomanceComment3","GLOBAL",0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    SetGlobal("B!XanRomanceComment3","GLOBAL",1)
+    RealSetGlobalTimer("B!XanRomComment3T","GLOBAL",900) 
+END
+
+IF %BGT_VAR%
+   InParty(Myself)
+   CombatCounter(0) !See([ENEMY])
+   !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+   InParty("B!GAVIN")
+   !See([ENEMY])
+   Race(Player1,ELF)
+   Global("B!GavinRomanceActive","GLOBAL",1)
+   Global("X#XaRomanceActive","GLOBAL",1)
+   !Global("X#XARomanceInactive","GLOBAL",1)
+   Global("B!XanRomanceComment3","GLOBAL",1)
+   RealGlobalTimerExpired("B!XanRomComment3T","GLOBAL")
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100  
+   SetGlobal("B!XanRomanceComment3","GLOBAL",2)
+   StartDialogNoSet("B!GAVIN")
+END
+
+/* After Bhaal discovery */
+
+IF %BGT_VAR%
+  InParty("B!GAVIN")
+  GlobalGT("B!KnowBhaal","GLOBAL",0)
+  Global("B!CommittedGavinBhaal","GLOBAL",0)
+  Global("B!GavinRomanceActive","GLOBAL",2)
+  InParty(Myself)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  OR(2)
+    Global("X#XARomanceActive","GLOBAL",0)
+    Global("X#XARomanceInactive","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    SetGlobal("B!CommittedGavinBhaal","GLOBAL",1)
+    RealSetGlobalTimer("B!XanBhaalTimer","GLOBAL",1800)
+END
+
+IF %BGT_VAR%
+  InParty("B!GAVIN")
+  Global("B!CommittedGavinBhaal","GLOBAL",1)
+  RealGlobalTimerExpired ("B!XanBhaalTimer","GLOBAL")
+  Global("B!GavinRomanceActive","GLOBAL",2)
+  InParty(Myself)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    SetGlobal("B!CommittedGavinBhaal","GLOBAL",2)
+    Interact("B!GAVIN")
+END
+
+/* Xan reacts to Gavin's dismemberment */
+IF %BGT_VAR%
+  GlobalGT("B!GavinFinger","GLOBAL",0)
+  GlobalLT("B!GavinFinger","GLOBAL",3)
+  Global("B!XanFinger","GLOBAL",0)
+  InParty(Myself)
+  InParty("B!GAVIN")
+  InMyArea("B!GAVIN")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    SetGlobal("B!XanFinger","GLOBAL",1)
+END
+
+IF %BGT_VAR%
+  Global("B!XanFinger","GLOBAL",1)
+  InParty(Myself)
+  InParty("B!GAVIN")
+  InMyArea("B!GAVIN")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100 
+    StartDialogueNoSet("B!GAVIN")
+END 

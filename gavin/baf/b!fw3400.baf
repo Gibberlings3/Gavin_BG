@@ -1,0 +1,73 @@
+/* Adding Gavin to the Beregost Temple Area, Tutu */
+IF
+AreaCheck("%Temple%")
+Global("B!GavinExists","GLOBAL",0)
+THEN
+RESPONSE #100
+SetGlobal("B!GavinExists","GLOBAL",1)
+CreateCreature("B!GAVIN",[728.1474],3)
+END
+
+/* Gavin's Quest Spawns */
+IF //Gustav
+AreaCheck("%Temple%")
+Global("B!GustavExists","GLOBAL",0)
+THEN
+RESPONSE #100
+SetGlobal("B!GustavExists","GLOBAL",1)
+CreateCreature("B!GUSTAV",[3950.50],0)
+END
+
+IF //Bertram
+AreaCheck("%Temple%")
+Global("B!BertramExists","GLOBAL",0)
+THEN
+RESPONSE #100
+SetGlobal("B!BertramExists","GLOBAL",1)
+CreateCreature("B!BERTRA",[3950.50],0)
+END
+
+IF //Thug1
+AreaCheck("%Temple%")
+Global("B!Thug1Exists","GLOBAL",0)
+THEN
+RESPONSE #100
+SetGlobal("B!Thug1Exists","GLOBAL",1)
+CreateCreature("B!THUG1",[3950.50],0)
+END
+
+IF //Thug2
+AreaCheck("%Temple%")
+Global("B!Thug2Exists","GLOBAL",0)
+THEN
+RESPONSE #100
+SetGlobal("B!Thug2Exists","GLOBAL",1)
+CreateCreature("B!THUG2",[3950.50],0)
+END
+
+IF //Thug3
+AreaCheck("%Temple%")
+Global("B!Thug3Exists","GLOBAL",0)
+THEN
+RESPONSE #100
+SetGlobal("B!Thug3Exists","GLOBAL",1)
+CreateCreature("B!THUG3",[3950.50],0)
+END
+
+IF //Valeria
+AreaCheck("%Temple%")
+Global("B!ValeriaExists","GLOBAL",0)
+THEN
+RESPONSE #100
+SetGlobal("B!ValeriaExists","GLOBAL",1)
+CreateCreature("B!VALER",[3950.50],0)
+END
+
+IF //Penny
+AreaCheck("%Temple%")
+Global("B!PennyExists","GLOBAL",0)
+THEN
+RESPONSE #100
+SetGlobal("B!PennyExists","GLOBAL",1)
+CreateCreature("B!PENNY",[3950.50],0)
+END

@@ -1,0 +1,56 @@
+
+/* Moving Bertram */
+IF
+  Global("B!BertramExists","GLOBAL",1)
+  Global("B!BertramMove","GLOBAL",0)
+THEN
+  RESPONSE #100
+    MoveBetweenAreas("%Beregost_House22_L1%",[655.325],4)
+    SetGlobal("B!BertramMove","GLOBAL",1)
+END
+
+IF
+  Global("B!QuestAttack1Floor","GLOBAL",1)
+  Global("B!BertramDeadEnemies","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("B!BertramDeadEnemies","LOCALS",1)
+    Enemy()
+    ReallyForceSpell(Myself,CLERIC_DRAW_UPON_HOLY_MIGHT)
+    ReallyForceSpell(Myself,CLERIC_FREE_ACTION)
+    ReallyForceSpell(Myself,CLERIC_CHANT)
+    ReallyForceSpell(Myself,CLERIC_BLESS)
+    ForceSpellPoint([400.350],CLERIC_ANIMATE_DEAD)
+END
+
+IF
+  GlobalGT("B!QuestAttack2Floor","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("B!QuestAttack1Floor","GLOBAL",1)
+END
+
+IF
+	OR(2)
+		AttackedBy([GOODCUTOFF],DEFAULT)
+		Dead("b!gustav")
+	Global("B!QuestAttack1Floor","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("B!QuestAttack1Floor","GLOBAL",1)
+		
+END
+
+
+IF
+  Global("B!BertramDeadEnemies","LOCALS",1)
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    Spell(NearestEnemyOf(Myself),CLERIC_DOOM)
+    Wait(1)
+    SpellPoint([400.350],CLERIC_ANIMATE_DEAD)
+    Wait(1)
+    SetGlobal("B!BertramDeadEnemies","LOCALS",2)
+END
+

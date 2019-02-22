@@ -1,0 +1,275 @@
+@4    = ~Gavin~
+@5    = ~Lathander's blessings upon you!~ [BGAV_00]
+@6    = ~Um, regroup?~ [BGAV_01]
+@7    = ~The gods will smile on our actions. We are surely on the right path.~ [BGAV_02]
+@8    = ~We must do better.~ [BGAV_03]
+@9    = ~We cannot go on like this! I cannot condone our actions.~ [BGAV_04]
+@10   = ~This must end. I can no longer be party to such deeds.~ [BGAV_05]
+@11   = ~Remember, you asked for this.~ [BGAV_06]
+@12   = ~I need to rest. I'm no good to anyone like this.~ [BGAV_07]
+@13   = ~If we're going to stand around and look at the scenery, I'm going to get out my sketchbook.~ [BGAV_08]
+@14   = ~In Lathander's name!~ [BGAV_09]
+@15   = ~By all that is good, I will crush you!~ [BGAV_10]
+@16   = ~To battle!~ [BGAV_11]
+@17   = ~Fall before the might of Lathander!~ [BGAV_12]
+@18   = ~Hey, I felt that!~ [BGAV_13]
+@19   = ~It's as good a time as any.~ [BGAV_14]
+@20   = ~This healer needs some help, here!~ [BGAV_15]
+@21   = ~All this fresh air really makes me feel alive.~ [BGAV_16]
+@22   = ~So many opportunities to help, but so many people who need it.~ [BGAV_17]
+@23   = ~There's nothing between me and the open sky but a lot of rock and dirt.~ [BGAV_18]
+@24   = ~Daylight! Behold the majesty of Lathander!~ [BGAV_19]
+@25   = ~At night, the world rests and is renewed.~ [BGAV_20]
+@26   = ~Your wish?~ [BGAV_21]
+@27   = ~Yes?~ [BGAV_22]
+@28   = ~Hmm?~ [BGAV_23]
+@29   = ~How may I help you?~ [BGAV_24]
+@30   = ~Your request?~ [BGAV_25]
+@31   = ~What was it that you wanted?~ [BGAV_26]
+@32   = ~As you wish.~ [BGAV_27]
+@33   = ~I will do as you say.~ [BGAV_28]
+@34   = ~At your command.~ [BGAV_29]
+@35   = ~All right.~ [BGAV_30]
+@36   = ~Yes.~ [BGAV_31]
+@37   = ~As you see fit.~ [BGAV_32]
+@38   = ~Consider it done.~ [BGAV_33]
+@39   = ~As long as it doesn't involve spiders.~ [BGAV_34]
+@40   = ~Is this really necessary?~ [BGAV_35]
+@41   = ~One for Lathander!~ [BGAV_36]
+@42   = ~Damn my clumsiness!~ [BGAV_37]
+@43   = ~This is getting us nowhere!~ [BGAV_38]
+@44   = ~Sorry, but there's no room for anything else.~ [BGAV_39]
+@45   = ~Was that really necessary?~ [BGAV_40]
+@46   = ~I am hidden.~ [BGAV_41]
+@47   = ~Stop that! You've broken my concentration.~ [BGAV_42]
+@48   = ~Let's hope this gets the right target, shall we?~ [BGAV_43]
+@49   = ~When asked about his past, Gavin tells you that it was fairly unremarkable. He was born to a sailmaker and a midwife in Ulgoth's Beard and has wanted to be a priest of Lathander since he was a boy. After several years of service to the Song of the Morning Temple in Beregost, he finally felt the lure of adventure.~
+
+
+@50   = ~Jolun~
+@51   = ~[MALE GREETING 6] Hi, friend.~ [%tutu_var%GENMG06]
+@52   = ~[CADDERLY 8]~ [%tutu_var%CADER08]
+@53   = ~[CADDERLY 9]~ [%tutu_var%CADER09]
+@54   = ~Darlos~
+@55   = ~[MALE GREETING 3] Hmm?~ [%tutu_var%GENMG03]
+@56   = ~[MALE TOWNSFOLK 5]~ [%tutu_var%VILLM05]
+@57   = ~[MALE TOWNSFOLK 6]~ [%tutu_var%MTOWN06]
+@58   = ~[TOWNSFOLK, MALE/FRIENDLY ARM HOSTILE] I'll box your ears if you step an inch closer!~
+@59   = ~Evie~
+@60   = ~[FEMALE GREETING 2] 'Ello.~ [%tutu_var%GENFG02]
+@61   = ~[FEMALE TOWNSFOLK 5]~ [%tutu_var%FTOWN05]
+@62   = ~[FEMALE TOWNSFOLK 6]~ [%tutu_var%FTOWN06]
+@63   = ~[TOWNSFOLK, FEMALE, BEREGOST 9 (SARI) HOSTILE] You're not welcome here!~
+@64   = ~Gavin's Ring~
+@65   = ~Gavin's Ring
+
+  This ring was given to Gavin by his sister Reed following his ordination as a Dawnbringer. He is very fond of it, and never removes it.
+
+Gavin claims that Reed inherited it from an eccentric uncle, a mage. The charm that makes it unremovable, however, was hers. The enchantment only increases Gavin's attachment to the ring, and he speaks of both the ring and his sister fondly.~
+@66   = ~Sleeping Man~
+@67   = ~Sleeping Woman~
+@68   = ~Penny~
+@69   = ~Hello there.~ [%tutu_var%GENFG12]
+@70   = ~[FTOWN 5]~ [%tutu_var%FTOWN05]
+@71   = ~[FTOWN 6]~ [%tutu_var%FTOWN06]
+@72   = ~Gustav~
+@73   = ~[NOBLEMAN TWO 2] I've no interest in speaking to the likes of you.~ [%tutu_var%NOBL202]
+@74   = ~[NOBLEMAN TWO 3]~ [%tutu_var%NOBL203]
+@75   = ~[NOBLEMAN TWO 4]~ [%tutu_var%NOBL204]
+@76   = ~Bertram~
+@77   = ~[MALE THREAT 9] Fear my wrath for it is great indeed.~ [%tutu_var%GENMT09]
+@78   = ~[DAVEORN 8]~ [%tutu_var%DAVEO08]
+@79   = ~[DAVEORN 9]~ [%tutu_var%DAVEO09]
+@80   = ~Valeria~
+@81   = ~[FEMALE GREETING 10] Salutations.~ [%tutu_var%GENFG10]
+@82   = ~[FEMALE THREAT 7] Your screams shall be music to my ears.~ [%tutu_var%GENFT07]
+@83   = ~[FEST HALL GIRL 5]~ [%tutu_var%FESTH05]
+@84   = ~[FEST HALL GIRL 6]~ [%tutu_var%FESTH06]
+@85   = ~Plato~
+@86   = ~[MONKS 3] Knowledge, used wisely, is the most powerful of tools.~ [%tutu_var%MONKS03]
+@87   = ~[MONKS 5]~ [%tutu_var%MONKS05]
+@88   = ~[MONKS 6]~ [%tutu_var%MONKS06]
+@89   = ~Crusher~
+@90   = ~[OGRE 03] Me will crush you, crush you to goo!~ [%tutu_var%OGREE03]
+@91   = ~[OGRE 08]~ [%tutu_var%OGREE08]
+@92   = ~[OGRE 09]~ [%tutu_var%OGREE09]
+@93   = ~[OGRE 01] I will crush.~ [%tutu_var%OGREE01]
+@94   = ~[OGRE 02]~ [%tutu_var%OGREE02]
+@95   = ~Spike~
+@96   = ~Temple Messenger~
+@97   = ~[MALE GREETING 5] Hello there.~ [%tutu_var%GENMG05]
+@98   = ~Courtesan~
+@111  = ~Gavin's Engagement Ring~
+@112  = ~Gavin's Engagement Ring
+
+  This silver ring is set with a glowing purple stone. Gavin gave it to you when he proposed to seal your engagement. The ring was enchanted by Gavin's sister Reed, although he assures you that she did not include any "hidden features."
+
+  The inscription inside the band reads "Here is my heart. It is forever thine."~
+@113  = ~Gavin's Engagement Ring
+
+  This silver ring is set with a glowing purple stone. Gavin gave it to you when he proposed to seal your engagement. The ring was enchanted by Gavin's sister Reed, although he assures you that she did not include any "hidden features."
+
+  The inscription inside the band reads "Here is my heart. It is forever thine."
+
+  STATISTICS:
+
+Armor Class Bonus: 1
+Saving Throw Bonus: 1
+HP Bonus: 5
+Usable By:
+ <CHARNAME>~
+@114  = ~Gavin's Maimed Hand~
+@115  = ~Gavin's Maimed Hand
+
+  Trust comes with a price. For Gavin, the price was the forefinger of his left hand.~
+@116  = ~Gavin's Finger~
+@117  = ~Gavin's Finger
+
+  When Gavin asked you what you would accept as security against his pledge to marry you, you demanded his ring. Unfortunately, he was unable to remove it.~
+@118  = ~Gavin's Ring
+
+  This ring was given to Gavin by his sister Reed following his ordination as a Dawnbringer. He was very fond of it, despite the fact that he could not remove it.
+
+When Gavin asked you what security he could offer for your trust, you demanded that he give you this ring, that nothing else would do. Gavin did as you asked, removing both finger and ring together, with an axe. At last, he was able to scrape the ring off.~
+@119  = ~Reed~
+@120  = ~[FEMALE TOWNSFOLK 6]~ [%tutu_var%FTOWN06]
+@121  = ~Gavin's Sketchbook~
+@122  = ~Hello, son -
+
+Reed says you're thinking about getting married! Good news! I've been wed to your mother nigh on forty years, and never regretted a day of it. Son, you're old enough by now to know what you want, and wise enough by now to know why you want it, so just bring your girl home and let us welcome her to the family.
+
+With love,
+Dad
+
+- - - - - - - - - - - -
+
+Hello, Gavin!
+
+About time you settled down! All I can do is agree with Dad. Married life has been good to me, and I wouldn't trade it for anything.
+
+If you've ever thought about making a more permanent home, we could sure use you here. Dad's still working in the shop, but he's getting older, and some of the bigger pieces are starting to give him trouble. And Lanie would have a chance to get to know her cousins.
+
+But that's all talk. You do what you want, and I can't wait to meet your lady. I hope she says yes!
+
+Your brother,
+Gordon
+
+- - - - - - - - - - - -
+
+Dear Gavin,
+
+I hope that by the time you're reading this, congratulations are in order!
+
+Dad and Gordon said it all really. I am sure she's a lovely person, and I can't wait to meet her. But this does remind me that I really should say something about herb-lore. Try putting a juniper berry in with the cassil herb. It doesn't do anything, but it lets you know when you've steeped it long enough. You don't want any more accidents!
+
+Love,
+Della
+
+- - - - - - - - - - - -
+
+Dear Gavin,
+
+Don't you pay any attention to Della! Your father and I only want you to be happy, and if you've found a woman that does that, you bring her home, and we'll treat her like one of our own. And I wouldn't say don't give us any more grandchildren!
+
+Wishing you and your (hopefully!) wife-to-be every happiness,
+Love,
+Mum
+
+- - - - - - - - - - - -
+
+Hello, Gavin -
+
+Sorry about the subterfuge, but I know you'd never spend money on your own wishes, what with one thing and another. Still, every lady deserves an engagement ring as unique as she is. I hope it suits. I did the charm on it. It offers protection, but I didn't add any "surprises," this time.
+
+Hope this letter finds you a happily engaged man. I am looking forward to getting to know your soon-to-be bride!
+
+Best wishes,
+Reed~
+@123  = ~Jolun's Note~
+@124  = ~A tally of services provided on account to Jolun Mor:
+     Lodging - 15 gold pieces
+     Laundry -  5 gold pieces
+     Food    - 10 gold pieces
+     Drink   - 70 gold pieces
+
+Total - 100 gold pieces, within a tenday
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Gavin -
+
+Are you mad?! Am I to be the last bachelor on the Sword Coast?
+
+Reed is standing here, expecting me to write something witty and encouraging, but I'm still baffled why you'd do something as crazy as that. So, all I can say is "Good luck!"
+
+Jolun
+
+PS - Hope this doesn't mean you can't go out drinking with your brother anymore!
+PPS - Congratulations.~
+
+@139  = ~Ornate Key~
+@140  = ~This gold-enameled key has elaborate designs on it. It is now a bit scuffed but still looks serviceable.~
+@1234 = ~Master Locksmith~ 
+
+/* new v12 */
+@1235 = ~Bring me Gavin, the cleric of Lathander.~
+
+
+/* journal entries */
+
+/* from b!penny.tra */
+
+@3000 = ~The Missing Persons of Beregost~
+
+/* @46  */
+@3001 = ~The Missing Persons of Beregost
+
+A local thief named Penny has provided us with information regarding the disappearances that have been plaguing Beregost. It seems she makes her living following people home and robbing their houses while they are out. She claims that people have disappeared in front of the house owned by Lady Valeria, the recent owner of a house around the corner from the Burning Wizard, on the street that leads toward the road to the Friendly Arm Inn.~
+
+/* from b!quest.tra */
+/* @92  */ 
+@3002 = ~The Missing Persons of Beregost
+
+Kelddath Ormlyr has asked us to solve a mystery involving some local disappearances. He tells us we are free to take our time, as the quest is likely to prove dangerous. The people who went missing were last seen at the Burning Wizard.~
+
+/* @102 = @46 above */
+
+/* @103  */
+@3003 = ~Lady Valeria, the Body Thief of Beregost
+
+We have performed a valuable service for Beregost. The town had been plagued by an evil, if pitiable, necromancer named Lady Valeria. She had been unsuccessfully attempting to extract the happiness of her victims and distill it into an elixir that would somehow fill the emptiness in her own life. Maybe if she'd made a few friends, instead, things might have ended differently for her. Before she died, she thanked us for freeing her. Regardless, our efforts have been well rewarded.~
+
+@3004 = ~Lady Valeria, the Body Thief of Beregost
+
+We have performed a valuable service for Beregost. The town had been plagued by an evil, if pitiable, necromancer named Lady Valeria. She had been unsuccessfully attempting to extract the happiness of her victims and distill it into an elixir that would somehow fill the emptiness in her own life. Maybe if she'd made a few friends, instead, things might have ended differently for her. Before she died, she thanked us for freeing her.~
+
+/* @77 from b!quest.tra */
+@3005 = ~Mutamin the Basilisk Tamer
+
+Kelddath Ormlyr has another job for us. We are to eliminate the threat posed by the mage Mutamin, a madman with a fondness for basilisks. Ormlyr says he can be found in the area east of the temple. He mentioned a reward.~
+/* @88 from b!quest.d */
+@3006 = ~Mutamin the Basilisk Tamer
+
+We were well rewarded for destroying Mutamin and his basilisks.~
+
+/* @1 from b!rumor.tra */   
+@3007 = ~Odd manor
+
+There seems to be some sort of secret concerning the manor in Beregost behind the Burning Wizard.~
+/* @3  from b!rumor.tra */ 
+@3008 = ~Haunted house
+
+Rumor has it that the house behind the Burning Wizard is haunted by the ghost of the previous owner, last seen near the Valley of Tombs or the Ulcaster ruins... or investigating the bandits 'up north.' Rumor can be remarkably imprecise.~
+/* @5  from b!rumor.tra */ 
+@3009 = ~Secret cache
+
+A former Beregost native is rumored to have left some gear in the ruins south of the Beregost Temple.~
+/* @7 from b!rumor.tra */ 
+@3010 = ~Unpaid bar bill
+
+Should I happen upon a man by the name of Willis, I should probably remind him about his unpaid bar tab... if he's even still alive.~
+/* @9 from b!rumor.tra */ 
+@3011 = ~Bandits north of Beregost
+
+Bandit activity is reported to be high north of Beregost. It seems to have claimed the life of a Beregost native who used to live behind the Burning Wizard.~
+

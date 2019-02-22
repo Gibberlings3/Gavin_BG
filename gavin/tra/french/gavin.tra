@@ -1,0 +1,280 @@
+@4    = ~Gavin~
+@5    = ~Puisse Lathandre vous bénir !~ [BGAV_00]
+@6    = ~Hum, on se regroupe ?~ [BGAV_01]
+@7    = ~Les dieux souriront de nos actions. Nous sommes très certainement sur la bonne voie.~ [BGAV_02]
+@8    = ~Nous devons faire mieux.~ [BGAV_03]
+@9    = ~Nous ne pouvons pas continuer ainsi ! Je ne peux pas m'associer à nos actions !~ [BGAV_04]
+@10   = ~Ceci doit s'arrêter. Je ne peux plus m'associer à de telles actions.~ [BGAV_05]
+@11   = ~Souviens-toi que tu l'as cherché.~ [BGAV_06]
+@12   = ~Je dois me reposer. Je ne suis utile à personne dans un tel état.~ [BGAV_07]
+@13   = ~Si c'est pour poireauter et admirer le paysage, je vais sortir mon carnet de croquis.~ [BGAV_08]
+@14   = ~Au nom de Lathandre !~ [BGAV_09]
+@15   = ~Au nom de tout ce qui est bon, je vais vous écraser !~ [BGAV_10]
+@16   = ~Au combat !~ [BGAV_11]
+@17   = ~Tombe devant la puissance de Lathandre !~ [BGAV_12]
+@18   = ~Hé, j'ai senti ça !~ [BGAV_13]
+@19   = ~C'est un moment aussi propice qu'un autre.~ [BGAV_14]
+@20   = ~Je connais un guérisseur qui a besoin d'aide, par ici !~ [BGAV_15]
+@21   = ~Tout cet air frais renforce mon sentiment d'être vivant.~ [BGAV_16]
+@22   = ~Tant d'opportunités d'aider, mais tant de gens qui en ont besoin.~ [BGAV_17]
+@23   = ~Il n'y a rien entre moi et le ciel, sinon beaucoup de roches et de poussière.~ [BGAV_18]
+@24   = ~Le jour ! Admirez la majesté de Lathandre !~ [BGAV_19]
+@25   = ~Pendant la nuit, le monde se repose et se renouvelle.~ [BGAV_20]
+@26   = ~Quel est ton souhait ?~ [BGAV_21]
+@27   = ~Oui ?~ [BGAV_22]
+@28   = ~Hum ?~ [BGAV_23]
+@29   = ~En quoi puis-je t'aider ?~ [BGAV_24]
+@30   = ~Quelle est ta requête ?~ [BGAV_25]
+@31   = ~Qu'est-ce que tu voulais ?~ [BGAV_26]
+@32   = ~Comme tu voudras.~ [BGAV_27]
+@33   = ~Je ferai comme tu l'as demandé.~ [BGAV_28]
+@34   = ~A tes ordres.~ [BGAV_29]
+@35   = ~Très bien.~ [BGAV_30]
+@36   = ~Oui.~ [BGAV_31]
+@37   = ~Comme tu veux.~ [BGAV_32]
+@38   = ~Considère que c'est fait.~ [BGAV_33]
+@39   = ~Tant que ça n'implique pas d'araignées.~ [BGAV_34]
+@40   = ~Est-ce vraiment nécessaire ?~ [BGAV_35]
+@41   = ~Un pour Lathandre !~ [BGAV_36]
+@42   = ~Maudite maladresse !~ [BGAV_37]
+@43   = ~Ceci ne nous mène nulle part !~ [BGAV_38]
+@44   = ~Désolé, mais il n'y a plus de place pour quoi que ce soit.~ [BGAV_39]
+@45   = ~Etait-ce vraiment nécessaire ?~ [BGAV_40]
+@46   = ~Je suis caché.~ [BGAV_41]
+@47   = ~Arrête ça ! Tu as brisé ma concentration.~ [BGAV_42]
+@48   = ~Espérons que cela touche la bonne cible, d'accord ?~ [BGAV_43]
+@49   = ~Quand vous l'interrogez sur son passé, Gavin vous dit que celui-ci brille par son manque d'intérêt. Il est né d'un fabricant de voiles et d'une sage-femme, à la Barbe d'Ulgoth, et a voulu devenir prêtre de Lathandre depuis son plus jeune âge. Après plusieurs années au service du Temple de la Chanson du Matin à Bérégost, il a enfin entendu l'appel de l'aventure.~
+
+@50   = ~Jolun~
+@51   = ~[MALE GREETING 6] Hello, l'ami.~ [%tutu_var%GENMG06]
+@52   = ~[CADDERLY 8]~ [%tutu_var%CADER08]
+@53   = ~[CADDERLY 9]~ [%tutu_var%CADER09]
+@54   = ~Darlos~
+@55   = ~[MALE GREETING 3] Hmm ?~ [%tutu_var%GENMG03]
+@56   = ~[MALE TOWNSFOLK 5]~ [%tutu_var%VILLM05]
+@57   = ~[MALE TOWNSFOLK 6]~ [%tutu_var%MTOWN06]
+@58   = ~[TOWNSFOLK, MALE/FRIENDLY ARM HOSTILE] Je vais vous flanquer une gifle si vous faites un pas de plus !~
+@59   = ~Evie~
+@60   = ~[FEMALE GREETING 2] Salut.~ [%tutu_var%GENFG02]
+@61   = ~[FEMALE TOWNSFOLK 5]~ [%tutu_var%FTOWN05]
+@62   = ~[FEMALE TOWNSFOLK 6]~ [%tutu_var%FTOWN06]
+@63   = ~[TOWNSFOLK, FEMALE, BEREGOST 9 (SARI) HOSTILE] Vous n'êtes pas le bienvenu ici.~
+@64   = ~L'anneau de Gavin~
+@65   = ~L'anneau de Gavin
+
+Cet anneau est un cadeau que la soeur de Gavin, Reed, lui a fait suite à son ordination en tant que Semeur d'Aube. Il y est très attaché et ne l'enlève jamais. 
+
+Gavin prétend que Reed l'a hérité d'un oncle excentrique, un mage. Le charme qui empêche de le retirer, par contre, est sien. Cet enchantement ne fait qu'augmenter l'attachement de Gavin à cet anneau, et il en parle, ainsi que de sa soeur, avec beaucoup d'affection.~
+@66   = ~Homme endormi~
+@67   = ~Femme endormie~
+@68   = ~Penny~
+@69   = ~Salut toi.~ [%tutu_var%GENFG12]
+@70   = ~[FTOWN 5]~ [%tutu_var%FTOWN05]
+@71   = ~[FTOWN 6]~ [%tutu_var%FTOWN06]
+@72   = ~Gustave~
+@73   = ~[NOBLEMAN TWO 2] Parler avec des gens dans votre genre n'a nul intérêt pour moi.~ [%tutu_var%NOBL202]
+@74   = ~[NOBLEMAN TWO 3]~ [%tutu_var%NOBL203]
+@75   = ~[NOBLEMAN TWO 4]~ [%tutu_var%NOBL204]
+@76   = ~Bertram~
+@77   = ~[MALE THREAT 9] Craignez mon courroux car il est grand.~ [%tutu_var%GENMT09]
+@78   = ~[DAVEORN 8]~ [%tutu_var%DAVEO08]
+@79   = ~[DAVEORN 9]~ [%tutu_var%DAVEO09]
+@80   = ~Valeria~
+@81   = ~[FEMALE GREETING 10] Salutations.~ [%tutu_var%GENFG10]
+@82   = ~[FEMALE THREAT 7] Vos cris seront musique à mes oreilles.~ [%tutu_var%GENFT07]
+@83   = ~[FEST HALL GIRL 5]~ [%tutu_var%FESTH05]
+@84   = ~[FEST HALL GIRL 6]~ [%tutu_var%FESTH06]
+@85   = ~Platon~
+@86   = ~[MONKS 3] Le savoir, utilisé avec sagesse, est le plus puissant des instruments.~ [%tutu_var%MONKS03]
+@87   = ~[MONKS 5]~ [%tutu_var%MONKS05]
+@88   = ~[MONKS 6]~ [%tutu_var%MONKS06]
+@89   = ~Crusher~
+@90   = ~[OGRE 03] Moi va vous écraser, écraser en bouillie !~ [%tutu_var%OGREE03]
+@91   = ~[OGRE 08]~ [%tutu_var%OGREE08]
+@92   = ~[OGRE 09]~ [%tutu_var%OGREE09]
+@93   = ~[OGRE 01] Moi va écraser.~ [%tutu_var%OGREE01]
+@94   = ~[OGRE 02]~ [%tutu_var%OGREE02]
+@95   = ~Spike~
+@96   = ~Messager du temple.~
+@97   = ~[MALE GREETING 5] Salut, là.~ [%tutu_var%GENMG05]
+@98   = ~Courtisane~
+@111  = ~L'anneau de fiançailles de Gavin~
+@112  = ~Anneau de fiançailles de Gavin
+
+Cet anneau d'argent est serti d'une pierre pourpre qui scintille. Gavin vous l'a donnée quand il vous a proposé de sceller vos fiançailles. L'anneau a été enchanté par la soeur de Gavin, Reed, mais il vous a juré qu'elle n'y avait inclus aucune "fonction cachée".
+
+L'inscription à l'intérieur dit : "Voici mon coeur. Il est à toi pour toujours."~
+@113  = ~Anneau de fiançailles de Gavin
+
+Cet anneau d'argent est serti d'une pierre pourpre qui scintille. Gavin vous l'a donnée quand il vous a proposé de sceller vos fiançailles. L'anneau a été enchanté par la soeur de Gavin, Reed, mais il vous a juré qu'elle n'y avait inclus aucune "fonction cachée".
+
+L'inscription à l'intérieur dit : "Voici mon coeur. Il est à toi pour toujours."
+
+PARAMETRES :
+
+Bonus à la classe d'armure : 1
+Bonus aux jets de sauvegarde : 1
+Bonus de points de vie : 5
+Utilisable par :
+ <CHARNAME>~
+@114  = ~La Main Mutilée de Gavin~
+@115  = ~La Main Mutilée de Gavin
+
+La confiance a un prix. Pour Gavin, ce fut l'index de la main gauche.~
+@116  = ~Le Doigt de Gavin~
+@117  = ~Le Doigt de Gavin
+
+Quand Gavin vous a demandé ce que vous accepteriez comme preuve qu'il avait réellement l'intention de vous épouser, vous lui avez demandé son anneau. Malheureusement, il a été incapable de le retirer.~
+@118  = ~L'anneau de Gavin
+
+Cet anneau a été offert à Gavin par sa soeur, Reed, suivant son ordination en tant que Semeur d'Aube. Il y était très attaché, malgré le fait qu'il ne pouvait le retirer.
+
+Quand Gavin vous a demandé ce qu'il pouvait vous offrir pour gagner votre confiance, vous lui avez demandé de vous donner son anneau, que rien d'autre ne pourrait convenir. Gavin a agi comme vous le lui avez demandé, ôtant à la fois son doigt et son anneau, avec une hache. Enfin, il a été capable de retirer l'anneau.~
+@119  = ~Reed~
+@120  = ~[FEMALE TOWNSFOLK 6]~ [%tutu_var%FTOWN06]
+@121  = ~Le carnet de croquis de Gavin~
+@122  = ~Bonjour fils,
+
+Reed me dit que tu penses à te marier ! Bonne nouvelle ! J'ai épousé ta mère depuis bientôt quarante ans, et je ne l'ai pas regretté un seul jour. Fils, tu es suffisamment âgé, désormais, pour savoir ce que tu veux, et suffisamment sage pour savoir pourquoi tu le veux, alors dépêche-toi de nous ramener ton amie à la maison, que nous puissions l'accueillir dans la famille.
+
+Avec amour,
+Papa
+
+- - - - - - - - - - - -
+
+Salut Gavin !
+
+Il était temps que tu te poses ! Je ne peux qu'être d'accord avec Papa. La vie d'homme marié a été bonne pour moi, et je ne l'échangerais pour rien au monde.
+
+Si tu songes jamais à t'établir de manière permanente, on pourrait certainement te trouver des choses à faire ici. Papa travaille toujours dans la boutique, mais il devient vieux, et certaines des pièces les plus grandes commencent à lui poser problème. Et Lanie aurait la chance de pouvoir rencontrer ses cousins.
+
+Mais ce ne sont que des mots. Tu fais ce que tu veux, et je suis impatient de rencontrer ta dame. J'espère qu'elle dira oui !
+
+Ton frère, 
+Gordon
+
+- - - - - - - - - - - -
+
+Cher Gavin,
+
+J'espère qu'au moment où tu liras ceci, des félicitations seront de rigueur !
+
+Papa et Gordon ont tout dit, vraiment. Je suis certaine que c'est une personne charmante, et je suis impatiente de la rencontrer. Mais cela me rappelle que je devrais vraiment te dire un mot d'herboristerie. Essaie de mettre une baie de genévrier avec l'herbe cassile. Cela n'a pas d'effet sinon de te faire savoir quand tu l'as suffisamment laissée infuser. Tu ne voudrais pas avoir d'autres accidents !
+
+Bises,
+Della
+
+- - - - - - - - - - - -
+
+Cher Gavin,
+
+Ne prête pas attention à Della ! Ton père et moi voulons simplement que tu sois heureux, et si tu as trouvé une femme qui le permet, ramène-la à la maison et nous la traiterons comme l'une des nôtres. Et ce n'est pas moi qui te dirai de ne pas nous donner d'autres petits-enfants !
+
+En vous souhaitant à toi et à ta future femme (je l'espère !) tout le bonheur du monde,
+Avec amour,
+Maman
+
+- - - - - - - - - - - -
+
+Bonjour Gavin,
+
+Désolée pour le subterfuge, mais je sais que tu ne dépenses jamais d'argent pour tes propres désirs, avec tout le reste. Pourtant, toute dame mérite un anneau de fiançailles aussi unique qu'elle l'est. J'espère qu'il convient. J'y ai glissé un charme moi-même. Il offre une protection, mais je n'y ai ajouté aucune "surprise" cette fois.
+
+J'espère que cette lettre te trouvera heureusement fiancé. Je suis impatiente de faire davantage connaissance avec ta future femme !
+
+Tous mes voeux,
+Reed.~
+@123  = ~La note de Jolun~
+@124  = ~Le total des services procurés à charge de Jolun Mor :
+Logement : 15 pièces d'or
+Lessive : 5 pièces d'or
+Nourriture : 10 pièces d'or
+Boisson : 70 pièces d'or
+
+Total : 100 pièces d'or, payables sous dix jours.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Gavin,
+
+Tu es fou ?! Vais-je être le dernier célibataire de la Côte des Epées ?
+
+Reed est debout à côté de moi, espérant que j'écrive quelque chose de subtil et encourageant, mais je reste stupéfait que tu puisses faire quelque chose d'aussi dingue. Du coup, la seule chose qui me vient est "Bonne chance !"
+
+Jolun
+
+PS - J'espère que ça ne veut pas dire que tu ne pourras plus sortir pour boire un coup avec ton frère !
+PPS - Félicitations.~
+
+@139  = ~Clé ornée~
+@140  = ~Cette clé plaquée d'or est décorée de dessins élaborés. Elle est à présent un peu usée, mais paraît toujours utilisable.~
+@1234 = ~Maître Serrurier.~
+
+/* new v12 */
+@1235 = ~Faites venir Gavin, le clerc de Lathandre.~
+
+
+/* journal entries */
+
+/* from b!penny.tra */
+
+@3000 = ~Les Disparus de Bérégost~
+
+/* @46  */
+@3001 = ~Les Disparus de Bérégost
+
+
+
+Une voleuse du coin, nommée Penny, nous a fourni des informations concernant les disparitions qui affligent Bérégost. Il semble qu'elle gagne sa vie en suivant les gens jusque chez eux et en cambriolant leurs maisons en leur absence. Elle prétend que des gens ont disparu devant une maison appartenant à Dame Valeria, la nouvelle propriétaire, qui se trouve juste après le coin du Magicien Ardent, dans la rue qui mène vers la route de l'Auberge de Brasamical.~
+
+/* from b!quest.tra */
+/* @92  */ 
+@3002 = ~Les Disparus de Bérégost
+
+Kelddath Ormlyr nous a demandé de résoudre un mystère concernant des disparitions locales. Il nous a dit que nous étions libres de prendre notre temps, car cette quête pourrait se révéler dangereuse. Les gens qui ont disparu ont été vus pour la dernière fois au Magicien Ardent.~
+
+/* @102 = @46 above */
+
+/* @103  */
+@3003 = ~Dame Valeria, la Voleuse de Corps de Bérégost
+
+Nous avons rendu un service important à Bérégost. La ville était victime d'une nécromancienne diabolique, mais pitoyable, appelée Dame Valeria. Elle tentait, sans succès, d'extraire le bonheur de ses proies afin de le distiller en un élixir pour pourrait, d'une manière ou d'une autre, emplir le vide de sa propre vie. Peut-être que si elle s'était plutôt fait des amis, les choses se seraient terminées autrement pour elle. Avant de mourir, elle nous a remerciés de l'avoir libérée. Quoi qu'il en soit, nos efforts ont été largement récompensés.~
+
+@3004 = ~Dame Valeria, la Voleuse de Corps de Bérégost
+
+Nous avons rendu un service important à Bérégost. La ville était victime d'une nécromancienne diabolique, mais pitoyable, appelée Dame Valeria. Elle tentait, sans succès, d'extraire le bonheur de ses proies afin de le distiller en un élixir pour pourrait, d'une manière ou d'une autre, emplir le vide de sa propre vie. Peut-être que si elle s'était plutôt fait des amis, les choses se seraient terminées autrement pour elle. Avant de mourir, elle nous a remerciés de l'avoir libérée.~
+
+/* @77 from b!quest.tra */
+@3005 = ~Mutamin le Dompteur de Basilics
+
+Kelddath Ormlyr a un autre travail pour nous. Nous devons éliminer la menace posée par le mage Mutamin, un dément atteint d'un petit faible pour les basilics. Ormlyr dit qu'on peut le trouver dans la région à l'est du temple. Il a parlé d'une récompense.~
+
+/* @88 from b!quest.d */
+@3006 = ~Mutamin le Dompteur de Basilics
+
+Nous avons été bien récompensés pour avoir détruit Mutamin et ses basilics.~
+
+/* @1 from b!rumor.tra */   
+@3007 = ~Manoir bizarre
+
+Il semble y avoir une sorte de secret autour du manoir qui se trouve derrière le Magicien Ardent à Bérégost.~
+
+/* @3  from b!rumor.tra */ 
+@3008 = ~Maison Hantée
+
+La rumeur prétend que la maison qui se trouve derrière le Magicien Ardent est hantée par le fantôme de son ancien propriétaire, qu'on aurait vu pour la dernière fois soit dans la Vallée des Tombes, soit dans les ruines d'Ulcaster... ou encore enquêtant sur les bandits "au nord". La rumeur peut être incroyablement imprécise.~
+
+/* @5  from b!rumor.tra */ 
+@3009 = ~Une cache secrète
+
+Un ancien natif de Bérégost a, selon la rumeur, laissé de l'équipement dans les ruines au sud du Temple de Bérégost.~
+
+/* @7 from b!rumor.tra */ 
+@3010 = ~Une note de bar impayée
+
+Si je croisais la route d'un homme appelé Willis, je devrais probablement lui rappeler sa note de bar impayée... s'il est seulement encore vivant.~
+
+/* @9 from b!rumor.tra */ 
+@3011 = ~Des bandits au Nord de Bérégost
+
+Des bandits en activité se trouvent apparemment au nord de Bérégost. Il semblerait qu'un natif de la ville, vivant autrefois derrière le Magicien Ardent, y ait perdu la vie.~

@@ -1,0 +1,9 @@
+/* Jolun Spawns */
+IF
+AreaCheck("%EBaldursGate%")
+Global("B!JolunExists","GLOBAL",0)
+THEN
+RESPONSE #100
+SetGlobal("B!JolunExists","GLOBAL",1)
+CreateCreature("B!JOLUN",[100.100],0)
+END

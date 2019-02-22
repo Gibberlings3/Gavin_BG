@@ -1,0 +1,12 @@
+
+IF
+  True()
+THEN
+  RESPONSE #100
+    CutSceneId(Player1)
+    MoveViewPoint([495.400],INSTANT)
+    Wait(2)
+    ActionOverride("B!VALER",ReallyForceSpell(Myself,DRYAD_TELEPORT))
+    Wait(8)
+    EndCutSceneMode()
+END

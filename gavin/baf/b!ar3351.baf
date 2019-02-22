@@ -1,0 +1,10 @@
+
+// b!ar3351.baf - spawns the master locksmith who can sell you the key to the house in Gavin's quest, if you can't find it elsewhere.
+
+IF
+    Global("B!GavQuestLockSpawn","GLOBAL",0)
+THEN
+    RESPONSE #100
+        CreateCreature("b!gavlok",[253.495],12)
+        SetGlobal("B!GavQuestLockSpawn","GLOBAL",1)
+END

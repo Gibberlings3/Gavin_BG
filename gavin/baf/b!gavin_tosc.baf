@@ -1,0 +1,138 @@
+/* updated */
+/* CONTENTS */
+/* Entering Ulgoth's Beard */
+/* PC shows interest in Durlyle */
+/* Durlyle has kissed PC */
+
+/* Entering Ulgoth's Beard */
+IF %BGT_VAR%
+  AreaCheck("%UlgothsBeard%")
+  Global("B!GavinUlgothBeard","GLOBAL",0)
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+    SetGlobal("B!GavinUlgothBeard","GLOBAL",1)
+END
+
+IF %BGT_VAR%
+  Global("B!GavinUlgothBeard","GLOBAL",1)
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  See(Player1)
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+THEN
+  RESPONSE #100  
+    StartDialogueNoSet(Player1)
+END
+
+/* PC shows interest in Durlyle */
+IF %BGT_VAR%
+  AreaCheck("%IsleofBalduranS%")
+  Global("B!DurlyleInterest","GLOBAL",1)
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  OR(2)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+THEN
+  RESPONSE #100 
+    SetGlobal("B!DurlyleInterest","GLOBAL",2)
+END
+
+IF
+  %BGT_VAR%
+  Global("B!DurlyleInterest","GLOBAL",2)
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  OR(2)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+THEN
+  RESPONSE #100 
+    StartDialogNoSet(Player1)
+END
+
+/* Durlyle has kissed PC */
+IF
+  %BGT_VAR%
+  AreaCheck("%IsleofBalduranS%")
+  Global("B!DurlyleKiss","GLOBAL",1)
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  OR(2)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+THEN
+  RESPONSE #100 
+    SetGlobal("B!DurlyleKiss","GLOBAL",2)
+END
+
+IF
+  %BGT_VAR%
+  Global("B!DurlyleKiss","GLOBAL",2)
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  OR(2)
+    Global("B!GavinRomanceActive","GLOBAL",1)
+    Global("B!GavinRomanceActive","GLOBAL",2)
+THEN
+  RESPONSE #100 
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+IF
+  %BGT_VAR%
+  AreaCheck("%IsleofBalduranS%")
+  Global("B!DurlyleKiss","GLOBAL",1)
+  Global("B!DurlyleKissNoRom","GLOBAL",0)
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  OR(2)
+    Global("B!GavinRomanceActive","GLOBAL",0)
+    Global("B!GavinRomanceActive","GLOBAL",3)
+THEN
+  RESPONSE #100 
+    SetGlobal("B!DurlyleKissNoRom","GLOBAL",1)
+END
+
+IF
+  %BGT_VAR%
+  Global("B!DurlyleKissNoRom","GLOBAL",1)
+  InParty(Myself)
+  CombatCounter(0)
+  !See([ENEMY])
+  !StateCheck(Player1,CD_STATE_NOTVALID)
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  OR(2)
+    Global("B!GavinRomanceActive","GLOBAL",0)
+    Global("B!GavinRomanceActive","GLOBAL",3)
+THEN
+  RESPONSE #100  
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END

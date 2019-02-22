@@ -1,0 +1,118 @@
+///optimized 01/06/06
+/////////////////////////////////////* FLIRT DREAM SCRIPT *////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////* Frequent Flirter Flirts *///////////////////////////////////////////////
+
+IF %BGT_VAR%
+  Global("B!GavinPillow","GLOBAL",0)
+  RealGlobalTimerExpired("X#DreamTalk","GLOBAL")
+  Global("B!GaPCPillow","LOCALS",0)
+  InParty(Myself)
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  GlobalGT("B!GavinFlirtEarly","GLOBAL",2)
+  !Global("B!DisableFlirts","GLOBAL",1)
+  !Global("B!GavinQuietLover","GLOBAL",1)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobal("B!GaPCPillow","LOCALS",1)
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    RealSetGlobalTimer("BackUpTimer","GLOBAL",18)
+    SetGlobal("B!GavinPillow","GLOBAL",1)
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+/* Gavin's Laundry */
+IF %BGT_VAR%
+  Global("B!GavinLaundry","GLOBAL",0)
+  RealGlobalTimerExpired("X#DreamTalk","GLOBAL")
+  Global("B!GaPCLaundry","LOCALS",0)
+  InParty(Myself)
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  GlobalGT("B!GavinFlirtLate","GLOBAL",3)
+  TimeGT(13)
+  TimeLT(21)
+  !Global("B!DisableFlirts","GLOBAL",1)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+  OR(14)
+    AreaCheck("%CloakwoodLodge%")
+    AreaCheck("%CloakwoodNest%")
+    AreaCheck("%CloakwoodDruids%")
+    AreaCheck("%CloakwoodWyverns%")
+    AreaCheck("%FishingVillage%")
+    AreaCheck("%Peldvale%")
+    AreaCheck("%DryadFalls%")
+    AreaCheck("%FireLeafForest%")
+    AreaCheck("%FishermansLake%")
+    AreaCheck("%BearRiver%")
+    AreaCheck("%NorthNashkelRoad%")
+    AreaCheck("%SouthBeregostRoad%")
+    AreaCheck("%Farmlands%")
+    AreaCheck("%WyrmsCrossing%")
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+THEN
+  RESPONSE #100
+    SetGlobal("B!GavinLaundry","GLOBAL",1)
+    SetGlobal("B!GaPCLaundry","LOCALS",1)
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    RealSetGlobalTimer("BackUpTimer","GLOBAL",18)
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+IF %BGT_VAR%
+  Global("B!GavinCommitFlirt2","GLOBAL",0)
+  RealGlobalTimerExpired("X#DreamTalk","GLOBAL")
+  Global("B!GaPCC2","LOCALS",0)
+  InParty(Myself)
+  Global("B!GavinRomanceActive","GLOBAL",2)
+  GlobalGT("B!GavinFlirtCommitted","GLOBAL",4)
+  Global("B!GavinPCLikedSex","GLOBAL",1)
+  !Global("B!DisableFlirts","GLOBAL",1)
+  !Global("B!GavinQuietLover","GLOBAL",1)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobal("B!GavinCommitFlirt2","GLOBAL",1)
+    SetGlobal("B!GaPCC2","LOCALS",1)
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    RealSetGlobalTimer("BackUpTimer","GLOBAL",18)
+    PlaySong(0)
+    PlaySound("BGAV_SS")
+    StartDialogNoSet(Player1)
+END
+
+
+////////////////////////////////////////////* Miscellaneous *///////////////////////////////////////////
+
+/* PC has commanded Gavin to take his clothes off */
+IF %BGT_VAR%
+  Global("B!GavinStrips","GLOBAL",1)
+  RealGlobalTimerExpired("X#DreamTalk","GLOBAL")
+  Global("B!GaStrip","LOCALS",0)
+  Global("B!GavinRomanceMatch","GLOBAL",1)
+  GlobalGT("B!GavinRomanceActive","GLOBAL",0)
+  !Global("B!GavinRomanceActive","GLOBAL",3)
+  !Global("B!GavinWoman","GLOBAL",1) //Gavin won't conduct his romance while he's female
+  !Global("B!DisableFlirts","GLOBAL",1)
+  InParty(Myself)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobal("B!GavinStrips","GLOBAL",2)
+    SetGlobal("B!GaPCPillow","LOCALS",1)
+    RealSetGlobalTimer("X#DreamTalk","GLOBAL",180)
+    RealSetGlobalTimer("BackUpTimer","GLOBAL",18)
+    PlaySong(0)
+    PlaySound("BGAV_SL")
+    StartDialogNoSet(Player1)
+END
+

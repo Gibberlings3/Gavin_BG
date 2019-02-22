@@ -1,0 +1,102 @@
+
+/* Moving Valeria */
+IF
+  Global("B!ValeriaExists","GLOBAL",1)
+  Global("B!ValeriaMove","GLOBAL",0)
+THEN
+  RESPONSE #100
+    MoveBetweenAreas("%Beregost_House22_L2%",[495.400],7)
+    SetGlobal("B!ValeriaMove","GLOBAL",1)
+END
+
+IF
+  Global("B!NeutralValeria","LOCALS",0)
+  OR(6)
+    See(Player1)
+    See(Player2)
+    See(Player3)
+    See(Player4)
+    See(Player5)
+    See(Player6)
+THEN
+  RESPONSE #100
+    SetGlobal("B!NeutralValeria","LOCALS",1)
+    StartDialog("B!VALER",Player1)
+END
+
+IF
+	AttackedBy([GOODCUTOFF],DEFAULT)
+	Global("B!QuestAttack2Floor","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("B!QuestAttack2Floor","GLOBAL",1)
+		
+END
+
+IF
+  Global("B!QuestAttack2Floor","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobal("B!GavinBodyThiefQuest","GLOBAL",4) 
+    SetGlobal("B!QuestAttack2Floor","GLOBAL",2)
+    AddJournalEntry(@3004,QUEST)
+    Enemy()
+END
+
+  
+IF
+  Global("B!LeavingValeria","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("B!WeAreLeaving","GLOBAL",200)
+    SetGlobal("B!LeavingValeria","GLOBAL",2)
+END
+
+IF
+  OR(6)
+    See(Player1)
+    See(Player2)
+    See(Player3)
+    See(Player4)
+    See(Player5)
+    See(Player6)
+  GlobalTimerExpired("B!WeAreLeaving","GLOBAL")
+  Global("B!WhyAreYouStillHere","GLOBAL",0)
+  Global("B!LeavingValeria","GLOBAL",2)
+THEN
+  RESPONSE #100
+    ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_NORMAL_MISSILES)
+    ReallyForceSpell(Myself,WIZARD_GHOST_ARMOR)
+    ReallyForceSpell(Myself,WIZARD_MINOR_GLOBE_OF_INVULNERABILITY) 
+    ReallyForceSpell(Myself,WIZARD_LUCK)
+    SetGlobal("B!WhyAreYouStillHere","GLOBAL",1)
+    SetGlobal("B!LeavingValeria","GLOBAL",3)
+    StartDialog("B!VALER",Player1)
+END
+
+IF
+Global("B!ValeriaDramaticExit","GLOBAL",1)
+THEN 
+RESPONSE #100
+ClearAllActions()
+SetGlobal("B!ValeriaDramaticExit","GLOBAL",2)
+StartCutSceneMode()
+StartCutScene("B!VALCUT")
+END
+
+IF
+  Global("B!QuestAttack2Floor","GLOBAL",1)
+  HaveSpell(WIZARD_ANIMATE_DEAD)
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #50
+    RemoveSpell(WIZARD_ANIMATE_DEAD)
+    ReallyForceSpell(Myself,WIZARD_ANIMATE_DEAD)
+    DisplayString(Myself,@0)
+    Continue()
+  RESPONSE #50
+    RemoveSpell(WIZARD_ANIMATE_DEAD)
+    ReallyForceSpell(Myself,WIZARD_ANIMATE_DEAD)
+    DisplayString(Myself,@1)
+    Continue()
+END

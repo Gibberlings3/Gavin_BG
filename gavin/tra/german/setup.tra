@@ -1,0 +1,96 @@
+@0    = ~Tutu Installation gefunden.~ 
+@1    = ~BGT Installation gefunden.~
+@2    = ~Gavin kann nur unter Tutu, BGT oder BG:EE installiert werden.~ 
+@3    = ~Gavin NPC fuer Tutu, BGT oder BG:EE~
+
+@99   = ~Gavin: Romanze (nicht jugendfrei)~
+@100  = ~Gavin: Romanze~
+@101  = ~Sie muessen den Gavin NPC Mod  installiert haben, um diese Optionen waehlen zu koennen.~
+@102  = ~Waehlen sie die Ablaufgeschwindigkeit der Gespraeche:~
+@103  = ~Es stehen folgende Varianten zu der Wahl:
+[1] 1 Stunde Echtzeit (Standard) Minimum zwischen den Romanzen-Dialogen
+[2] 45 Minuten Echtzeit Minimum zwischen den Romanzen-Dialogen
+[3] 30 Minuten Echtzeit Minimum zwischen den Romanzen-Dialogen
+[4] 15 Minuten Echtzeit Minimum zwischen den Romanzen-Dialogen
+[5] 1 Stunde 30 Minuten (erweitert) zwischen den Romanzen-Dialogen~
+@104  = ~EET Installation gefunden.~
+@105  = ~Bitte eine Zahl zwischen 1 und 5 waehlen und mit der Entertaste uebernehmen.~
+@106  = ~1 Stunde Echtzeit (Standard) Minimum zwischen den Romanzen-Dialogen~
+@107  = ~45 Minuten Echtzeit Minimum zwischen den Romanzen-Dialogen~
+@108  = ~30 Minuten Echtzeit Minimum zwischen den Romanzen-Dialogen~
+@109  = ~15 Minuten Echtzeit Minimum zwischen den Romanzen-Dialogen~
+@110  = ~1 Stunde 30 Minuten (erweitert) zwischen den Romanzen-Dialogen~
+@125  = ~Gavin: Flirts (nicht jugendfrei)~
+@126  = ~Sie muessen die Gavin Romanze installiert haben, um diese Moeglichkeit waehlen zu koennen.~
+@127  = ~Gavin: UEberpruefe, ob Tutu-Fix Walking Speeds (angepasste Schrittgeschwindigkeit) installiert ist~
+@128  = ~Diese Komponente macht nur in Tutu-Installationen Sinn.~
+@129  = ~Original Portrait von berelinde (Vorauswahl)~
+@130  = ~Gavin: alternative Portraits (das Defaultportrait ist bereits installiert)~
+@131  = ~Sie muessen Gavin installiert haben, um die alternativen Portraits nutzen zu koennen..~
+@132  = ~Roter Umhang, von Miloch~
+@133  = ~Urspruengliche Alternative, von Kaeloree~
+@134  = ~Gavin: PID (von der Spielerin oder dem Spieler initiierter Dialog)~
+@135  = ~Sie muessen Gavin installiert haben, um diese Option waehlen zu koennen.~
+@136  = ~Priester der Morgendaemmerung (Dawnbringer), von Amaurea~
+@137  = ~Morgenroete (Dawn skies), von Kaeloree~
+@138  = ~Grauer Himmel (Grey skies), von Kaeloree~
+
+@2000   = ~BG:EE Installation gefunden.~
+
+@2001   = ~Blue cloak, by kiwidoc~
+@2002   = ~Looking up, by kiwidoc~
+@2003   = ~Dragon Age style portrait by berelinde~
+
+
+/* Inhalt für die gavin_tmp.tra */
+@4    = ~Gavin~ 
+@5    = ~Lathander segne Euch!~ [BGAV_00]
+@6    = ~Äh, neue Aufstellung?~ [BGAV_01]
+@7    = ~Den Göttern werden unsere Taten gefallen. Das ist sicher der richtige Weg.~ [BGAV_02] 
+@8    = ~Wir müssen besser werden.~ [BGAV_03]
+@9    = ~So können wir nicht weiter machen! Ich kann unser Handeln nicht stillschweigend hinnehmen.~ [BGAV_04] 
+@10   = ~Das muss ein Ende haben. Ich kann nicht weiter Teil derartiger Taten sein.~ [BGAV_05]
+@11   = ~Denkt daran, dass Ihr das wolltet.~ [BGAV_06]
+@12   = ~Ich brauche eine Rast. In dieser Verfassung nütze ich niemanden.~ [BGAV_07] 
+@13   = ~Wenn wir hier weiter herumstehen und uns die Gegend ansehen, dann hole ich mein Skizzenbuch heraus.~ [BGAV_08]
+@14   = ~Im Namen Lathanders!~ [BGAV_09] 
+@15   = ~Bei allem, was dem Guten dient, werde ich Euch vernichten!~ [BGAV_10]
+@16   = ~In die Schlacht!~ [BGAV_11]
+@17   = ~Stürzt durch die Macht Lathanders!~ [BGAV_12]
+@18   = ~He, das habe ich gespürt!~ [BGAV_13] 
+@19   = ~Der Zeitpunkt ist so gut wie jeder andere.~ [BGAV_14]
+@20   = ~Dieser Heiler hier braucht etwas Hilfe!~ [BGAV_15] 
+@21   = ~All die frische Luft lässt mich wirklich wieder aufleben.~ [BGAV_16] 
+@22   = ~So viele Möglichkeiten, um zu helfen, aber so viele Leute, die Hilfe benötigen.~ [BGAV_17]
+@23   = ~Zwischen mir und dem freien Himmel ist nichts als eine Menge Steine und Erde.~ [BGAV_18] 
+@24   = ~Tageslicht! Schaut die Herrlichkeit Lathanders!~ [BGAV_19]
+@25   = ~Des nachts ruht die Welt und erneuert sich.~ [BGAV_20]
+@26   = ~Euer Wunsch?~ [BGAV_21]
+@27   = ~Ja?~ [BGAV_22]
+@28   = ~Hmm?~ [BGAV_23]
+@29   = ~Wie kann ich Euch helfen?~ [BGAV_24]
+@30   = ~Euer Auftrag?~ [BGAV_25]
+@31   = ~Was war nochmal Euer Wunsch?~ [BGAV_26]
+@32   = ~Wie Ihr wünscht .~ [BGAV_27]
+@33   = ~Ich tue, was Ihr wollt.~ [BGAV_28]
+@34   = ~Auf Euren Befehl.~ [BGAV_29]
+@35   = ~In Ordnung.~ [BGAV_30]
+@36   = ~Jawohl.~ [BGAV_31]
+@37   = ~Wie es Euch recht ist.~ [BGAV_32]
+@38   = ~Seht es als erledigt an.~ [BGAV_33]
+@39   = ~Solange keine Spinnen mit im Spiel sind.~ [BGAV_34]
+@40   = ~Ist das wirklich notwendig?~ [BGAV_35]
+@41   = ~Nimm das, in Lathanders Namen!~ [BGAV_36]
+@42   = ~Verflixt sei meine Ungeschicklichkeit!~ [BGAV_37]
+@43   = ~Damit kommen wir nicht durch!~ [BGAV_38]
+@44   = ~Verzeiht, mir fehlt der Platz.~ [BGAV_39]
+@45   = ~War das wirklich notwendig?~ [BGAV_40]
+@46   = ~Ich bin versteckt.~ [BGAV_41]
+@47   = ~Hört damit auf! Ihr habt mich aus dem Konzept gebracht.~ [BGAV_42]
+@48   = ~Hoffentlich trifft es den Richtigen?~ [BGAV_43]
+@49   = ~Wenn Ihr Gavin nach seiner Vergangenheit fragt, antwortet er, dass sie recht unspektakulär gewesen sei. Seine Mutter ist eine Hebamme und sein Vater ein Segelmacher in Ulgoths Bart. Seit seiner Kindheit verspürte er den Wunsch ein Priester des Lathander zu werden. Nach mehreren Jahren als Novize und Priester des Morgentempels in Beregost überkam ihn die Abenteuerlust.~
+
+
+@139  = ~Verzierter Schlüssel~
+@140  = ~Dieser vergoldete Schlüssel ist mit kunstvollen Ornamente verziert. Er ist schon etwas abgenutzt, sieht aber immer noch gebrauchsfähig aus.~
+@1234 = ~Schlossermeister~

@@ -1,0 +1,47 @@
+@0    = ~Tutu install detected.~
+@1    = ~BGT install detected.~
+@2    = ~Please install on Tutu, BGT, or BG:EE.~
+@3    = ~Gavin NPC for Tutu, BGT, and BG:EE~
+
+
+
+@99   = ~Gavin: Romance (mature content)~
+@100  = ~Gavin: Romance~
+@101  = ~You need to have the Gavin NPC Mod installed to select this option.~
+@102  = ~Select Gavin's Relationship Speed:~
+@103  = ~Please choose one of the following:
+[1] 1 hour real time (standard) minimum between LoveTalks
+[2] 45 minutes real time minimum between LoveTalks
+[3] 30 minutes real time minimum between LoveTalks
+[4] 15 minutes real time minimum between LoveTalks
+[5] 1 hour 30 minutes (extended) real time minimum between LoveTalks~
+@104  = ~EET install detected.~
+@105  = ~Please select 1, 2, 3, 4, or 5 and press enter.~
+@106  = ~Speed: 1 hour real time (standard) minimum between LoveTalks~
+@107  = ~Speed: 45 minutes real time minimum between LoveTalks~
+@108  = ~Speed: 30 minutes real time minimum between LoveTalks~
+@109  = ~Speed: 15 minutes real time minimum between LoveTalks~
+@110  = ~Speed: 1 hour 30 minutes (extended) real time minimum between LoveTalks~
+@125  = ~Gavin: Flirts (adult content)~
+@126  = ~You need to have the Gavin Romance installed to select this option.~
+@127  = ~Gavin: Check for Tutu-Fix Walking Speeds~
+@128  = ~This component is only useful for Tutu installs.~
+@129  = ~Original portrait by berelinde (default)~
+@130  = ~Gavin: Alternate Portraits (Default portrait is already installed)~
+@131  = ~You must have installed Gavin to install the alternate portrait.~
+@132  = ~Red tunic, by Miloch~
+@133  = ~Original alternate, by Kaeloree~
+@134  = ~Gavin: Player Initiated Dialogue~
+@135  = ~You need to have Gavin installed to select this option.~
+@136  = ~Dawnbringer, by Amaurea~
+@137  = ~Dawn skies, by Kaeloree~
+@138  = ~Grey skies, by Kaeloree~
+
+@2000    = ~BG:EE install detected.~
+
+//@2001   = ~Blue cloak, by kiwidoc~
+//@2002   = ~Looking up, by kiwidoc~
+@2003   = ~Dragon Age style portrait by berelinde~
+
+
+

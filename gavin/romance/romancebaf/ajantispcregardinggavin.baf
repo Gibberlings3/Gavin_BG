@@ -1,0 +1,227 @@
+/* Ajantis's script - EXTEND_BOTTOM ~ajantis.bcs~ ~GAVIN/Romance/RomanceBAF/AjantisPCRegardingGavin.baf~ */
+/* CONTENTS */
+/* Gavin's interest */
+///* No Ajantis relationship */
+///* Ajantis relationship */
+/* Ajantis and Gavin chat */
+/* Gavin-Ajantis - Gavin has committed to the PC */
+
+/* Gavin's interest */
+///* No Ajantis relationship */
+IF %BGT_VAR%
+  InParty(Myself)
+  InParty("B!GAVIN")
+  GlobalGT("B!GavinLovetalk","GLOBAL",32) //After Fear & Future LT
+  Global("B!AjantisGavinComment1","GLOBAL",0)
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  OR(2)
+    !GlobalGT("X#AjantisRomanceActive","GLOBAL",0) //Ajantis has never had a relationship with the pc, or it is over
+    Global("X#AjantisRomanceActive","GLOBAL",3)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100
+    SetGlobal("B!AjantisGavinComment1","GLOBAL",1)
+    RealSetGlobalTimer("B!AjantisGavinComment1T","GLOBAL",10) //5 minutes
+END
+
+IF %BGT_VAR%
+   RealGlobalTimerExpired("B!AjantisGavinComment1T","GLOBAL")
+   Global("B!GavinRomanceActive","GLOBAL",1)
+   Global("B!AjantisGavinComment1","GLOBAL",1)
+   InParty(Myself)
+   InParty("B!GAVIN")
+   !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+   SetGlobal("B!AjantisGavinComment1","GLOBAL",2)
+END
+
+IF %BGT_VAR%
+   Global("B!AjantisGavinComment1","GLOBAL",2)
+   CombatCounter(0) 
+   !See([ENEMY])
+   See(Player1)
+   InMyArea("B!GAVIN")
+   !StateCheck(Player1,CD_STATE_NOTVALID)
+   !StateCheck(Myself,CD_STATE_NOTVALID)
+   !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+   InParty(Myself)
+   InParty("B!GAVIN")
+   !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100
+   StartDialogNoSet(Player1)
+END
+
+///* Ajantis relationship */
+IF %BGT_VAR%
+  InParty(Myself)
+  InParty("B!GAVIN")
+  GlobalGT("B!GavinLovetalk","GLOBAL",32) //After Fear & Future LT
+  Global("B!AjantisGavinComment2","GLOBAL",0)
+  Global("B!GavinRomanceActive","GLOBAL",1)
+  Global("X#AjantisRomanceActive","GLOBAL",1) //Ajantis and the PC have an active romance
+  !See([ENEMY])
+  CombatCounter(0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!AjantisGavinComment2","GLOBAL",1)
+    RealSetGlobalTimer("B!AjantisGavinComment2T","GLOBAL",10) //5 minutes
+END
+
+IF %BGT_VAR%
+   RealGlobalTimerExpired("B!AjantisGavinComment2T","GLOBAL")
+   Global("B!AjantisGavinComment2","GLOBAL",1)
+   Global("B!GavinRomanceActive","GLOBAL",1)
+   InParty(Myself)
+   InParty("B!GAVIN")
+   !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+   SetGlobal("B!AjantisGavinComment2","GLOBAL",2)
+END
+
+IF %BGT_VAR%
+   Global("B!AjantisGavinComment2","GLOBAL",2)
+   Global("B!GavinRomanceActive","GLOBAL",1)
+   !See([ENEMY])
+   See(Player1)
+   InMyArea("B!GAVIN")
+   !StateCheck(Player1,CD_STATE_NOTVALID)
+   !StateCheck(Myself,CD_STATE_NOTVALID)
+   !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+   InParty(Myself)
+   InParty("B!GAVIN")
+   !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+   StartDialogNoSet(Player1)
+END
+
+/* Ajantis and Gavin chat */
+IF %BGT_VAR%
+  InParty(Myself)
+  InParty("B!GAVIN")
+  GlobalGT("B!GavinLovetalk","GLOBAL",28)
+  !Global("B!GavinRomanceActive","GLOBAL",3)
+  !Global("X#AjantisRomanceActive","GLOBAL",1)
+  Global("B!AjantisRomanceComment1","GLOBAL",0)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!AjantisRomanceComment1","GLOBAL",1)
+    RealSetGlobalTimer("B!AjRomComment1T","GLOBAL",10) 
+END
+
+IF %BGT_VAR%
+   RealGlobalTimerExpired("B!AjRomComment1T","GLOBAL")
+   Global("B!AjantisRomanceComment1","GLOBAL",1)
+   Global("B!GavinRomanceActive","GLOBAL",1)
+   !Global("X#AjantisRomanceAcitve","GLOBAL",1)
+   InParty(Myself)
+   InParty("B!GAVIN")
+   !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+   SetGlobal("B!AjantisRomanceComment1","GLOBAL",2)
+END
+
+IF %BGT_VAR%
+   Global("B!AjantisRomanceComment1","GLOBAL",2)
+   Global("B!GavinRomanceActive","GLOBAL",1)
+   !Global("X#AjantisRomanceAcitve","GLOBAL",1)
+   !See([ENEMY])
+   See("B!GAVIN")
+   InMyArea("B!GAVIN")
+   !StateCheck(Player1,CD_STATE_NOTVALID)
+   !StateCheck(Myself,CD_STATE_NOTVALID)
+   !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+   InParty(Myself)
+   InParty("B!GAVIN")
+   !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+   StartDialogNoSet("B!GAVIN")
+END
+
+/* Gavin-Ajantis - Gavin has committed to the PC */
+
+IF %BGT_VAR%
+  GlobalGT("B!GavinLovetalk","GLOBAL",36)
+  Global("B!GavinRomanceActive","GLOBAL",2)
+  Global("B!GavinAjantis5","GLOBAL",0)
+  InParty(Myself)
+  InParty("B!GAVIN")
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!GavinAjantis5","GLOBAL",1)
+    RealSetGlobalTimer("B!GavinAjantis5T","GLOBAL",10) 
+END
+
+IF %BGT_VAR%
+   RealGlobalTimerExpired("B!GavinAjantis5T","GLOBAL")
+   Global("B!GavinAjantis5","GLOBAL",1)
+   Global("B!GavinRomanceActive","GLOBAL",2)
+   InParty(Myself)
+   CombatCounter(0)
+   !See([ENEMY])
+   InParty("B!GAVIN")
+   InMyArea("B!GAVIN")
+   See("B!GAVIN")
+   !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+   !StateCheck(Myself,CD_STATE_NOTVALID)
+   !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+   SetGlobal("B!GavinAjantis5","GLOBAL",2)
+   StartDialogNoSet("B!GAVIN")
+END
+
+/* Ajantis can be jealous, too */
+IF %BGT_VAR%
+   PartyRested()
+   GlobalGT("B!GavinLovetalk","GLOBAL",12)
+   Global("B!GavAjRom2","GLOBAL",0)
+   InParty(Myself)
+   InParty("B!GAVIN")
+   CombatCounter(0)
+   !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+   !StateCheck(Myself,CD_STATE_NOTVALID)
+   !See([ENEMY])
+   !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+   SetGlobal("B!GavAjRom2","GLOBAL",1)
+   Interact("B!GAVIN")
+END
+
+/* Ajantis reacts to Gavin's dismemberment */
+IF %BGT_VAR%
+  GlobalGT("B!GavinFinger","GLOBAL",0)
+  GlobalLT("B!GavinFinger","GLOBAL",3)
+  Global("B!AjantisFinger","GLOBAL",0)
+  InParty(Myself)
+  InParty("B!GAVIN")
+  InMyArea("B!GAVIN")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    SetGlobal("B!AjantisFinger","GLOBAL",1)
+END
+
+IF %BGT_VAR%
+  Global("B!AjantisFinger","GLOBAL",1)
+  InParty(Myself)
+  InParty("B!GAVIN")
+  InMyArea("B!GAVIN")
+  !StateCheck(Myself,CD_STATE_NOTVALID)
+  !StateCheck("B!GAVIN",CD_STATE_NOTVALID)
+  !Global("X#AjantisCoranChallenge","GLOBAL",1)  
+THEN
+  RESPONSE #100 
+    StartDialogueNoSet("B!GAVIN")
+END 

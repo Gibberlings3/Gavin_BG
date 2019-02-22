@@ -1,0 +1,10 @@
+@0    = ~There's some mighty paranoid folk in that odd manor behind the Burning Wizard. Keep their door locked at all times. Right strange if you ask me. Not that there aren't thieves in this town, but it's almost as if they've got something to hide.~
+/* @1 -> @3007 */
+@2    = ~Some folks say that house behind the Burning Wizard is haunted. Could be, since everybody 'round here knows the previous owner went off adventuring. Some say that he was last seen 'round the Valley of the Tombs, others that he went poking about the old ruins where Ulcaster used to be. Others say he went snooping around the bandits up north a ways. Up to you what you believe.~
+/* @3 -> @3008 */   
+@4    = ~Caravan came back with some pretty odd stuff, gear and the like from the man who used to live in the manor behind the Burning Wizard. Says he found it near the old ruins south of the Song of the Morning. Wonder what else got left behind.~
+/* @5 -> @3009 */
+@6    = ~Say, if you find yourself near the Valley of the Tombs, could you keep your eye out for a man by the name of Willis? Short man, yellow hair. He used to live in that manor behind the Burning Wizard, but then he went off adventuring and left his bar tab unpaid. If he's still alive, that is. If he ain't, well, guess it don't matter much.~
+/* @7  -> @3010 */
+@8    = ~You keep you eyes out for those bandits, hear? One of the locals, used to live in that big house behind the Burning Wizard, went off north looking for them, and he never came back.~
+/* @9  -> @3011 */

@@ -859,7 +859,7 @@ END
 /* Talk to PC about Body Thief Quest */
 IF %BGT_VAR%
   InParty(Myself)
-  Global("B!GavinBTQuest","GLOBAL",4)
+  Global("B!GavinBodyThiefQuest","GLOBAL",4)
   Global("B!DiscussBT","GLOBAL",0)
   !AreaCheck("%Temple_SongoftheMorning%")
   !Global("X#AjantisCoranChallenge","GLOBAL",1)  

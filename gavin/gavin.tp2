@@ -693,6 +693,20 @@ COPY ~Gavin/CRE/B!GAVIN.CRE~ ~override~
   SAY SET_A_TRAP @48
   SAY BIO @49
 
+//Change BG2 soundset setup to BGEE
+ACTION_IF GAME_IS ~bgee~ BEGIN
+  COPY_EXISTING ~B!GAVIN.CRE~ ~override~
+    SAY 0x1E0 @35              //  SAY BGEE_ACTION4 @35
+    SAY 0x1E4 @36              //  SAY BGEE_ACTION5 @36
+    SAY 0x1E8 @37              //  SAY BGEE_ACTION6 @37
+    SAY 0x1EC @38              //  SAY BGEE_ACTION7 @38
+    WRITE_LONG SELECT_ACTION4 (BNOT 0x0)
+    WRITE_LONG SELECT_ACTION5 (BNOT 0x0)
+    WRITE_LONG SELECT_ACTION6 (BNOT 0x0)
+    WRITE_LONG SELECT_ACTION7 (BNOT 0x0)
+  BUT_ONLY
+END
+
 
 //2da appending for dialogues
 

@@ -22,7 +22,7 @@ SUPPORT ~https://www.gibberlings3.net/forums/forum/128-gavin/~ //berelinde@gmail
 /* enable all error messages; nothing suppressed. comment this out for release version */
 //MODDER
 
-VERSION ~v15~
+VERSION ~v15.1~
 
 /* launch the readme file immediately. */
 README ~gavin/readme-gavin-%LANGUAGE%.html~ ~gavin/readme-gavin.html~
@@ -107,7 +107,7 @@ LANGUAGE ~Deutsch (Teildeutsche Version, der Rest ist auf Englisch)~ ~german~ ~g
                                                                               ~gavin/tra/english/setup.tra~
                                                                               ~gavin/tra/german/gavin.tra~
                                                                               ~gavin/tra/german/setup.tra~
- LANGUAGE ~russian (by Austin & Arcanecoast Team)~ ~Russian~ ~gavin/tra/english/gavin.tra~
+ LANGUAGE ~Russian (by Austin & Arcanecoast Team)~ ~Russian~ ~gavin/tra/english/gavin.tra~
                                                              ~gavin/tra/english/setup.tra~
                                                              ~gavin/tra/russian/gavin.tra~
                                                              ~gavin/tra/russian/setup.tra~

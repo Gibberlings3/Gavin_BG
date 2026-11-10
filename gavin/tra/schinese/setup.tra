@@ -1,0 +1,52 @@
+@0    = ~检测到 Tutu 安装。~
+@1    = ~检测到 BGT 安装。~
+@2    = ~请安装在 Tutu、BGT 或 BG:EE 上。~
+@3    = ~盖文 NPC（适用于 Tutu、BGT 与 BG:EE）~
+
+
+
+
+@99   = ~盖文：恋爱线（成人内容）~
+@100  = ~盖文：恋爱线~
+@101  = ~你需要先安装盖文 NPC 模组才能选择此项。~
+/* 102, 103, and 105 no longer needed sue to new subcomponent setup
+@102  = ~Select Gavin's Relationship Speed:~
+@103  = ~Please choose one of the following:
+[1] 1 hour real time (standard) minimum between LoveTalks
+[2] 45 minutes real time minimum between LoveTalks
+[3] 30 minutes real time minimum between LoveTalks
+[4] 15 minutes real time minimum between LoveTalks
+[5] 1 hour 30 minutes (extended) real time minimum between LoveTalks~
+*/
+@104  = ~检测到 EET 安装。~
+//@105  = ~Please select 1, 2, 3, 4, or 5 and press enter.~
+@106  = ~速度：恋爱对话最短间隔 1 小时实时（标准）~
+@107  = ~速度：恋爱对话最短间隔 45 分钟实时~
+@108  = ~速度：恋爱对话最短间隔 30 分钟实时~
+@109  = ~速度：恋爱对话最短间隔 15 分钟实时~
+@110  = ~速度：恋爱对话最短间隔 1 小时 30 分钟实时（延长）~
+@125  = ~盖文：调情（成人内容）~
+@126  = ~你需要先安装盖文恋爱线才能选择此项。~
+// 127, 128 for deprecated compoent, no need to translate
+@127  = ~盖文：检查 Tutu-Fix 行走速度~
+@128  = ~此组件仅对 Tutu 安装有用。~
+
+@129  = ~berelinde 绘制的原版头像（默认）~
+@130  = ~盖文：替代头像（默认头像已安装）~
+@131  = ~你必须已安装盖文才能安装替代头像。~
+@132  = ~Miloch 绘制的红色外衣版~
+@133  = ~Kaeloree 绘制的原初替代版~
+@134  = ~盖文：玩家主动对话~
+@135  = ~你需要安装盖文才能选择此项。~
+@136  = ~Amaurea 绘制的「破晓使者」~
+@137  = ~Kaeloree 绘制的「黎明天空」~
+@138  = ~Kaeloree 绘制的「灰色天空」~
+
+@2000    = ~检测到 BG:EE 安装。~
+
+//@2001   = ~Blue cloak, by kiwidoc~
+//@2002   = ~Looking up, by kiwidoc~
+@2003   = ~berelinde 绘制的《龙腾世纪》风格头像~
+@2004 = ~在此游戏上安装模组之前需要 DLC Merger。详情及下载链接请见说明文件。~
+
+

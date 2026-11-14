@@ -111,6 +111,10 @@ LANGUAGE ~Deutsch (Teildeutsche Version, der Rest ist auf Englisch)~ ~german~ ~g
                                                              ~gavin/tra/english/setup.tra~
                                                              ~gavin/tra/russian/gavin.tra~
                                                              ~gavin/tra/russian/setup.tra~
+LANGUAGE ~Schinese~ ~schinese~ ~gavin/tra/english/gavin.tra~
+                             ~gavin/tra/english/setup.tra~
+			     ~gavin/tra/schinese/gavin.tra~
+                             ~gavin/tra/schinese/setup.tra~
 
 /////////////////////////////////////////////
 // Install GAVIN NPC                       //
